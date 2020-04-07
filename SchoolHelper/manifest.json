@@ -8,8 +8,8 @@
         "default_popup": "popup.html"
     },
     "background": {
-        "scripts": ["background.js"],
+        "scripts": ["/JS/background.js"],
         "persistent": false
     },
-    "options_page": "/settings.html"
+    "options_page": "/HTML/options.html"
 }
