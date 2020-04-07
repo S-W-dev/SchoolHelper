@@ -1,0 +1,1 @@
+chrome.runtime.sendMessage(new Message("hello"), function (response) {console.log(response.message)});

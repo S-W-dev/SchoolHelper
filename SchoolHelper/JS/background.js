@@ -9,11 +9,23 @@
 // });
 
   chrome.runtime.onMessage.addListener(function (message, callback) {
-      if (message == 'hello') {
-          sendResponse({
-              greeting: 'welcome!'
-          })
-      } else if (message == 'disconnect') {
-          chrome.runtime.Port.disconnect();
-      }
+    //   if (message.toString() == 'hello') {
+    //       sendResponse()
+    //   } else if (message.toString() == 'disconnect') {
+    //       chrome.runtime.Port.disconnect();
+    //   } else 
+    switch (message.type) {
+        case 'message':
+            // console.log("Received message: " + message.message);
+            handler.handleMessage(message.message);
+            break;
+        case 'error':
+            // console.log("There was an error: " + message.message);
+            handler.handleError(message.message);
+        case 'debug':
+            handler.handleDebug(message.message);
+    }
   });
+
+
+let handler = new Handler();
