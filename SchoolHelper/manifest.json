@@ -1,7 +1,7 @@
 {
     "name": "SchoolHelper",
     "version": "1.0",
-    "description": "add in the future",
+    "description": "AKA 𝘊𝘰𝘳𝘰𝘯𝘢𝘩𝘦𝘭𝘱𝘦𝘳",
     "manifest_version": 2,
     "permissions": ["storage", "activeTab"],
     "browser_action": {
