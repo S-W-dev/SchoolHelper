@@ -11,10 +11,10 @@ class Popup {
 
          if (theme == "dark") {
              $(".navbar").addClass(`navbar-dark bg-dark`)
-             $("main").addClass(`bg-secondary-dark`)
+             $("body").addClass(`bg-secondary-dark`)
          } else {
              $(".navbar").addClass(`navbar-light bg-light`)
-             $("main").addClass(`bg-secondary-light`)
+             $("body").addClass(`bg-secondary-light`)
          }
 
         this.Main();
