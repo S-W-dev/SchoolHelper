@@ -16,11 +16,9 @@
     //   } else 
     switch (message.type) {
         case 'message':
-            // console.log("Received message: " + message.message);
             handler.handleMessage(message.message);
             break;
         case 'error':
-            // console.log("There was an error: " + message.message);
             handler.handleError(message.message);
         case 'debug':
             handler.handleDebug(message.message);
@@ -28,4 +26,27 @@
   });
 
 
+
 let handler = new Handler();
+let debug = true;
+
+class Handler {
+
+  handleMessage(message, callback) {
+    console.log("Received message: " + message.message);
+    callback();
+  }
+
+  handleError(message, callback) {
+    console.log("There was an error: " + message.message);
+    callback();
+  }
+
+  handleDebug(message, callback) {
+    if (debug) {
+    console.log("DEBUG: " + message.message);
+    callback();
+    }
+  }
+
+}
