@@ -11,6 +11,7 @@ class Popup {
     }
 
     Main() {
+        // main function (remember I said objet oriented oof)
     }
 
 }
