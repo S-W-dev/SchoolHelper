@@ -1,4 +1,5 @@
-class Message {
+
+export default class Message {
     constructor(message, type) {
         switch (type) {
             case 1:
@@ -20,7 +21,5 @@ class Message {
             type: this.type
         };
     }
-
 }
-
 // myMessage = new Message("my message");
