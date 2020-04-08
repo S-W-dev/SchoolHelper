@@ -1,6 +1,8 @@
 import {Data, Options} from "./classes.js";
 
-
+$(document).ready(function () {
+    Load();
+});
 
 let Load = () => {
 
@@ -14,8 +16,6 @@ let Load = () => {
     }
 
 }
-
-Load();
 
 let saveTheme = (id) => {
     var settings = JSON.parse(Data.Get('settings'));
@@ -31,3 +31,4 @@ $('#theme').click(()=>{
     console.log("theme button clicked");
     saveTheme('theme');
 });
+

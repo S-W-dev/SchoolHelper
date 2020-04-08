@@ -5,7 +5,12 @@ import {Options, Message, Handler, Data} from "./classes.js"
 class Popup {
     constructor() {
         // initialize stuff
-        new Options(Data.Get('settings', '{"debug": "false", "theme": "light"}'))
+        new Options(Data.Get('settings', '{"debug": "false", "theme": "light"}'));
+
+        this.settings = JSON.parse(Data.Get('settings'));
+
+         $(".navbar").addClass(`navbar-${this.settings.theme} bg-${this.settings.theme}`)
+
 
         this.Main();
     }

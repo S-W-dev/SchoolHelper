@@ -2,17 +2,14 @@ export class Options {
     constructor(settings) {
         console.log(settings.toString())
         Data.Set('settings', settings.toString()); // makes default value save
-        this.settings = settings // || get local storage data
-        this.debug = this.settings.debug;
-        this.theme = this.settings.theme;
     }
 
     static isDebugEnabled() {
-        return this.debug;
+        return JSON.parse(Data.Get('settings')).debug;
     }
 
     static getTheme() {
-        return this.theme;
+        return JSON.parse(Data.Get('settings')).theme;
     }
 
 }
