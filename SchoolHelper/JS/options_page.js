@@ -15,6 +15,25 @@ let Load = () => {
         }
     }
 
+    var select = document.getElementById("debug_select");
+    for (var i = 0; i < select.children.length; i++) {
+        var child = select.children[i];
+        if (child.value == Options.isDebugEnabled().toString()) {
+            child.selected = "true";
+            break;
+        }
+    }
+
+    var theme = Options.getTheme();
+
+    if (theme == "dark") {
+        $(".navbar").addClass(`navbar-dark bg-dark`)
+        $("body").addClass(`bg-secondary-dark`)
+    } else {
+        $(".navbar").addClass(`navbar-light bg-light`)
+        $("body").addClass(`bg-secondary-light`)
+    }
+
 }
 
 let saveTheme = (id) => {
@@ -28,7 +47,11 @@ let saveTheme = (id) => {
 
 
 $('#theme').click(()=>{
-    console.log("theme button clicked");
     saveTheme('theme');
 });
+
+$('#debug').click(() => {
+    saveTheme('debug');
+});
+
 
