@@ -1,5 +1,18 @@
-import Message from './Message.js';
+import {Options, Message, Handler, Data} from "./classes.js"
 
-console.log(Message);
+// chrome.runtime.sendMessage(new Message("hello"), function (response) {});
 
-chrome.runtime.sendMessage(new Message("hello"), function (response) {});
+class Popup {
+    constructor() {
+        // initialize stuff
+        new Options(Data.Get('settings', "{debug: false}"))
+
+        this.Main();
+    }
+
+    Main() {
+    }
+
+}
+
+new Popup();
