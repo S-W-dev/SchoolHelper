@@ -2,3 +2,8 @@ body {
   width: 500px;
   min-height: 500px;
 }
+
+/*Custom 'bootstrap' color*/
+.bg-secondary-dark {
+  background: #43484e;
+}
