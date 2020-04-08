@@ -5,7 +5,7 @@ import {Options, Message, Handler, Data} from "./classes.js"
 class Popup {
     constructor() {
         // initialize stuff
-        new Options(Data.Get('settings', "{debug: false}"))
+        new Options(Data.Get('settings', '{"debug": "false", "theme": "light"}'))
 
         this.Main();
     }

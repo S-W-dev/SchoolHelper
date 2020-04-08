@@ -4,10 +4,15 @@ export class Options {
         Data.Set('settings', settings.toString()); // makes default value save
         this.settings = settings // || get local storage data
         this.debug = this.settings.debug;
+        this.theme = this.settings.theme;
     }
 
     static isDebugEnabled() {
         return this.debug;
+    }
+
+    static getTheme() {
+        return this.theme;
     }
 
 }
@@ -95,6 +100,10 @@ export class Data {
 
     static Exists(key) {
         return (localStorage.getItem(key) === null);
+    }
+
+    static Remove(key) {
+        localStorage.removeItem(key)
     }
 
 
