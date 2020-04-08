@@ -7,8 +7,15 @@ class Popup {
         // initialize stuff
         new Options(Data.Get('settings', '{"debug": "false", "theme": "light"}'));
 
-         $(".navbar").addClass(`navbar-${Options.getTheme()} bg-${Options.getTheme()}`)
+         var theme = Options.getTheme();
 
+         if (theme == "dark") {
+             $(".navbar").addClass(`navbar-dark bg-dark`)
+             $("main").addClass(`bg-secondary-dark`)
+         } else {
+             $(".navbar").addClass(`navbar-light bg-light`)
+             $("main").addClass(`bg-secondary-light`)
+         }
 
         this.Main();
     }
