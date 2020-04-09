@@ -17,6 +17,12 @@ class Popup {
              $("body").addClass(`bg-secondary-light`)
          }
 
+         // create main page content based on grade level
+
+         $.get("./HTML/grade_pages/"+Options.getItem('grade')+"_grade.html", function (data) {
+             $("#content").html(data);
+         });
+
         this.Main();
     }
 
