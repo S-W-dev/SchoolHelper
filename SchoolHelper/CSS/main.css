@@ -1,5 +1,5 @@
 body {
-  width: 500px;
+  width: 600px;
   min-height: 500px;
   text-align: center;
 }
@@ -7,8 +7,10 @@ body {
 /*Custom 'bootstrap' color*/
 .bg-secondary-dark {
   background: #43484e;
+  color:white;
 }
 
 .bg-secondary-light {
   background: #e6ecf1;
+  color: black;
 }

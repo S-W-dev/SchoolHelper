@@ -4,12 +4,8 @@ export class Options {
         Data.Set('settings', settings.toString()); // makes default value save
     }
 
-    static isDebugEnabled() {
-        return JSON.parse(Data.Get('settings')).debug;
-    }
-
-    static getTheme() {
-        return JSON.parse(Data.Get('settings')).theme;
+    static getItem(x) {
+        return JSON.parse(Data.Get('settings'))[x];
     }
 
 }

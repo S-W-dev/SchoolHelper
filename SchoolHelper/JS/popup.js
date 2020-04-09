@@ -5,9 +5,9 @@ import {Options, Message, Handler, Data} from "./classes.js"
 class Popup {
     constructor() {
         // initialize stuff
-        new Options(Data.Get('settings', '{"debug": "false", "theme": "light"}'));
+        new Options(Data.Get('settings', '{"debug": "false", "theme": "light", "grade":"7"}'));
 
-         var theme = Options.getTheme();
+         var theme = Options.getItem('theme');
 
          if (theme == "dark") {
              $(".navbar").addClass(`navbar-dark bg-dark`)
