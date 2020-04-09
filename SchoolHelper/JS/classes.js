@@ -101,7 +101,6 @@ export class Data {
 
 
 }
-
 // theme loader
 export function Load() {
     var theme = Options.getItem('theme');

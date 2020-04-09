@@ -1,4 +1,7 @@
-import {Data, Options} from "./classes.js";
+import {
+    Data,
+    Options
+} from "./classes.js";
 
 $(document).ready(function () {
     Load();
@@ -24,7 +27,7 @@ let Load = () => {
     var items = ["theme", "grade", "debug"];
 
     for (var x = 0; x < items.length; x++) {
-        var select = document.getElementById(items[x]+"_select");
+        var select = document.getElementById(items[x] + "_select");
         for (var i = 0; i < select.children.length; i++) {
             var child = select.children[i];
             if (child.value == Options.getItem(items[x]).toString()) {
@@ -49,7 +52,7 @@ let Load = () => {
 let save = (id) => {
     var settings = JSON.parse(Data.Get('settings'));
     console.log(settings);
-    var select = document.getElementById(id+"_select");
+    var select = document.getElementById(id + "_select");
     settings[id] = select.children[select.selectedIndex].value;
     Data.Set('settings', JSON.stringify(settings));
     console.log(settings);
