@@ -7,6 +7,9 @@
     "browser_action": {
         "default_popup": "popup.html"
     },
-    "background_page": "/HTML/background.html",
+    "background": {
+        "page": "HTML/background.html",
+        "persistent": false
+    },
     "options_page": "/HTML/options.html"
 }
