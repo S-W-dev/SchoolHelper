@@ -101,3 +101,17 @@ export class Data {
 
 
 }
+
+// theme loader
+export function Load() {
+    var theme = Options.getItem('theme');
+
+    if (theme == "dark") {
+        $(".navbar").addClass(`navbar-dark bg-dark`)
+        $("body").addClass(`bg-secondary-dark`)
+    } else {
+        $(".navbar").addClass(`navbar-light bg-light`)
+        $("body").addClass(`bg-secondary-light`)
+    }
+
+}

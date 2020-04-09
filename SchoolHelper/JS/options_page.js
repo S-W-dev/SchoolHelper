@@ -18,6 +18,7 @@ $(document).ready(function () {
 
 });
 
+
 let Load = () => {
 
     var items = ["theme", "grade", "debug"];
