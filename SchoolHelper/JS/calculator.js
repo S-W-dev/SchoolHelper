@@ -4,8 +4,16 @@ import {
   LoadNav
 } from "./classes.js";
 
+for(var inputs = 0; inputs < 2; inputs++) {
+  $("#function-inputs").append("\
+  <div class='function-input-group'>\
+    <p class='function-input-text'>y<sub>"+ (inputs+1) + "</sub>=</p><input class='function-input' type='text' name='function-input' value='' placeholder='Enter a function' id='function-input'><div class='color-picker-"+inputs+"'></div>\
+  </div>\
+  ");
+}
+
 var canvas = document.getElementById('graph-canvas'),
-    lineColor = "#a34db3",
+    lineColors = ["#a34db3", "#000000"],
 
     c = canvas.getContext('2d'),
     n = 200, // # of line segments
@@ -19,107 +27,124 @@ var canvas = document.getElementById('graph-canvas'),
     yMin = -10, yMax = 10,
 
     math = mathjs(),
-    expr = 'sin(x+t)*x',
+    exprs = ['sin(x+t)*x', 'sin(2*x-t)'],
     scope = {
       x: 0,
       t: 0
     },
-    tree = math.parse(expr, scope);
+    trees = [];
 
-drawCurve();
+for (var k = 0; k < exprs.length; k++) {
+  trees[k] = math.parse(exprs[k], scope);
+}
+
+drawCurves();
 initInput();
 startAnimation();
 
-const pickr = Pickr.create({
-    el: '.color-picker',
-    theme: 'nano', // or 'monolith', or 'nano'
-    position: 'top-end',
+var pickrs = [];
 
-    swatches: [
-        'rgba(244, 67, 54, 1)',
-        'rgba(233, 30, 99, 0.95)',
-        'rgba(156, 39, 176, 0.9)',
-        'rgba(103, 58, 183, 0.85)',
-        'rgba(63, 81, 181, 0.8)',
-        'rgba(33, 150, 243, 0.75)',
-        'rgba(3, 169, 244, 0.7)',
-        'rgba(0, 188, 212, 0.7)',
-        'rgba(0, 150, 136, 0.75)',
-        'rgba(76, 175, 80, 0.8)',
-        'rgba(139, 195, 74, 0.85)',
-        'rgba(205, 220, 57, 0.9)',
-        'rgba(255, 235, 59, 0.95)',
-        'rgba(255, 193, 7, 1)'
-    ],
+for(var q = 0; q < exprs.length; q++) {
+  var pickr = Pickr.create({
+      el: '.color-picker-'+q,
+      theme: 'nano',
+      position: 'top-end',
 
-    components: {
+      swatches: [
+          'rgba(244, 67, 54, 1)',
+          'rgba(233, 30, 99, 0.95)',
+          'rgba(156, 39, 176, 0.9)',
+          'rgba(103, 58, 183, 0.85)',
+          'rgba(63, 81, 181, 0.8)',
+          'rgba(33, 150, 243, 0.75)',
+          'rgba(3, 169, 244, 0.7)',
+          'rgba(0, 188, 212, 0.7)',
+          'rgba(0, 150, 136, 0.75)',
+          'rgba(76, 175, 80, 0.8)',
+          'rgba(139, 195, 74, 0.85)',
+          'rgba(205, 220, 57, 0.9)',
+          'rgba(255, 235, 59, 0.95)',
+          'rgba(255, 193, 7, 1)'
+      ],
 
-        // Main components
-        preview: true,
-        opacity: true,
-        hue: true,
+      components: {
 
-        // Input / output Options
-        interaction: {
-            hex: true,
-            rgba: true,
-            hsla: false,
-            hsva: false,
-            cmyk: false,
-            input: true,
-            clear: false,
-            save: true
-        }
-    }
-});
+          // Main components
+          preview: true,
+          opacity: true,
+          hue: true,
 
-pickr.on('save', (...args) => {
-  var color = args[0].toHEXA().toString();
-  lineColor = color;
-});
+          // Input / output Options
+          interaction: {
+              hex: true,
+              rgba: true,
+              hsla: false,
+              hsva: false,
+              cmyk: false,
+              input: true,
+              clear: false,
+              save: true
+          }
+      }
+  });
 
-function drawCurve() {
-  var percentX, percentY, // Between 0 and 1
-      mathX, mathY, //Math Coordinates
-      xPixel, yPixel; // Canvas Coordinates
-
-  c.clearRect(0, 0, canvas.width, canvas.height)
-  c.strokeStyle = lineColor;
-  c.lineWidth = 1;
-  c.beginPath();
-  for(var i = 0; i < n; i++) {
-    percentX = i/(n-1);
-
-    //PARAMETRIC MODE: mathX = a function of time, mathY = a function of time
-
-    mathX = percentX * (xMax - xMin) + xMin;
-    mathY = evaluateMathExpr(mathX);
-    percentY = (mathY - yMin) / (yMax - yMin);
-    percentY = 1 - percentY; //flip Y
-    xPixel = percentX * canvas.width;
-    yPixel = percentY * canvas.height;
-    c.lineTo(xPixel, yPixel);
-  }
-  c.stroke();
+  pickrs.push(pickr);
 }
 
-function evaluateMathExpr(arg) {
+for(var p = 0; p < pickrs.length; p++) {
+  pickrs[p].on('save', (...args) => {
+    var color = args[0].toHEXA().toString();
+    lineColors[p] = color;
+    console.log(color);
+  });
+}
+
+function drawCurves() {
+  var percentX, percentY, // Between 0 and 1
+      mathX, mathYs = [], //Math Coordinates
+      xPixel, yPixel; // Canvas Coordinates
+
+  c.clearRect(0, 0, canvas.width, canvas.height);
+  for(var j = 0; j < exprs.length; j++) {
+    c.strokeStyle = lineColors[j];
+    c.lineWidth = 1;
+    c.beginPath();
+    for(var i = 0; i < n; i++) {
+      percentX = i/(n-1);
+
+      //PARAMETRIC MODE: mathX = a function of time, mathY = a function of time
+
+      mathX = percentX * (xMax - xMin) + xMin;
+      mathYs[j] = evaluateMathExpr(mathX, j);
+      percentY = (mathYs[j] - yMin) / (yMax - yMin);
+      percentY = 1 - percentY; //flip Y
+      xPixel = percentX * canvas.width;
+      yPixel = percentY * canvas.height;
+      c.lineTo(xPixel, yPixel);
+    }
+    c.stroke();
+  }
+}
+
+function evaluateMathExpr(arg, ind) {
   scope.x = arg;
   scope.t = time;
 
-  return tree.eval();
+  return trees[ind].eval();
 }
 
 function initInput() {
   var input = $('#function-input');
 
-  input.attr("placeholder", expr);
+  input.attr("placeholder", exprs[0]);
 
   input.keyup(function(event) {
-    expr = input.val();
+    exprs[0] = input.val();
     try {
-      tree = math.parse(expr, scope);
-      drawCurve();
+      for (var l = 0; l < exprs.length; l++) {
+        trees[l] = math.parse(exprs[l], scope);
+      }
+      drawCurves();
     } catch (err) {
       return;
     }
@@ -148,7 +173,7 @@ function render(){
     timeIncrement*=-1
   }
   try {
-    drawCurve();
+    drawCurves();
   } catch (err) {
     return;
   }
