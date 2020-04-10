@@ -70,58 +70,62 @@ export var Console = {
 };
 
 export function LoadNav() {
-    $.getJSON("../JSON/grade_rules.json", (grade_rules) => {
+    $('header').load("../HTML/navbar.html", function() {
+Console.log("Header loaded");
+Load();
+$.getJSON("../JSON/grade_rules.json", (grade_rules) => {
 
-        Console.log(grade_rules);
-        var grade = Options.getItem('grade');
-        if (grade == 'k') {
-            grade = '0';
-        } else if (grade == 'teacher') grade = '13';
-        grade = parseInt(grade);
-        var current_grade_rules = grade_rules.grade[grade];
+    Console.log(grade_rules);
+    var grade = Options.getItem('grade');
+    if (grade == 'k') {
+        grade = '0';
+    } else if (grade == 'teacher') grade = '13';
+    grade = parseInt(grade);
+    var current_grade_rules = grade_rules.grade[grade];
 
-        // add in all allowed pages
-        for (var i = 0; i < current_grade_rules.allowed_pages.length; i += 3) {
-            console.log(i);
-            var div = $(`<div class="row"></div>`);
-            try {
-                var col = $(`<div class="col-4"></div>`);
+    // add in all allowed pages
+    for (var i = 0; i < current_grade_rules.allowed_pages.length; i += 3) {
+        console.log(i);
+        var div = $(`<div class="row"></div>`);
+        try {
+            var col = $(`<div class="col-4"></div>`);
 
-                col.append(`<li class="nav-item"><a href="/HTML/${current_grade_rules.allowed_pages[i]}.html" class="nav-link">${current_grade_rules.allowed_pages[i].replace("_", " ")}</a></li>`)
-                div.append(col);
-            } catch {
-                var col = $(`<div class="col-4"></div>`);
+            col.append(`<li class="nav-item"><a href="/HTML/${current_grade_rules.allowed_pages[i]}.html" class="nav-link">${current_grade_rules.allowed_pages[i].replace("_", " ")}</a></li>`)
+            div.append(col);
+        } catch {
+            var col = $(`<div class="col-4"></div>`);
 
-                col.append(`<li class="nav-item"><a href="#" class="nav-link"></a></li>`)
-                div.append(col);
-            }
-            try {
-                var col = $(`<div class="col-4"></div>`);
-
-                col.append(`<li class="nav-item"><a href="/HTML/${current_grade_rules.allowed_pages[i+1]}.html" class="nav-link">${current_grade_rules.allowed_pages[i+1].replace("_", " ")}</a></li>`)
-                div.append(col);
-            } catch {
-                var col = $(`<div class="col-4"></div>`);
-
-                col.append(`<li class="nav-item"><a href="#" class="nav-link"></a></li>`)
-                div.append(col);
-            }
-
-            try {
-                var col = $(`<div class="col-4"></div>`);
-
-                col.append(`<li class="nav-item"><a href="/HTML/${current_grade_rules.allowed_pages[i+2]}.html" class="nav-link">${current_grade_rules.allowed_pages[i+2].replace("_", " ")}</a></li>`)
-                div.append(col);
-                $("#custom_pages").append(``);
-            } catch {
-                var col = $(`<div class="col-4"></div>`);
-
-                col.append(`<li class="nav-item"><a href="#" class="nav-link"></a></li>`)
-                div.append(col);
-            }
-            console.log(col);
-            console.log(div);
-            $("#custom_pages").append(div);
+            col.append(`<li class="nav-item"><a href="#" class="nav-link"></a></li>`)
+            div.append(col);
         }
+        try {
+            var col = $(`<div class="col-4"></div>`);
+
+            col.append(`<li class="nav-item"><a href="/HTML/${current_grade_rules.allowed_pages[i+1]}.html" class="nav-link">${current_grade_rules.allowed_pages[i+1].replace("_", " ")}</a></li>`)
+            div.append(col);
+        } catch {
+            var col = $(`<div class="col-4"></div>`);
+
+            col.append(`<li class="nav-item"><a href="#" class="nav-link"></a></li>`)
+            div.append(col);
+        }
+
+        try {
+            var col = $(`<div class="col-4"></div>`);
+
+            col.append(`<li class="nav-item"><a href="/HTML/${current_grade_rules.allowed_pages[i+2]}.html" class="nav-link">${current_grade_rules.allowed_pages[i+2].replace("_", " ")}</a></li>`)
+            div.append(col);
+            $("#custom_pages").append(``);
+        } catch {
+            var col = $(`<div class="col-4"></div>`);
+
+            col.append(`<li class="nav-item"><a href="#" class="nav-link"></a></li>`)
+            div.append(col);
+        }
+        console.log(col);
+        console.log(div);
+        $("#custom_pages").append(div);
+    }
+});
     });
 }
