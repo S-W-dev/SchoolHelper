@@ -11,8 +11,6 @@
         "page": "HTML/background.html",
         "persistent": false
     },
-    "options_page": "/HTML/options.html",
-    "sandbox": {
-      "pages": ["graphing_calculator.html"]
-    }
+    "options_page": "/HTML/options.html"
+
 }
