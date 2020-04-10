@@ -2,3 +2,16 @@
   background: white;
   border: 2px solid black;
 }
+
+.function-input-group {
+  display: inline-block;
+}
+
+.function-input-text {
+  font-size: 25px;
+  display: inline-block;
+}
+
+.function-input {
+  display: inline-block;
+}

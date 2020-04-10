@@ -9,7 +9,7 @@ var canvas = document.getElementById('graph-canvas'),
 
     time = 0,
     timeIncrement = 0.1,
-    timeMax = 50,
+    timeMax = 25,
 
     // Window Size :: Smaller = more zoomed in
     xMin = -10, xMax = 10,
@@ -93,7 +93,7 @@ function startAnimation() {
 
 function render(){
   time += timeIncrement;
-  if(time>=timeMax||time<=0){
+  if(time>=timeMax||time<=-timeMax){
     timeIncrement*=-1
   }
   try {
