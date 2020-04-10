@@ -134,7 +134,7 @@ export function LoadNav() {
             try {
                 var col = $(`<div class="col-4"></div>`);
 
-                col.append(`<li class="nav-item"><a href="HTML/${current_grade_rules.allowed_pages[i]}.html" class="nav-link">${current_grade_rules.allowed_pages[i].replace("_", " ")}</a></li>`)
+                col.append(`<li class="nav-item"><a href="/HTML/${current_grade_rules.allowed_pages[i]}.html" class="nav-link">${current_grade_rules.allowed_pages[i].replace("_", " ")}</a></li>`)
                 div.append(col);
             } catch {
                 var col = $(`<div class="col-4"></div>`);
@@ -145,7 +145,7 @@ export function LoadNav() {
             try {
                 var col = $(`<div class="col-4"></div>`);
 
-                col.append(`<li class="nav-item"><a href="HTML/${current_grade_rules.allowed_pages[i+1]}.html" class="nav-link">${current_grade_rules.allowed_pages[i+1].replace("_", " ")}</a></li>`)
+                col.append(`<li class="nav-item"><a href="/HTML/${current_grade_rules.allowed_pages[i+1]}.html" class="nav-link">${current_grade_rules.allowed_pages[i+1].replace("_", " ")}</a></li>`)
                 div.append(col);
             } catch {
                 var col = $(`<div class="col-4"></div>`);
@@ -157,7 +157,7 @@ export function LoadNav() {
             try {
                 var col = $(`<div class="col-4"></div>`);
 
-                col.append(`<li class="nav-item"><a href="HTML/${current_grade_rules.allowed_pages[i+2]}.html" class="nav-link">${current_grade_rules.allowed_pages[i+2].replace("_", " ")}</a></li>`)
+                col.append(`<li class="nav-item"><a href="/HTML/${current_grade_rules.allowed_pages[i+2]}.html" class="nav-link">${current_grade_rules.allowed_pages[i+2].replace("_", " ")}</a></li>`)
                 div.append(col);
                 $("#custom_pages").append(``);
             } catch {
