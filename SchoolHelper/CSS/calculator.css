@@ -8,7 +8,7 @@
 }
 
 .function-input-text {
-  font-size: 25px;
+  font-size: 22px;
   font-family: cursive;
   display: inline-block;
 }
@@ -21,4 +21,10 @@
   margin-left: 3px;
   background: #a4a4d9;
   border-radius: 7px;
+  color: white;
+}
+
+.function-input::placeholder {
+  color: #ddd;
+  opacity: 1;
 }
