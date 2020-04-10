@@ -9,7 +9,12 @@ var canvas = document.getElementById('graph-canvas'),
 
     // Window Size :: Smaller = more zoomed in
     xMin = -10, xMax = 10,
-    yMin = -10, yMax = 10;
+    yMin = -10, yMax = 10,
+
+    math = mathjs(),
+    expr = 'sin(x)',
+    scope = { x: 0 },
+    tree = math.parse(expr, scope);
 
 drawCurve();
 
@@ -24,7 +29,7 @@ function drawCurve() {
   for(var i = 0; i < n; i++) {
     percentX = i/(n-1);
     mathX = percentX * (xMax - xMin) + xMin;
-    mathY = Math.sin(mathX);
+    mathY = evaluateMathExpr(mathX);
     percentY = (mathY - yMin) / (yMax - yMin);
 
     xPixel = percentX * canvas.width;
@@ -34,6 +39,10 @@ function drawCurve() {
   c.stroke();
 }
 
+function evaluateMathExpr(arg) {
+  scope.x = arg;
+  return tree.eval();
+}
+
 // settings loader
 Load();
-
