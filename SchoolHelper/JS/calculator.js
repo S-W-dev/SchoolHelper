@@ -1,6 +1,7 @@
 import {
   Load,
-  Console
+  Console,
+  LoadNav
 } from "./classes.js";
 
 var canvas = document.getElementById('graph-canvas'),
@@ -104,4 +105,5 @@ function render(){
 }
 
 // settings loader
+LoadNav();
 Load();
