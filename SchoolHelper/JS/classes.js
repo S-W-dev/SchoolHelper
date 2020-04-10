@@ -1,6 +1,6 @@
 export class Options {
     constructor(settings) {
-        console.log(settings.toString())
+        Console.log(settings.toString())
         Data.Set('settings', settings.toString()); // makes default value save
     }
 
@@ -52,11 +52,11 @@ export class Handler {
     }
 
     handleMessage(message, callback) {
-        console.log("Received message: " + message.message);
+        Console.log("Received message: " + message.message);
         message = message.toString();
         switch (message) {
             case 'hello':
-                console.log('hello');
+                Console.log('hello');
                 break;
             case 'disconnect':
                 chrome.runtime.Port.disconnect();
@@ -74,7 +74,7 @@ export class Handler {
 
     handleDebug(message, callback) {
         if (debug) {
-            console.log("DEBUG: " + message.message);
+            Console.log("DEBUG: " + message.message);
         }
         callback();
     }
@@ -104,13 +104,14 @@ export class Data {
 // theme loader
 export function Load() {
     var theme = Options.getItem('theme');
-
-    if (theme == "dark") {
-        $(".navbar").addClass(`navbar-dark bg-dark`)
-        $("body").addClass(`bg-secondary-dark`)
-    } else {
-        $(".navbar").addClass(`navbar-light bg-light`)
-        $("body").addClass(`bg-secondary-light`)
-    }
-
+        $(".navbar").addClass(`navbar-${theme} bg-${theme}`)
+        $("body").addClass(`bg-secondary-${theme}`)
 }
+
+export var Console = {
+    log: function(x) {
+        if (Options.getItem('debug') == 'true') {
+            console.log(x);
+        }
+    }
+};

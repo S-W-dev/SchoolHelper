@@ -1,6 +1,7 @@
 import {
     Data,
-    Options
+    Options,
+    Console
 } from "./classes.js";
 
 $(document).ready(function () {
@@ -50,11 +51,11 @@ let Load = () => {
 
 let save = (id) => {
     var settings = JSON.parse(Data.Get('settings'));
-    console.log(settings);
+    Console.log(settings);
     var select = document.getElementById(id + "_select");
     settings[id] = select.children[select.selectedIndex].value;
     Data.Set('settings', JSON.stringify(settings));
-    console.log(settings);
+    Console.log(settings);
 }
 
 Load();

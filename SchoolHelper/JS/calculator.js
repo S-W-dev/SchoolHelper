@@ -1,4 +1,7 @@
-import {Load} from "./classes.js";
+import {
+  Load,
+  Console
+} from "./classes.js";
 
 var canvas = document.getElementById('graph-canvas'),
     c = canvas.getContext('2d'),

@@ -2,7 +2,8 @@ import {
     Options,
     Message,
     Handler,
-    Data
+    Data,
+    Console
 } from "./classes.js"
 
 // chrome.runtime.sendMessage(new Message("hello"), function (response) {});
@@ -10,7 +11,7 @@ import {
 class Popup {
     constructor() {
         // initialize stuff
-        new Options(Data.Get('settings', '{"debug": "false", "theme": "dark", "grade":"7"}'));
+        new Options(Data.Get('settings', '{"debug": "true", "theme": "dark", "grade":"8", "show":"link"}'));
 
         var theme = Options.getItem('theme');
 
@@ -27,7 +28,7 @@ class Popup {
         $("#content").load("./HTML/grade_pages/" + Options.getItem('grade') + "_grade.html");
         $.getJSON("../JSON/grade_rules.json", (grade_rules) => {
 
-            console.log(grade_rules);
+            Console.log(grade_rules);
             var grade = Options.getItem('grade');
             if (grade == 'k') {
                 grade = '0';
@@ -35,8 +36,13 @@ class Popup {
             grade = parseInt(grade);
             var current_grade_rules = grade_rules.grade[grade];
 
+            // add in all allowed pages
+            for (var i = 0; i < current_grade_rules.allowed_pages.length; i++) {
+                console.log(current_grade_rules.allowed_pages[i]);
+                $("#content").load("../HTML/" + current_grade_rules.allowed_pages[i] + ".html");
+            }
 
-            console.log(current_grade_rules);
+            Console.log(current_grade_rules);
 
         });
 
