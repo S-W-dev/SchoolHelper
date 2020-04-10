@@ -25,7 +25,7 @@
             "allowed_links": []
         },
         {
-            "allowed_pages": ["calculator"],
+            "allowed_pages": ["mini_calculator"],
             "allowed_links": []
         },
         {
@@ -53,7 +53,7 @@
             "allowed_links": []
         },
         {
-            "allowed_pages": ["calculator", "graphing_calculator", "teacher"],
+            "allowed_pages": ["mini_calculator", "calculator", "graphing_calculator", "teacher"],
             "allowed_links": []
         }
     ]

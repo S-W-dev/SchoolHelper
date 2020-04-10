@@ -34,53 +34,6 @@ export class Message {
     }
 }
 
-export class Handler {
-
-    constructor(message, callback) {
-        callback = callback || function () {};
-        switch (message.type) {
-            case 'message':
-                handler.handleMessage(message.message, callback);
-                break;
-            case 'error':
-                handler.handleError(message.message, callback);
-                break;
-            case 'debug':
-                handler.handleDebug(message.message, callback);
-                break;
-        }
-    }
-
-    handleMessage(message, callback) {
-        Console.log("Received message: " + message.message);
-        message = message.toString();
-        switch (message) {
-            case 'hello':
-                Console.log('hello');
-                break;
-            case 'disconnect':
-                chrome.runtime.Port.disconnect();
-                break;
-            default:
-                new Handler(new Message("No message was supplied.", 2));
-        }
-        callback();
-    }
-
-    handleError(message, callback) {
-        console.error("There was an error: " + message.message);
-        callback();
-    }
-
-    handleDebug(message, callback) {
-        if (debug) {
-            Console.log("DEBUG: " + message.message);
-        }
-        callback();
-    }
-
-}
-
 export class Data {
     static Set(key, val) {
         localStorage[key] = val;
@@ -134,7 +87,7 @@ export function LoadNav() {
             try {
                 var col = $(`<div class="col-4"></div>`);
 
-                col.append(`<li class="nav-item"><a href="HTML/${current_grade_rules.allowed_pages[i]}.html" class="nav-link">${current_grade_rules.allowed_pages[i].replace("_", " ")}</a></li>`)
+                col.append(`<li class="nav-item"><a href="/HTML/${current_grade_rules.allowed_pages[i]}.html" class="nav-link">${current_grade_rules.allowed_pages[i].replace("_", " ")}</a></li>`)
                 div.append(col);
             } catch {
                 var col = $(`<div class="col-4"></div>`);
@@ -145,7 +98,7 @@ export function LoadNav() {
             try {
                 var col = $(`<div class="col-4"></div>`);
 
-                col.append(`<li class="nav-item"><a href="HTML/${current_grade_rules.allowed_pages[i+1]}.html" class="nav-link">${current_grade_rules.allowed_pages[i+1].replace("_", " ")}</a></li>`)
+                col.append(`<li class="nav-item"><a href="/HTML/${current_grade_rules.allowed_pages[i+1]}.html" class="nav-link">${current_grade_rules.allowed_pages[i+1].replace("_", " ")}</a></li>`)
                 div.append(col);
             } catch {
                 var col = $(`<div class="col-4"></div>`);
@@ -157,7 +110,7 @@ export function LoadNav() {
             try {
                 var col = $(`<div class="col-4"></div>`);
 
-                col.append(`<li class="nav-item"><a href="HTML/${current_grade_rules.allowed_pages[i+2]}.html" class="nav-link">${current_grade_rules.allowed_pages[i+2].replace("_", " ")}</a></li>`)
+                col.append(`<li class="nav-item"><a href="/HTML/${current_grade_rules.allowed_pages[i+2]}.html" class="nav-link">${current_grade_rules.allowed_pages[i+2].replace("_", " ")}</a></li>`)
                 div.append(col);
                 $("#custom_pages").append(``);
             } catch {

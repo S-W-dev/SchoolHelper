@@ -1,7 +1,6 @@
 import {
     Options,
     Message,
-    Handler,
     Data,
     Console
 } from "./classes.js"
