@@ -1,6 +1,6 @@
 export class Options {
     constructor(settings) {
-        Console.log(settings.toString())
+        console.log(settings.toString())
         Data.Set('settings', settings.toString()); // makes default value save
     }
 

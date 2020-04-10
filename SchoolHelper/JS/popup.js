@@ -39,7 +39,15 @@ class Popup {
             // add in all allowed pages
             for (var i = 0; i < current_grade_rules.allowed_pages.length; i++) {
                 console.log(current_grade_rules.allowed_pages[i]);
-                $("#content").load("../HTML/" + current_grade_rules.allowed_pages[i] + ".html");
+                if (Options.getItem('show') == 'item') {
+$("#content2").load("../HTML/" + current_grade_rules.allowed_pages[i] + ".html");
+var cntnt = document.getElementById("content2")
+while (cntnt.lastChild.id !== 'main') {
+    cntnt.removeChild(cntnt.lastChild);
+}
+                } else {
+$("#content2").html(`<a href="HTML/${current_grade_rules.allowed_pages[i]}.html`);
+                }
             }
 
             Console.log(current_grade_rules);
