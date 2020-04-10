@@ -28,3 +28,17 @@
   color: #ddd;
   opacity: 1;
 }
+
+.pickr {
+  display: inline-block;
+}
+
+.pickr .pcr-button {
+  width: 30px;
+  height: 30px;
+  margin-left: 5px;
+}
+
+.pickr .pcr-button:after {
+  border: 2px solid black;
+}
