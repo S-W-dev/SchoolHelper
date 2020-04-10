@@ -1,7 +1,8 @@
 import {
     Data,
     Options,
-    Console
+    Console,
+    LoadNav
 } from "./classes.js";
 
 $(document).ready(function () {
@@ -58,4 +59,5 @@ let save = (id) => {
     Console.log(settings);
 }
 
+LoadNav();
 Load();
