@@ -4,7 +4,6 @@ import {
 } from "./classes.js";
 
 $(document).ready(function () {
-    Load();
 
     // event handlers
 
@@ -57,3 +56,5 @@ let save = (id) => {
     Data.Set('settings', JSON.stringify(settings));
     console.log(settings);
 }
+
+Load();

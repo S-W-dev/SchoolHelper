@@ -1,0 +1,60 @@
+{
+    "grade": [
+        {
+            "allowed_pages":[],
+            "allowed_links":[]
+        },
+        {
+            "allowed_pages": [],
+            "allowed_links": []
+        },
+        {
+            "allowed_pages": [],
+            "allowed_links": []
+        },
+        {
+            "allowed_pages": [],
+            "allowed_links": []
+        },
+        {
+            "allowed_pages": [],
+            "allowed_links": []
+        },
+        {
+            "allowed_pages": [],
+            "allowed_links": []
+        },
+        {
+            "allowed_pages": ["calculator"],
+            "allowed_links": []
+        },
+        {
+            "allowed_pages": ["calculator", "graphing_calculator"],
+            "allowed_links": []
+        },
+        {
+            "allowed_pages": ["calculator", "graphing_calculator"],
+            "allowed_links": []
+        },
+        {
+            "allowed_pages": ["calculator", "graphing_calculator"],
+            "allowed_links": []
+        },
+        {
+            "allowed_pages": ["calculator", "graphing_calculator"],
+            "allowed_links": []
+        },
+        {
+            "allowed_pages": ["calculator", "graphing_calculator"],
+            "allowed_links": []
+        },
+        {
+            "allowed_pages": ["calculator", "graphing_calculator"],
+            "allowed_links": []
+        },
+        {
+            "allowed_pages": ["calculator", "graphing_calculator", "teacher"],
+            "allowed_links": []
+        }
+    ]
+}

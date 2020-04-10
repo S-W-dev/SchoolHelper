@@ -24,15 +24,27 @@ class Popup {
 
         // create main page content based on grade level
 
-        $.get("./HTML/grade_pages/" + Options.getItem('grade') + "_grade.html", function (data) {
-            $("#content").html(data);
+        $("#content").load("./HTML/grade_pages/" + Options.getItem('grade') + "_grade.html");
+        $.getJSON("../JSON/grade_rules.json", (grade_rules) => {
+
+            console.log(grade_rules);
+            var grade = Options.getItem('grade');
+            if (grade == 'k') {
+                grade = '0';
+            } else if (grade == 'teacher') grade = '13';
+            grade = parseInt(grade);
+            var current_grade_rules = grade_rules.grade[grade];
+
+
+            console.log(current_grade_rules);
+
         });
 
         this.Main();
     }
 
     Main() {
-        // main function (remember I said objet oriented oof)
+        // main function (remember I said object oriented oof)
     }
 
 }

@@ -32,6 +32,5 @@ function drawCurve() {
 }
 
 // settings loader
-$(document).ready(function () {
-    Load();
-});
+Load();
+
