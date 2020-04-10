@@ -4,14 +4,21 @@
 }
 
 .function-input-group {
-  display: inline-block;
+  background: #6c6ead;
 }
 
 .function-input-text {
   font-size: 25px;
+  font-family: cursive;
   display: inline-block;
 }
 
 .function-input {
   display: inline-block;
+  outline: none;
+  border: none;
+  padding: 3px;
+  margin-left: 3px;
+  background: #a4a4d9;
+  border-radius: 7px;
 }
