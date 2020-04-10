@@ -11,7 +11,7 @@ import {
 class Popup {
     constructor() {
         // initialize stuff
-        new Options(Data.Get('settings', '{"debug": "true", "theme": "dark", "grade":"8"'));
+        new Options(Data.Get('settings', '{"debug": "true", "theme": "dark", "grade":"8"}'));
 
         var theme = Options.getItem('theme');
 
