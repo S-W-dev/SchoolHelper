@@ -34,53 +34,6 @@ export class Message {
     }
 }
 
-export class Handler {
-
-    constructor(message, callback) {
-        callback = callback || function () {};
-        switch (message.type) {
-            case 'message':
-                handler.handleMessage(message.message, callback);
-                break;
-            case 'error':
-                handler.handleError(message.message, callback);
-                break;
-            case 'debug':
-                handler.handleDebug(message.message, callback);
-                break;
-        }
-    }
-
-    handleMessage(message, callback) {
-        Console.log("Received message: " + message.message);
-        message = message.toString();
-        switch (message) {
-            case 'hello':
-                Console.log('hello');
-                break;
-            case 'disconnect':
-                chrome.runtime.Port.disconnect();
-                break;
-            default:
-                new Handler(new Message("No message was supplied.", 2));
-        }
-        callback();
-    }
-
-    handleError(message, callback) {
-        console.error("There was an error: " + message.message);
-        callback();
-    }
-
-    handleDebug(message, callback) {
-        if (debug) {
-            Console.log("DEBUG: " + message.message);
-        }
-        callback();
-    }
-
-}
-
 export class Data {
     static Set(key, val) {
         localStorage[key] = val;
