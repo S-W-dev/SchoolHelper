@@ -11,7 +11,7 @@ import {
 class Popup {
     constructor() {
         // initialize stuff
-        new Options(Data.Get('settings', '{"debug": "true", "theme": "dark", "grade":"8", "show":"link"}'));
+        new Options(Data.Get('settings', '{"debug": "true", "theme": "dark", "grade":"8"'));
 
         var theme = Options.getItem('theme');
 
@@ -38,16 +38,7 @@ class Popup {
 
             // add in all allowed pages
             for (var i = 0; i < current_grade_rules.allowed_pages.length; i++) {
-                console.log(current_grade_rules.allowed_pages[i]);
-                if (Options.getItem('show') == 'item') {
-$("#content2").load("../HTML/" + current_grade_rules.allowed_pages[i] + ".html");
-var cntnt = document.getElementById("content2")
-while (cntnt.lastChild.id !== 'main') {
-    cntnt.removeChild(cntnt.lastChild);
-}
-                } else {
-$("#content2").html(`<a href="HTML/${current_grade_rules.allowed_pages[i]}.html`);
-                }
+                $("#content2").append(`<br><a href="HTML/${current_grade_rules.allowed_pages[i]}.html">${current_grade_rules.allowed_pages[i].replace("_", " ")}</a>`);
             }
 
             Console.log(current_grade_rules);

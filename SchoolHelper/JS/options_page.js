@@ -14,9 +14,6 @@ $(document).ready(function () {
     $('#grade').click(() => {
         save('grade');
     });
-    $('#show').click(() => {
-        save('show');
-    });
     $('#debug').click(() => {
         save('debug');
     });
@@ -27,7 +24,7 @@ $(document).ready(function () {
 
 let Load = () => {
 
-    var items = ["theme", "grade", "debug", "show"];
+    var items = ["theme", "grade", "debug"];
 
     for (var x = 0; x < items.length; x++) {
         var select = document.getElementById(items[x] + "_select");
