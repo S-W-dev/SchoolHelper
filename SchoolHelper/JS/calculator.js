@@ -5,12 +5,9 @@ import {
 } from "./classes.js";
 
 
-var amount = 10
-//
-// HOW MANY TO GENERATE ^^^^^^^
-//
-//
-for (var inputs = 0; inputs < amount; inputs++) {
+var numOfInputs = 10
+
+for (var inputs = 0; inputs < numOfInputs; inputs++) {
   $("#function-inputs").append("\
   <div class='function-input-group'>\
     <p class='function-input-text'>y<sub>" + (inputs + 1) + "</sub>=</p><input index='" + inputs + "' class='function-input' type='text' name='function-input' value='' placeholder='Enter a function'><div class='color-picker-" + inputs + "'></div>\
@@ -52,7 +49,7 @@ startAnimation();
 
 var pickrs = [];
 
-for (var q = 0; q < amount; q++) {
+for (var q = 0; q < numOfInputs; q++) {
   var pickr = Pickr.create({
     el: '.color-picker-' + q,
     theme: 'nano',
