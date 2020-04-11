@@ -2,10 +2,11 @@ import {
   Load,
   Console,
   LoadNav,
-  Data
+  Data,
+  Options
 } from "./classes.js";
 
-for (var inputs = 0; inputs < 10; inputs++) {
+for (var inputs = 0; inputs < Options.getItem('numOfInputs'); inputs++) {
   $("#function-inputs").append("\
   <div class='function-input-group'>\
     <p class='function-input-text'>y<sub>" + (inputs + 1) + "</sub>=</p><input index='" + inputs + "' class='function-input' type='text' name='function-input' value='' placeholder='Enter a function'><div class='color-picker-" + inputs + "'></div>\
@@ -24,14 +25,16 @@ var canvas = document.getElementById('graph-canvas'),
   timeMax = 25,
 
   // Scale of graph,
-  scale = 1,
-  xMin = -10/scale,
-  xMax = 10/scale,
-  yMin = -10/scale,
-  yMax = 10/scale,
+  scale = 1.1,
+  xMin = -11/scale,
+  xMax = 11/scale,
+  yMin = -11/scale,
+  yMax = 11/scale,
 
-  originX = 0,
-  originY = 0,
+  origin = {
+    x: 0,
+    y: 0
+  },
 
   math = mathjs(),
   exprs = [],
@@ -158,10 +161,17 @@ function drawCurves() {
   c.strokeStyle = "#00000080";
   c.lineWidth = 1;
   c.beginPath();
-  c.moveTo(canvas.width/2, canvas.height);
-  c.lineTo(canvas.width/2, 0);
-  c.moveTo(0, canvas.height/2);
-  c.lineTo(canvas.width, canvas.height/2);
+
+  percentY = (origin.y - yMin) / (yMax - yMin);
+  percentY = 1 - percentY;
+  yPixel = percentY * canvas.height;
+  c.moveTo(0, yPixel);
+  c.lineTo(canvas.width, yPixel);
+  percentX = (origin.x - xMin) / (xMax - xMin);
+  percentX = 1 - percentX;
+  xPixel = percentX * canvas.height;
+  c.moveTo(xPixel, 0);
+  c.lineTo(xPixel, canvas.height);
   c.stroke();
 
   for (var j = 0; j < inputs.length; j++) {
@@ -173,8 +183,8 @@ function drawCurves() {
 
       //PARAMETRIC MODE: mathX = a function of time, mathY = a function of time
 
-      mathX = percentX * (xMax - xMin) + xMin + originX;
-      mathYs[j] = evaluateMathExpr(mathX, j) + originY;
+      mathX = percentX * (xMax - xMin) + xMin + origin.x;
+      mathYs[j] = evaluateMathExpr(mathX, j) + origin.y;
       percentY = (mathYs[j] - yMin) / (yMax - yMin);
       percentY = 1 - percentY; //flip Y
       xPixel = percentX * canvas.width;
@@ -240,7 +250,67 @@ function render() {
   }
 }
 
-var mousex = 0, mousey = 0;
+if (canvas.addEventListener) {
+  canvas.addEventListener('DOMMouseScroll',handleScroll,false); //Firefox
+  canvas.addEventListener('mousewheel',handleScroll,false); //Other browsers
+} else if(elem.attachEvent){
+    elem.attachEvent ("onmousewheel", handleScroll);
+}
+
+var lastX=canvas.width/2, lastY=canvas.height/2;
+var dragStart,dragged;
+canvas.addEventListener('mousedown',function(evt){
+	document.body.style.mozUserSelect = document.body.style.webkitUserSelect = document.body.style.userSelect = 'none';
+	lastX = evt.offsetX || (evt.pageX - canvas.offsetLeft);
+	lastY = evt.offsetY || (evt.pageY - canvas.offsetTop);
+	dragStart = {
+    x: lastX,
+    y: lastY
+  };
+	dragged = false;
+},false);
+canvas.addEventListener('mousemove',function(evt){
+	lastX = evt.offsetX || (evt.pageX - canvas.offsetLeft);
+	lastY = evt.offsetY || (evt.pageY - canvas.offsetTop);
+	dragged = true;
+	if (dragStart){
+    var pt = {
+      x: lastX,
+      y: lastY
+    };
+		origin.x=(origin.x-(pt.x-dragStart.x)/100);
+    origin.y=(origin.y-(pt.y-dragStart.y)/100);
+		drawCurves();
+	}	},false);
+canvas.addEventListener('mouseup',function(evt){
+	dragStart = null;
+	if (!dragged) zoom(evt.shiftKey ? -1 : 1 );
+},false);
+
+var mouseWheelTotal = 1;
+
+function zoom (clicks) {
+			var pt = {
+        x: lastX,
+        y: lastY
+      };
+      mouseWheelTotal += clicks;
+      Console.log("scrolling");
+			//c.translate(pt.x,pt.y);
+      scale=Math.pow(1.1,mouseWheelTotal),
+      xMin = -11/scale,
+      xMax = 11/scale,
+      yMin = -11/scale,
+      yMax = 11/scale,
+			//c.translate(-pt.x,-pt.y);
+			drawCurves();
+		}
+
+function handleScroll (evt) {
+  var delta = evt.wheelDelta ? evt.wheelDelta/80 : evt.detail ? -evt.detail : 0;
+	if (delta) zoom(delta);
+	return evt.preventDefault() && false;
+};
 
 // settings loader
 LoadNav();
