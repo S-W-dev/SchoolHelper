@@ -1,7 +1,8 @@
 import {
   Load,
   Console,
-  LoadNav
+  LoadNav,
+  Data
 } from "./classes.js";
 
 
@@ -48,6 +49,15 @@ for (var k = 0; k < numOfInputs; k++) {
 exprs[0] = 'sin(x+t)*x'; // Change values for demo
 exprs[1] = 'cos(x)^3*t/5';
 
+// add in all the saved expressions
+try {
+  for (var z = 0; z < numOfInputs; z++) {
+    exprs[z] = Data.Get("exprs_" + z, 'sin(x+t)*x');
+  }
+} catch {
+
+}
+
 for (var m = 0; m < numOfInputs; m++) {
   trees[m] = math.parse(exprs[m], scope);
 }
@@ -64,6 +74,8 @@ for (var q = 0; q < numOfInputs; q++) {
     el: '.color-picker-' + q,
     theme: 'nano',
     position: 'top-end',
+
+    default: Data.Get("color_" + q, '#42445a'),
 
     swatches: [
       'rgba(244, 67, 54, 1)',
@@ -116,6 +128,14 @@ function handlePicker(p) {
     var color = args[0].toHEXA().toString();
     lineColors[p] = color;
     console.log(color);
+    Data.Set("color_"+p, color);
+  });
+  pickrs[p].on('init', (...args) => {
+    console.log(args[0].toHEXA());
+    var color = args[0].toHEXA().toString();
+    lineColors[p] = color;
+    console.log(color);
+    Data.Set("color_" + p, color);
   });
 }
 
@@ -173,6 +193,7 @@ function initInput() {
   $("#function-inputs").delegate("input", "keyup", function () {
     console.log(this.getAttribute("index"));
     exprs[this.getAttribute("index")] = this.value;
+    Data.Set("exprs_" + this.getAttribute("index"), this.value);
     try {
       for (var h = 0; h < numOfInputs; h++) {
         trees[h] = math.parse(exprs[h], scope);
