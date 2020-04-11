@@ -52,26 +52,25 @@ for (var k = 0; k < inputs.length; k++) {
 }
 
 // add in all the saved expressions
-try {
-  for (var z = 0; z < inputs.length; z++) {
-    exprs[z] = Data.Get("exprs_" + z, null);
-    if(exprs[z] == null) {
-      inputs[z].setAttribute('placeholder', "Enter a function");
-    } else {
-      inputs[z].setAttribute('value', Data.Get("exprs_" + z, ""));
+for (var z = 0; z < inputs.length; z++) {
+  exprs[z] = Data.Get("exprs_" + z);
+  if(exprs[z] == undefined) {
+    inputs[z].setAttribute('placeholder', "Enter a function");
+  } else {
+    inputs[z].setAttribute('value', Data.Get("exprs_" + z, ""));
+  }
+}
+
+
+  for (var m = 0; m < inputs.length; m++) {
+    try {
+      trees[m] = math.parse(exprs[m], scope);
+      console.log("Tree: " + trees[m]);
+    } catch {
+
     }
   }
-} catch {
 
-}
-
-try {
-  for (var m = 0; m < inputs.length; m++) {
-    trees[m] = math.parse(exprs[m], scope);
-  }
-} catch {
-
-}
 
 
 drawCurves();
@@ -212,14 +211,16 @@ function initInput() {
     Console.log(this.getAttribute("index"));
     exprs[this.getAttribute("index")] = this.value;
     Data.Set("exprs_" + this.getAttribute("index"), this.value);
-    try {
-      for (var h = 0; h < inputs.length; h++) {
+
+    for (var h = 0; h < inputs.length; h++) {
+      try {
         trees[h] = math.parse(exprs[h], scope);
+      } catch (err) {
+        
       }
-      drawCurves();
-    } catch (err) {
-      return;
     }
+    drawCurves();
+
   });
 }
 
