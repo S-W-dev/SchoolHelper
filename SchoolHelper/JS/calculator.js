@@ -240,6 +240,8 @@ function render() {
   }
 }
 
+var mousex = 0, mousey = 0;
+
 // settings loader
 LoadNav();
 Load();
