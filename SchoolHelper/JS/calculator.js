@@ -5,10 +5,7 @@ import {
   Data
 } from "./classes.js";
 
-
-var numOfInputs = 10;
-
-for (var inputs = 0; inputs < numOfInputs; inputs++) {
+for (var inputs = 0; inputs < 10; inputs++) {
   $("#function-inputs").append("\
   <div class='function-input-group'>\
     <p class='function-input-text'>y<sub>" + (inputs + 1) + "</sub>=</p><input index='" + inputs + "' class='function-input' type='text' name='function-input' value='' placeholder='Enter a function'><div class='color-picker-" + inputs + "'></div>\
@@ -39,24 +36,27 @@ var canvas = document.getElementById('graph-canvas'),
     x: 0,
     t: 0
   },
-  trees = [];
+  trees = [],
 
-for (var k = 0; k < numOfInputs; k++) {
+  inputs = document.getElementsByClassName("function-input");
+
+for (var k = 0; k < inputs.length; k++) {
   exprs[k] = ''; // Set exprs elements
   lineColors[k] = "#42445A"; // Set all lines to default color
 }
 
 // add in all the saved expressions
 try {
-  for (var z = 0; z < numOfInputs; z++) {
+  for (var z = 0; z < inputs.length; z++) {
     exprs[z] = Data.Get("exprs_" + z, null);
+    inputs[z].setAttribute('value', Data.Get("exprs_" + z, "Enter a function"));
   }
 } catch {
 
 }
 
 try {
-  for (var m = 0; m < numOfInputs; m++) {
+  for (var m = 0; m < inputs.length; m++) {
     trees[m] = math.parse(exprs[m], scope);
   }
 } catch {
@@ -70,7 +70,7 @@ startAnimation();
 
 var pickrs = [];
 
-for (var q = 0; q < numOfInputs; q++) {
+for (var q = 0; q < inputs.length; q++) {
 
   var pickr = Pickr.create({
     el: '.color-picker-' + q,
@@ -157,7 +157,7 @@ function drawCurves() {
   c.lineTo(canvas.width, canvas.height/2);
   c.stroke();
 
-  for (var j = 0; j < numOfInputs; j++) {
+  for (var j = 0; j < inputs.length; j++) {
     c.strokeStyle = lineColors[j];
     c.lineWidth = 1;
     c.beginPath();
@@ -196,7 +196,7 @@ function initInput() {
     exprs[this.getAttribute("index")] = this.value;
     Data.Set("exprs_" + this.getAttribute("index"), this.value);
     try {
-      for (var h = 0; h < numOfInputs; h++) {
+      for (var h = 0; h < inputs.length; h++) {
         trees[h] = math.parse(exprs[h], scope);
       }
       drawCurves();
