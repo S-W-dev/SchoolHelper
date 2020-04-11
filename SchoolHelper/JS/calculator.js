@@ -6,14 +6,14 @@ import {
 
 
 var amount = 10
-// 
+//
 // HOW MANY TO GENERATE ^^^^^^^
-// 
-// 
+//
+//
 for (var inputs = 0; inputs < amount; inputs++) {
   $("#function-inputs").append("\
   <div class='function-input-group'>\
-    <p class='function-input-text'>y<sub>" + (inputs + 1) + "</sub>=</p><input index='" + inputs + "' class='function-input' type='text' name='function-input' value='' placeholder='Enter a function' id='function-input'><div class='color-picker-" + inputs + "'></div>\
+    <p class='function-input-text'>y<sub>" + (inputs + 1) + "</sub>=</p><input index='" + inputs + "' class='function-input' type='text' name='function-input' value='' placeholder='Enter a function'><div class='color-picker-" + inputs + "'></div>\
   </div>\
   ");
 }
@@ -35,7 +35,7 @@ var canvas = document.getElementById('graph-canvas'),
   yMax = 10,
 
   math = mathjs(),
-  exprs = ['sin(x+t)*x', 'sin(2*x-t)'],
+  exprs = ['sin(x+t)*x', 'cos(x-t/2)^3'],
   scope = {
     x: 0,
     t: 0
@@ -146,9 +146,10 @@ function evaluateMathExpr(arg, ind) {
 }
 
 function initInput() {
-  var input = $('#function-input');
+  var inputs = document.getElementsByClassName("function-input");
 
-  input.attr("placeholder", exprs[0]);
+  inputs[0].setAttribute('placeholder', exprs[0]);
+  inputs[1].setAttribute('placeholder', exprs[1]);
 
   $("#function-inputs").delegate("input", "keyup", function () {
     console.log(this.getAttribute("index"));
