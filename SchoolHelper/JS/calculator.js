@@ -23,7 +23,7 @@ var canvas = document.getElementById('graph-canvas'),
   n = 500, // # of line segments
 
   time = 0,
-  timeIncrement = 0.05,
+  timeIncrement = 0.1,
   timeMax = 25,
 
   // Scale of graph,
@@ -49,15 +49,20 @@ for (var k = 0; k < numOfInputs; k++) {
 // add in all the saved expressions
 try {
   for (var z = 0; z < numOfInputs; z++) {
-    exprs[z] = Data.Get("exprs_" + z, 'sin(x+t)*x');
+    exprs[z] = Data.Get("exprs_" + z, null);
   }
 } catch {
 
 }
 
-for (var m = 0; m < numOfInputs; m++) {
-  trees[m] = math.parse(exprs[m], scope);
+try {
+  for (var m = 0; m < numOfInputs; m++) {
+    trees[m] = math.parse(exprs[m], scope);
+  }
+} catch {
+
 }
+
 
 drawCurves();
 initInput();
@@ -177,7 +182,12 @@ function evaluateMathExpr(arg, ind) {
   scope.x = arg;
   scope.t = time;
 
-  return trees[ind].eval();
+  try{
+    return trees[ind].eval();
+  } catch {
+    return null;
+  }
+
 }
 
 function initInput() {
