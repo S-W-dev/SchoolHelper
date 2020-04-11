@@ -16,7 +16,7 @@ for (var inputs = 0; inputs < numOfInputs; inputs++) {
 }
 
 var canvas = document.getElementById('graph-canvas'),
-  lineColors = ["#000000", "#000000"],
+  lineColors = ["#42445A", "#42445A"],
 
   c = canvas.getContext('2d'),
   n = 200, // # of line segments
@@ -25,14 +25,15 @@ var canvas = document.getElementById('graph-canvas'),
   timeIncrement = 0.1,
   timeMax = 25,
 
-  // Window Size :: Smaller = more zoomed in
-  xMin = -10,
-  xMax = 10,
-  yMin = -10,
-  yMax = 10,
+  // Scale of graph,
+  scale = 1,
+  xMin = -10/scale,
+  xMax = 10/scale,
+  yMin = -10/scale,
+  yMax = 10/scale,
 
   math = mathjs(),
-  exprs = ['sin(x+t)*x', 'cos(x-t/2)^3'],
+  exprs = ['sin(x+t)*x', 'cos(x)^3*t/5'],
   scope = {
     x: 0,
     t: 0
@@ -114,6 +115,17 @@ function drawCurves() {
     xPixel, yPixel; // Canvas Coordinates
 
   c.clearRect(0, 0, canvas.width, canvas.height);
+
+  //draw axis
+  c.strokeStyle = "#00000080";
+  c.lineWidth = 1;
+  c.beginPath();
+  c.moveTo(canvas.width/2, canvas.height);
+  c.lineTo(canvas.width/2, 0);
+  c.moveTo(0, canvas.height/2);
+  c.lineTo(canvas.width, canvas.height/2);
+  c.stroke();
+
   for (var j = 0; j < exprs.length; j++) {
     c.strokeStyle = lineColors[j];
     c.lineWidth = 1;
