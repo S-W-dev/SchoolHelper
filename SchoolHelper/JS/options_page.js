@@ -5,29 +5,18 @@ import {
     LoadNav
 } from "./classes.js";
 
-$(document).ready(function () {
-
-    // event handlers
-
-    $('#theme').click(() => {
-        save('theme');
-    });
-    $('#grade').click(() => {
-        save('grade');
-    });
-    $('#debug').click(() => {
-        save('debug');
-    });
-
-
+function handleEvent(x) {
+$('#'+items[x]).click(() => {
+    save(items[x]);
 });
+}
 
+var items = ["theme", "grade", "debug"];
 
 let Load = () => {
 
-    var items = ["theme", "grade", "debug"];
-
     for (var x = 0; x < items.length; x++) {
+        handleEvent(x);
         var select = document.getElementById(items[x] + "_select");
         for (var i = 0; i < select.children.length; i++) {
             var child = select.children[i];
@@ -37,17 +26,6 @@ let Load = () => {
             }
         }
     }
-
-    var theme = Options.getItem('theme');
-
-    if (theme == "dark") {
-        $(".navbar").addClass(`navbar-dark bg-dark`)
-        $("body").addClass(`bg-secondary-dark`)
-    } else {
-        $(".navbar").addClass(`navbar-light bg-light`)
-        $("body").addClass(`bg-secondary-light`)
-    }
-
 }
 
 let save = (id) => {
