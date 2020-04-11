@@ -46,19 +46,15 @@ var canvas = document.getElementById('graph-canvas'),
 
   inputs = document.getElementsByClassName("function-input");
 
-for (var k = 0; k < inputs.length; k++) {
-  exprs[k] = ''; // Set exprs elements
-  lineColors[k] = "#42445A"; // Set all lines to default color
-}
-
 // add in all the saved expressions
 for (var z = 0; z < inputs.length; z++) {
-  exprs[z] = Data.Get("exprs_" + z);
+  exprs[z] = Data.Get("exprs_" + z); // Set exprs elements
   if(exprs[z] == undefined) {
     inputs[z].setAttribute('placeholder', "Enter a function");
   } else {
     inputs[z].setAttribute('value', Data.Get("exprs_" + z, ""));
   }
+  lineColors[z] = "#42445A"; // Set all lines to default color
 }
 
 
@@ -241,7 +237,8 @@ function drawCurves() {
     }
     c.stroke();
   }
-}
+
+} // drawCurves()
 
 function evaluateMathExpr(arg, ind) {
   scope.x = arg;
@@ -256,21 +253,23 @@ function evaluateMathExpr(arg, ind) {
 }
 
 function initInput() {
-  $("#function-inputs").delegate("input", "keyup", function () {
-    Console.log(this.getAttribute("index"));
-    exprs[this.getAttribute("index")] = this.value;
-    Data.Set("exprs_" + this.getAttribute("index"), this.value);
+  $("#function-inputs").delegate("input", "keyup", updateInput);
+  $("#function-inputs").delegate("input", "change", updateInput);
+}
 
-    for (var h = 0; h < inputs.length; h++) {
-      try {
-        trees[h] = math.parse(exprs[h], scope);
-      } catch (err) {
+function updateInput() {
+  Console.log(this.getAttribute("index"));
+  exprs[this.getAttribute("index")] = this.value;
+  Data.Set("exprs_" + this.getAttribute("index"), this.value);
 
-      }
+  for (var h = 0; h < inputs.length; h++) {
+    try {
+      trees[h] = math.parse(exprs[h], scope);
+    } catch (err) {
+
     }
-    drawCurves();
-
-  });
+  }
+  drawCurves();
 }
 
 function startAnimation() {
