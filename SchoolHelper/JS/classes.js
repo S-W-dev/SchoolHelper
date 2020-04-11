@@ -5,7 +5,7 @@ export class Options {
     }
 
     static getItem(x) {
-        return JSON.parse(Data.Get('settings'))[x];
+        return JSON.parse(Data.Get('settings'), ["no item was found"])[x];
     }
 
 }

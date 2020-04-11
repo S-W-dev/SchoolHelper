@@ -11,10 +11,11 @@ $('#'+items[x]).click(() => {
 });
 }
 
-var items = ["theme", "grade", "debug"];
+var items = ["theme", "grade", "debug", "mode", "numOfInputs"];
 
 let Load = () => {
 
+    // initialize select elements
     for (var x = 0; x < items.length; x++) {
         handleEvent(x);
         var select = document.getElementById(items[x] + "_select");
