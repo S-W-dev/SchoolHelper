@@ -44,6 +44,8 @@ var canvas = document.getElementById('graph-canvas'),
   },
   trees = [],
 
+  pickrs = [],
+
   inputs = document.getElementsByClassName("function-input");
 
 // add in all the saved expressions
@@ -55,34 +57,19 @@ for (var z = 0; z < inputs.length; z++) {
     inputs[z].setAttribute('value', Data.Get("exprs_" + z, ""));
   }
   lineColors[z] = "#42445A"; // Set all lines to default color
-}
+  try {
+    trees[z] = math.parse(exprs[z], scope);
+    Console.log("Tree: " + trees[z]);
+  } catch {
 
-
-  for (var m = 0; m < inputs.length; m++) {
-    try {
-      trees[m] = math.parse(exprs[m], scope);
-      console.log("Tree: " + trees[m]);
-    } catch {
-
-    }
   }
 
-
-
-drawCurves();
-initInput();
-startAnimation();
-
-var pickrs = [];
-
-for (var q = 0; q < inputs.length; q++) {
-
   var pickr = Pickr.create({
-    el: '.color-picker-' + q,
+    el: '.color-picker-' + z,
     theme: 'nano',
     position: 'top-end',
 
-    default: Data.Get("color_" + q, '#42445a'),
+    default: Data.Get("color_" + z, '#42445a'),
 
     swatches: [
       'rgba(244, 67, 54, 1)',
@@ -121,14 +108,14 @@ for (var q = 0; q < inputs.length; q++) {
       }
     }
   });
-
   pickrs.push(pickr);
+  handlePicker(z);
 
 }
 
-for(var p = 0; p < pickrs.length; p++) {
-  handlePicker(p);
-}
+drawCurves();
+initInput();
+startAnimation();
 
 function handlePicker(p) {
   pickrs[p].on('save', (...args) => {
