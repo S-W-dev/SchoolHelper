@@ -14,3 +14,73 @@ body {
   background: #e6ecf1;
   color: black;
 }
+
+.bg-secondary-rainbow {
+  background: rgb(255, 0, 0);
+  background: linear-gradient(90deg, rgba(255, 0, 0, 1) 0%, rgba(255, 214, 0, 1) 36%, rgba(48, 245, 100, 1) 60%, rgba(0, 212, 255, 1) 100%);
+  color: black;
+  font-weight: bold;
+}
+
+.bg-rainbow {
+  background-color: #43484e !important;
+  color: #eb34d3;
+}
+
+a.bg-rainbow:hover,
+a.bg-rainbow:focus,
+button.bg-rainbow:hover,
+button.bg-rainbow:focus {
+  background-color: #dae0e5 !important;
+}
+
+.navbar-rainbow .navbar-brand {
+  color: rgba(235, 52, 211, 0.9);
+}
+
+.navbar-rainbow .navbar-brand:hover,
+.navbar-rainbow .navbar-brand:focus {
+  color: rgba(235, 52, 211, 0.9);
+}
+
+.navbar-rainbow .navbar-nav .nav-link {
+  color: rgba(235, 52, 211, 0.5);
+}
+
+.navbar-rainbow .navbar-nav .nav-link:hover,
+.navbar-rainbow .navbar-nav .nav-link:focus {
+  color: rgba(235, 52, 211, 0.7);
+}
+
+.navbar-rainbow .navbar-nav .nav-link.disabled {
+  color: rgba(235, 52, 211, 0.3);
+}
+
+.navbar-rainbow .navbar-nav .show>.nav-link,
+.navbar-rainbow .navbar-nav .active>.nav-link,
+.navbar-rainbow .navbar-nav .nav-link.show,
+.navbar-rainbow .navbar-nav .nav-link.active {
+  color: rgba(235, 52, 211, 0.9);
+}
+
+.navbar-rainbow .navbar-toggler {
+  color: rgba(235, 52, 211, 0.5);
+  border-color: rgba(235, 52, 211, 0.1);
+}
+
+.navbar-rainbow .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3e%3cpath stroke='rgba(235, 52, 211, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+.navbar-rainbow .navbar-text {
+  color: rgba(235, 52, 211, 0.5);
+}
+
+.navbar-rainbow .navbar-text a {
+  color: rgba(235, 52, 211, 0.9);
+}
+
+.navbar-rainbow .navbar-text a:hover,
+.navbar-rainbow .navbar-text a:focus {
+  color: rgba(235, 52, 211, 0.9);
+}

@@ -2,7 +2,8 @@ import {
     Data,
     Options,
     Console,
-    LoadNav
+    LoadNav,
+    Load
 } from "./classes.js";
 
 function handleEvent(x) {
@@ -13,7 +14,7 @@ $('#'+items[x]).click(() => {
 
 var items = ["theme", "grade", "debug", "mode", "numOfInputs"];
 
-let Load = () => {
+let load = () => {
 
     // initialize select elements
     for (var x = 0; x < items.length; x++) {
@@ -36,7 +37,8 @@ let save = (id) => {
     settings[id] = select.children[select.selectedIndex].value;
     Data.Set('settings', JSON.stringify(settings));
     Console.log(settings);
+    Load();
 }
 
 LoadNav();
-Load();
+load();
