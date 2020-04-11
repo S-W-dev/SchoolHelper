@@ -4,7 +4,13 @@ import {
   LoadNav
 } from "./classes.js";
 
-for(var inputs = 0; inputs < 10; inputs++) {
+
+var amount = 10
+// 
+// HOW MANY TO GENERATE ^^^^^^^
+// 
+// 
+for(var inputs =0; inputs < amount; inputs++) {
   $("#function-inputs").append("\
   <div class='function-input-group'>\
     <p class='function-input-text'>y<sub>"+ (inputs+1) + "</sub>=</p><input class='function-input' type='text' name='function-input' value='' placeholder='Enter a function' id='function-input'><div class='color-picker-"+inputs+"'></div>\
@@ -44,7 +50,7 @@ startAnimation();
 
 var pickrs = [];
 
-for(var q = 0; q < exprs.length; q++) {
+for(var q = 0; q < amount; q++) {
   var pickr = Pickr.create({
       el: '.color-picker-'+q,
       theme: 'nano',
