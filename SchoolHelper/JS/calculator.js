@@ -161,16 +161,22 @@ function drawCurves() {
   c.lineWidth = 1;
   c.beginPath();
 
+  //X axis
   percentY = (origin.y - yMin) / (yMax - yMin);
   percentY = 1 - percentY;
   yPixel = percentY * canvas.height;
   c.moveTo(0, yPixel);
   c.lineTo(canvas.width, yPixel);
+
+  //Y axis
   percentX = (origin.x - xMin) / (xMax - xMin);
+  console.log(percentX);
   percentX = 1 - percentX;
+  console.log(percentX);
   xPixel = percentX * canvas.height;
   c.moveTo(xPixel, 0);
   c.lineTo(xPixel, canvas.height);
+
   c.stroke();
 
   for (var j = 0; j < inputs.length; j++) {
@@ -216,7 +222,7 @@ function initInput() {
       try {
         trees[h] = math.parse(exprs[h], scope);
       } catch (err) {
-        
+
       }
     }
     drawCurves();
@@ -279,8 +285,8 @@ canvas.addEventListener('mousemove',function(evt){
       x: lastX,
       y: lastY
     };
-		origin.x=(origin.x-(pt.x-dragStart.x)/100);
-    origin.y=(origin.y-(pt.y-dragStart.y)/100);
+		origin.x=(origin.x-(pt.x-dragStart.x)/(273*scale));
+    origin.y=(origin.y-(pt.y-dragStart.y)/(273*scale));
 		drawCurves();
 	}	},false);
 canvas.addEventListener('mouseup',function(evt){
