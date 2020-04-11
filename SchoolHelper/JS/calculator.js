@@ -19,7 +19,7 @@ for (var inputs = 0; inputs < amount; inputs++) {
 }
 
 var canvas = document.getElementById('graph-canvas'),
-  lineColors = ["#a34db3", "#000000"],
+  lineColors = ["#000000", "#000000"],
 
   c = canvas.getContext('2d'),
   n = 200, // # of line segments
