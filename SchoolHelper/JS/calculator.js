@@ -4,7 +4,7 @@ import {
   LoadNav
 } from "./classes.js";
 
-for(var inputs = 0; inputs < 2; inputs++) {
+for(var inputs = 0; inputs < 10; inputs++) {
   $("#function-inputs").append("\
   <div class='function-input-group'>\
     <p class='function-input-text'>y<sub>"+ (inputs+1) + "</sub>=</p><input class='function-input' type='text' name='function-input' value='' placeholder='Enter a function' id='function-input'><div class='color-picker-"+inputs+"'></div>\
@@ -91,13 +91,65 @@ for(var q = 0; q < exprs.length; q++) {
   pickrs.push(pickr);
 }
 
-for(var p = 0; p < pickrs.length; p++) {
-  pickrs[p].on('save', (...args) => {
-    var color = args[0].toHEXA().toString();
-    lineColors[p] = color;
-    console.log(color);
-  });
-}
+pickrs[0].on('save', (...args) => {
+  var color = args[0].toHEXA().toString();
+  lineColors[0] = color;
+  console.log(color);
+});
+
+pickrs[1].on('save', (...args) => {
+  var color = args[0].toHEXA().toString();
+  lineColors[1] = color;
+  console.log(color);
+});
+
+pickrs[2].on('save', (...args) => {
+  var color = args[0].toHEXA().toString();
+  lineColors[2] = color;
+  console.log(color);
+});
+
+pickrs[3].on('save', (...args) => {
+  var color = args[0].toHEXA().toString();
+  lineColors[3] = color;
+  console.log(color);
+});
+
+pickrs[4].on('save', (...args) => {
+  var color = args[0].toHEXA().toString();
+  lineColors[4] = color;
+  console.log(color);
+});
+
+pickrs[5].on('save', (...args) => {
+  var color = args[0].toHEXA().toString();
+  lineColors[5] = color;
+  console.log(color);
+});
+
+pickrs[6].on('save', (...args) => {
+  var color = args[0].toHEXA().toString();
+  lineColors[6] = color;
+  console.log(color);
+});
+
+pickrs[7].on('save', (...args) => {
+  var color = args[0].toHEXA().toString();
+  lineColors[7] = color;
+  console.log(color);
+});
+
+pickrs[8].on('save', (...args) => {
+  var color = args[0].toHEXA().toString();
+  lineColors[8] = color;
+  console.log(color);
+});
+
+pickrs[9].on('save', (...args) => {
+  var color = args[0].toHEXA().toString();
+  lineColors[9] = color;
+  console.log(color);
+});
 
 function drawCurves() {
   var percentX, percentY, // Between 0 and 1
