@@ -16,7 +16,7 @@ for (var inputs = 0; inputs < numOfInputs; inputs++) {
 }
 
 var canvas = document.getElementById('graph-canvas'),
-  lineColors = ["#42445A", "#42445A"],
+  lineColors = [],
 
   c = canvas.getContext('2d'),
   n = 200, // # of line segments
@@ -33,15 +33,23 @@ var canvas = document.getElementById('graph-canvas'),
   yMax = 10/scale,
 
   math = mathjs(),
-  exprs = ['sin(x+t)*x', 'cos(x)^3*t/5'],
+  exprs = [],
   scope = {
     x: 0,
     t: 0
   },
   trees = [];
 
-for (var k = 0; k < exprs.length; k++) {
-  trees[k] = math.parse(exprs[k], scope);
+for (var k = 0; k < numOfInputs; k++) {
+  exprs[k] = ''; // Set exprs elements
+  lineColors[k] = "#42445A"; // Set all lines to default color
+}
+
+exprs[0] = 'sin(x+t)*x'; // Change values for demo
+exprs[1] = 'cos(x)^3*t/5';
+
+for (var m = 0; m < numOfInputs; m++) {
+  trees[m] = math.parse(exprs[m], scope);
 }
 
 drawCurves();
@@ -51,6 +59,7 @@ startAnimation();
 var pickrs = [];
 
 for (var q = 0; q < numOfInputs; q++) {
+
   var pickr = Pickr.create({
     el: '.color-picker-' + q,
     theme: 'nano',
@@ -95,9 +104,10 @@ for (var q = 0; q < numOfInputs; q++) {
   });
 
   pickrs.push(pickr);
+
 }
 
-for (var p = 0; p < pickrs.length; p++) {
+for(var p = 0; p < pickrs.length; p++) {
   handlePicker(p);
 }
 
@@ -126,7 +136,7 @@ function drawCurves() {
   c.lineTo(canvas.width, canvas.height/2);
   c.stroke();
 
-  for (var j = 0; j < exprs.length; j++) {
+  for (var j = 0; j < numOfInputs; j++) {
     c.strokeStyle = lineColors[j];
     c.lineWidth = 1;
     c.beginPath();
@@ -164,7 +174,7 @@ function initInput() {
     console.log(this.getAttribute("index"));
     exprs[this.getAttribute("index")] = this.value;
     try {
-      for (var h = 0; h < exprs.length; h++) {
+      for (var h = 0; h < numOfInputs; h++) {
         trees[h] = math.parse(exprs[h], scope);
       }
       drawCurves();
