@@ -156,7 +156,53 @@ function drawCurves() {
 
   c.clearRect(0, 0, canvas.width, canvas.height);
 
-  //draw axis
+
+  //Draw grid
+  c.strokeStyle = "#00000020";
+  c.lineWidth = 1;
+  c.font = "14px Arial"
+  c.fillStyle = "#000000FF"
+  c.beginPath();
+
+  var gridSpace = Math.ceil((xMax)/5);
+
+  // Grid Text
+  for(var l = Math.ceil((xMin+origin.x)/gridSpace); l <= Math.floor((xMax+origin.x)/gridSpace); l++) {
+    percentX = (origin.x - l*gridSpace - xMin) / (xMax - xMin);
+    percentX = 1 - percentX;
+    xPixel = percentX * canvas.height;
+    percentY = (origin.y - yMin) / (yMax - yMin);
+    percentY = 1 - percentY;
+    yPixel = percentY * canvas.height;
+    if (l<0) {
+      c.textAlign = "right";
+    } else {
+      c.textAlign = "left";
+    }
+    c.fillText((l*gridSpace).toString(), xPixel, canvas.height-5);
+    console.log((l*gridSpace), xPixel, yPixel);
+  }
+
+  // X Lines
+  for (var xpos = Math.ceil((xMin+origin.x)/gridSpace); xpos <= Math.floor((xMax+origin.x)/gridSpace); xpos++) {
+    percentX = (origin.x - xpos*gridSpace - xMin) / (xMax - xMin);
+    percentX = 1 - percentX;
+    xPixel = percentX * canvas.height;
+    c.moveTo(xPixel, 0);
+    c.lineTo(xPixel, canvas.height);
+  }
+
+  // Y Lines
+  for (var ypos = Math.ceil((yMin+origin.y)/gridSpace); ypos <= Math.floor((yMax+origin.y)/gridSpace); ypos++) {
+    percentY = (origin.y - ypos*gridSpace - yMin) / (yMax - yMin);
+    percentY = 1 - percentY;
+    yPixel = percentY * canvas.height;
+    c.moveTo(0, yPixel);
+    c.lineTo(canvas.width, yPixel);
+  }
+  c.stroke();
+
+  // Draw Axis
   c.strokeStyle = "#00000080";
   c.lineWidth = 1;
   c.beginPath();
@@ -170,16 +216,13 @@ function drawCurves() {
 
   //Y axis
   percentX = (origin.x - xMin) / (xMax - xMin);
-  console.log(percentX);
   percentX = 1 - percentX;
-  console.log(percentX);
   xPixel = percentX * canvas.height;
   c.moveTo(xPixel, 0);
   c.lineTo(xPixel, canvas.height);
-
   c.stroke();
 
-  for (var j = 0; j < inputs.length; j++) {
+  for (var j = 0; j < inputs.length; j++) { //Draw Curves
     c.strokeStyle = lineColors[j];
     c.lineWidth = 1;
     c.beginPath();
