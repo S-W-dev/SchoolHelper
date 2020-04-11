@@ -13,7 +13,7 @@ var amount = 10
 for(var inputs =0; inputs < amount; inputs++) {
   $("#function-inputs").append("\
   <div class='function-input-group'>\
-    <p class='function-input-text'>y<sub>"+ (inputs+1) + "</sub>=</p><input class='function-input' type='text' name='function-input' value='' placeholder='Enter a function' id='function-input'><div class='color-picker-"+inputs+"'></div>\
+    <p class='function-input-text'>y<sub>"+ (inputs+1) + "</sub>=</p><input index='"+inputs+"' class='function-input' type='text' name='function-input' value='' placeholder='Enter a function' id='function-input'><div class='color-picker-"+inputs+"'></div>\
   </div>\
   ");
 }
@@ -196,17 +196,17 @@ function initInput() {
 
   input.attr("placeholder", exprs[0]);
 
-  input.keyup(function(event) {
-    exprs[0] = input.val();
+  $("#function-inputs").delegate("input", "keyup", function () {
+    console.log(this.getAttribute("index"));
+    exprs[this.getAttribute("index")] = this.value;
     try {
-      for (var l = 0; l < exprs.length; l++) {
-        trees[l] = math.parse(exprs[l], scope);
+      for (var h = 0; h < exprs.length; h++) {
+        trees[h] = math.parse(exprs[h], scope);
       }
       drawCurves();
     } catch (err) {
       return;
     }
-
   });
 }
 
