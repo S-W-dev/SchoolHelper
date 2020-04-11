@@ -6,7 +6,7 @@ import {
 } from "./classes.js";
 
 
-var numOfInputs = 10
+var numOfInputs = 10;
 
 for (var inputs = 0; inputs < numOfInputs; inputs++) {
   $("#function-inputs").append("\
@@ -20,10 +20,10 @@ var canvas = document.getElementById('graph-canvas'),
   lineColors = [],
 
   c = canvas.getContext('2d'),
-  n = 200, // # of line segments
+  n = 500, // # of line segments
 
   time = 0,
-  timeIncrement = 0.1,
+  timeIncrement = 0.05,
   timeMax = 25,
 
   // Scale of graph,
@@ -45,9 +45,6 @@ for (var k = 0; k < numOfInputs; k++) {
   exprs[k] = ''; // Set exprs elements
   lineColors[k] = "#42445A"; // Set all lines to default color
 }
-
-exprs[0] = 'sin(x+t)*x'; // Change values for demo
-exprs[1] = 'cos(x)^3*t/5';
 
 // add in all the saved expressions
 try {
@@ -184,11 +181,6 @@ function evaluateMathExpr(arg, ind) {
 }
 
 function initInput() {
-  var inputs = document.getElementsByClassName("function-input");
-
-  inputs[0].setAttribute('placeholder', exprs[0]);
-  inputs[1].setAttribute('placeholder', exprs[1]);
-
   $("#function-inputs").delegate("input", "keyup", function () {
     Console.log(this.getAttribute("index"));
     exprs[this.getAttribute("index")] = this.value;
