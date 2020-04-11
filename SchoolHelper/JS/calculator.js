@@ -55,14 +55,9 @@ try {
 
 }
 
-try {
-  for (var m = 0; m < numOfInputs; m++) {
-    trees[m] = math.parse(exprs[m], scope);
-  }
-} catch {
-
+for (var m = 0; m < numOfInputs; m++) {
+  trees[m] = math.parse(exprs[m], scope);
 }
-
 
 drawCurves();
 initInput();
