@@ -127,14 +127,13 @@ function handlePicker(p) {
   pickrs[p].on('save', (...args) => {
     var color = args[0].toHEXA().toString();
     lineColors[p] = color;
-    console.log(color);
+    Console.log(color);
     Data.Set("color_"+p, color);
   });
   pickrs[p].on('init', (...args) => {
-    console.log(args[0].toHEXA());
-    var color = args[0].toHEXA().toString();
+    var color = args[0]["_color"].toHEXA().toString();
     lineColors[p] = color;
-    console.log(color);
+    Console.log(color);
     Data.Set("color_" + p, color);
   });
 }
@@ -191,7 +190,7 @@ function initInput() {
   inputs[1].setAttribute('placeholder', exprs[1]);
 
   $("#function-inputs").delegate("input", "keyup", function () {
-    console.log(this.getAttribute("index"));
+    Console.log(this.getAttribute("index"));
     exprs[this.getAttribute("index")] = this.value;
     Data.Set("exprs_" + this.getAttribute("index"), this.value);
     try {

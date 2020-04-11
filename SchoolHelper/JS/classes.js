@@ -85,7 +85,6 @@ $.getJSON("../JSON/grade_rules.json", (grade_rules) => {
 
     // add in all allowed pages
     for (var i = 0; i < current_grade_rules.allowed_pages.length; i += 3) {
-        console.log(i);
         var div = $(`<div class="row"></div>`);
         try {
             var col = $(`<div class="col-4"></div>`);
@@ -122,8 +121,6 @@ $.getJSON("../JSON/grade_rules.json", (grade_rules) => {
             col.append(`<li class="nav-item"><a href="#" class="nav-link"></a></li>`)
             div.append(col);
         }
-        console.log(col);
-        console.log(div);
         $("#custom_pages").append(div);
     }
 });
