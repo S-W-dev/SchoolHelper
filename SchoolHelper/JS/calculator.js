@@ -30,6 +30,9 @@ var canvas = document.getElementById('graph-canvas'),
   yMin = -10/scale,
   yMax = 10/scale,
 
+  originX = 0,
+  originY = 0,
+
   math = mathjs(),
   exprs = [],
   scope = {
@@ -49,7 +52,11 @@ for (var k = 0; k < inputs.length; k++) {
 try {
   for (var z = 0; z < inputs.length; z++) {
     exprs[z] = Data.Get("exprs_" + z, null);
-    inputs[z].setAttribute('value', Data.Get("exprs_" + z, "Enter a function"));
+    if(exprs[z] == null) {
+      inputs[z].setAttribute('placeholder', "Enter a function");
+    } else {
+      inputs[z].setAttribute('value', Data.Get("exprs_" + z, ""));
+    }
   }
 } catch {
 
@@ -166,8 +173,8 @@ function drawCurves() {
 
       //PARAMETRIC MODE: mathX = a function of time, mathY = a function of time
 
-      mathX = percentX * (xMax - xMin) + xMin;
-      mathYs[j] = evaluateMathExpr(mathX, j);
+      mathX = percentX * (xMax - xMin) + xMin + originX;
+      mathYs[j] = evaluateMathExpr(mathX, j) + originY;
       percentY = (mathYs[j] - yMin) / (yMax - yMin);
       percentY = 1 - percentY; //flip Y
       xPixel = percentX * canvas.width;
@@ -185,7 +192,7 @@ function evaluateMathExpr(arg, ind) {
   try{
     return trees[ind].eval();
   } catch {
-    return null;
+    return;
   }
 
 }
