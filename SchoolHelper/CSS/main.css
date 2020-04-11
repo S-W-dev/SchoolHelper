@@ -23,6 +23,7 @@ body {
 }
 
 .bg-rainbow {
+  font-weight: normal;
   background-color: #43484e !important;
   color: #eb34d3;
 }
