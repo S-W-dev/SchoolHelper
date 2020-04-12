@@ -10,6 +10,42 @@ export class Options {
 
 }
 
+export class Reminder {
+    constructor (name, link, time) {
+        return {name:name, link:link, time:time}
+    }
+}
+
+export class Reminders {
+    constructor(reminders) {
+        console.log(reminders.toString())
+        Data.Set('reminders', reminders.toString()); // makes default value save
+    }
+
+    static getReminders() {
+        return JSON.parse(Data.Get('reminders'));
+    }
+
+    static get(x) {
+        return JSON.parse(Data.Get('reminders'))[x];
+    }
+
+    static set(reminder) {
+        var reminders = JSON.parse(Data.Get('reminders'));
+        reminders.push(JSON.parse(JSON.stringify(reminder).replace(" ", "_")));
+        Console.log(reminders);
+        // Console.log(JSON.parse(reminders));
+        // Console.log(reminders.toString());
+        Console.log(reminders);
+        reminders = JSON.stringify(reminders);
+        Data.Set("reminders", reminders)
+    }
+
+    static createReminder() {
+        
+    }
+}
+
 export class Message {
     constructor(message, type) {
         switch (type) {
@@ -36,6 +72,8 @@ export class Message {
 
 export class Data {
     static Set(key, val) {
+        Console.log(key);
+        Console.log(val);
         localStorage[key] = val;
     }
 

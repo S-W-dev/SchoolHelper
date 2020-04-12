@@ -3,7 +3,8 @@ import {
     Message,
     Data,
     Console,
-    LoadNav
+    LoadNav,
+    Reminders
 } from "./classes.js"
 
 // chrome.runtime.sendMessage(new Message("hello"), function (response) {});
@@ -12,6 +13,7 @@ class Popup {
     constructor() {
         // initialize stuff
         new Options(Data.Get('settings', '{"debug": "true", "theme": "dark", "grade":"8", "mode":"function", "numOfInputs":"10"}'));
+        new Reminders(Data.Get('reminders', '[]'));
 
         LoadNav();
 
