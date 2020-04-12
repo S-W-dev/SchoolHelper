@@ -91,12 +91,15 @@ for (var a = 0; a < inputs.length;) {
       }
       try {
         trees[a] = math.parse(exprs[a], scope);
-      } catch {
-
+        trees[a+1] = math.parse(exprs[a], scope);
+      } catch (err) {
+        console.error(err);
       }
       a+=2;
     }
 }
+
+drawCurves();
 
 for (var z = 0; z < inputs.length; z++) {
 
@@ -298,29 +301,30 @@ function updateInput() {
   drawCurves();
 } else if (Options.getItem("mode") == "parametric") {
   exprs[this.getAttribute("index")] = this.value;
-  Console.log("exprs_" + (parseInt(this.getAttribute("index"))-1).toString())
-  Console.log("Expression:"+Data.Get("exprs_" + this.getAttribute("index")-1));
+  console.log("exprs_" + (parseInt(this.getAttribute("index"))-1).toString())
+  console.log("Expression:"+Data.Get("exprs_" + this.getAttribute("index")-1));
   //val[Options.getItem("mode")] = this.value;
   if (isOdd(this.getAttribute("index")) == 0) {
       var val = JSON.parse(Data.Get("exprs_" + this.getAttribute("index")));
-    Console.log("Left side changed");
+    console.log("Left side changed");
     val[Options.getItem("mode")][0] = this.value;
     val[Options.getItem("mode")][1] = $("input")[
       (parseInt(this.getAttribute("index")) + 1)].value;
+      Data.Set("exprs_" + this.getAttribute("index"), JSON.stringify(val));
   } else {
     var val = JSON.parse(Data.Get("exprs_" + (parseInt(this.getAttribute("index")) - 1).toString()));
-    Console.log("Right side changed");
+    console.log("Right side changed");
     val[Options.getItem("mode")][1] = this.value;
     val[Options.getItem("mode")][0] = $("input")[
       (parseInt(this.getAttribute("index")) - 1)].value;
+        Data.Set("exprs_" + (parseInt(this.getAttribute("index")) - 1).toString(), JSON.stringify(val));
   }
-  Data.Set("exprs_" + this.getAttribute("index"), JSON.stringify(val));
 
   for (var h = 0; h < inputs.length; h++) {
     try {
       trees[h] = math.parse(exprs[h], scope);
     } catch (err) {
-
+      console.error(err);
     }
   }
   drawCurves();

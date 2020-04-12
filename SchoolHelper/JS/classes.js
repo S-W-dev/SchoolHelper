@@ -1,6 +1,6 @@
 export class Options {
     constructor(settings) {
-        console.log(settings.toString())
+        console.log(settings.toString());
         Data.Set('settings', settings.toString()); // makes default value save
     }
 
@@ -72,8 +72,8 @@ export class Message {
 
 export class Data {
     static Set(key, val) {
-        Console.log(key);
-        Console.log(val);
+        console.log(key);
+        console.log(val);
         localStorage[key] = val;
     }
 
