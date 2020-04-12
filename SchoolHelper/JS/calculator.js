@@ -20,8 +20,8 @@ if (graphMode == 'function') {
   for (var inputs = 0; inputs < Options.getItem('numOfInputs'); inputs++) {
     $("#function-inputs").append("\
     <div class='function-input-group'>\
-      <p class='function-input-text'>x<sub>" + (inputs + 1) + "</sub>=</p><input index='" + (2*inputs+1) + "' class='function-input' type='text' name='function-input' value='' placeholder='Enter a function'>\
-      <p class='function-input-text'>y<sub>" + (inputs + 1) + "</sub>=</p><input index='" + (2*inputs+2) + "' class='function-input' type='text' name='function-input' value='' placeholder='Enter a function'><div class='color-picker-" + inputs + "'></div>\
+      <p class='function-input-text'>x<sub>" + (inputs + 1) + "</sub>=</p><input index='" + (2*inputs+0) + "' class='function-input' type='text' name='function-input' value='' placeholder='Enter a function'>\
+      <p class='function-input-text'>y<sub>" + (inputs + 1) + "</sub>=</p><input index='" + (2*inputs+1) + "' class='function-input' type='text' name='function-input' value='' placeholder='Enter a function'><div class='color-picker-" + inputs + "'></div>\
     </div>\
     ");
   }
@@ -62,20 +62,46 @@ var canvas = document.getElementById('graph-canvas'),
   inputs = document.getElementsByClassName("function-input");
 
 // add in all the saved expressions
+
+for (var a = 0; a < inputs.length;) {
+    try{exprs[a] = (JSON.parse(Data.Get("exprs_" + a))[Options.getItem("mode")])} catch {
+      Data.Set("exprs_" + a, `{"function":"","parametric":["",""]}`)
+    };
+    console.log(Data.Get("exprs_" + a));
+    // Set exprs elements
+    if (Options.getItem("mode") == "function") {
+      if (exprs[a] == undefined) {
+        inputs[a].setAttribute('placeholder', "Enter a function");
+      } else {
+        inputs[a].setAttribute('value', JSON.parse(Data.Get("exprs_" + a))[Options.getItem("mode")]);
+      }
+      try {
+        trees[a] = math.parse(exprs[a], scope);
+      } catch {
+
+      }
+      a+=1;
+    } else if (Options.getItem("mode") == "parametric") {
+      if (exprs[a] == undefined) {
+        inputs[a].setAttribute('placeholder', "Enter a function");
+        inputs[a+1].setAttribute('placeholder', "Enter a function");
+      } else {
+        inputs[a].setAttribute('value', JSON.parse(Data.Get("exprs_" + a))[Options.getItem("mode")][0]);
+        inputs[a + 1].setAttribute('value', JSON.parse(Data.Get("exprs_" + a))[Options.getItem("mode")][1]);
+      }
+      try {
+        trees[a] = math.parse(exprs[a], scope);
+      } catch {
+
+      }
+      a+=2;
+    }
+}
+
 for (var z = 0; z < inputs.length; z++) {
-  exprs[z] = Data.Get("exprs_" + z); // Set exprs elements
-  if(exprs[z] == undefined) {
-    inputs[z].setAttribute('placeholder', "Enter a function");
-  } else {
-    inputs[z].setAttribute('value', Data.Get("exprs_" + z, ""));
-  }
-  lineColors[z] = "#42445A"; // Set all lines to default color
-  try {
-    trees[z] = math.parse(exprs[z], scope);
-  } catch {
 
-  }
-
+      lineColors[z] = "#42445A"; // Set all lines to default color
+try{
   var pickr = Pickr.create({
     el: '.color-picker-' + z,
     theme: 'nano',
@@ -120,6 +146,7 @@ for (var z = 0; z < inputs.length; z++) {
       }
     }
   });
+}catch{}
   pickrs.push(pickr);
   handlePicker(z);
 
@@ -254,8 +281,40 @@ function initInput() {
 }
 
 function updateInput() {
+  if (Options.getItem("mode") == "function") {
   exprs[this.getAttribute("index")] = this.value;
-  Data.Set("exprs_" + this.getAttribute("index"), this.value);
+  var val = JSON.parse(Data.Get("exprs_" + this.getAttribute("index")));
+  val[Options.getItem("mode")] = this.value;
+  Data.Set("exprs_" + this.getAttribute("index"), JSON.stringify(val));
+
+  for (var h = 0; h < inputs.length; h++) {
+    try {
+      trees[h] = math.parse(exprs[h], scope);
+    } catch (err) {
+
+    }
+    //{"function":"x", "parametric":["2*cos(t)","2*sin(t)"]}
+  }
+  drawCurves();
+} else if (Options.getItem("mode") == "parametric") {
+  exprs[this.getAttribute("index")] = this.value;
+  Console.log("exprs_" + (parseInt(this.getAttribute("index"))-1).toString())
+  Console.log("Expression:"+Data.Get("exprs_" + this.getAttribute("index")-1));
+  //val[Options.getItem("mode")] = this.value;
+  if (isOdd(this.getAttribute("index")) == 0) {
+      var val = JSON.parse(Data.Get("exprs_" + this.getAttribute("index")));
+    Console.log("Left side changed");
+    val[Options.getItem("mode")][0] = this.value;
+    val[Options.getItem("mode")][1] = $("input")[
+      (parseInt(this.getAttribute("index")) + 1)].value;
+  } else {
+    var val = JSON.parse(Data.Get("exprs_" + (parseInt(this.getAttribute("index")) - 1).toString()));
+    Console.log("Right side changed");
+    val[Options.getItem("mode")][1] = this.value;
+    val[Options.getItem("mode")][0] = $("input")[
+      (parseInt(this.getAttribute("index")) - 1)].value;
+  }
+  Data.Set("exprs_" + this.getAttribute("index"), JSON.stringify(val));
 
   for (var h = 0; h < inputs.length; h++) {
     try {
@@ -265,6 +324,11 @@ function updateInput() {
     }
   }
   drawCurves();
+}
+}
+
+function isOdd(num) {
+  return num % 2;
 }
 
 function startAnimation() {
