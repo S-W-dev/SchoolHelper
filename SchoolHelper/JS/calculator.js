@@ -6,12 +6,25 @@ import {
   Options
 } from "./classes.js";
 
-for (var inputs = 0; inputs < Options.getItem('numOfInputs'); inputs++) {
-  $("#function-inputs").append("\
-  <div class='function-input-group'>\
-    <p class='function-input-text'>y<sub>" + (inputs + 1) + "</sub>=</p><input index='" + inputs + "' class='function-input' type='text' name='function-input' value='' placeholder='Enter a function'><div class='color-picker-" + inputs + "'></div>\
-  </div>\
-  ");
+var graphMode = Options.getItem('mode');
+
+if (graphMode == 'function') {
+  for (var inputs = 0; inputs < Options.getItem('numOfInputs'); inputs++) {
+    $("#function-inputs").append("\
+    <div class='function-input-group'>\
+      <p class='function-input-text'>y<sub>" + (inputs + 1) + "</sub>=</p><input index='" + inputs + "' class='function-input' type='text' name='function-input' value='' placeholder='Enter a function'><div class='color-picker-" + inputs + "'></div>\
+    </div>\
+    ");
+  }
+} else if (graphMode == 'parametric') {
+  for (var inputs = 0; inputs < Options.getItem('numOfInputs'); inputs++) {
+    $("#function-inputs").append("\
+    <div class='function-input-group'>\
+      <p class='function-input-text'>x<sub>" + (inputs + 1) + "</sub>=</p><input index='" + -inputs + "' class='function-input' type='text' name='function-input' value='' placeholder='Enter a function'>\
+      <p class='function-input-text'>y<sub>" + (inputs + 1) + "</sub>=</p><input index='" + inputs + "' class='function-input' type='text' name='function-input' value='' placeholder='Enter a function'><div class='color-picker-" + inputs + "'></div>\
+    </div>\
+    ");
+  }
 }
 
 var canvas = document.getElementById('graph-canvas'),
@@ -59,7 +72,6 @@ for (var z = 0; z < inputs.length; z++) {
   lineColors[z] = "#42445A"; // Set all lines to default color
   try {
     trees[z] = math.parse(exprs[z], scope);
-    Console.log("Tree: " + trees[z]);
   } catch {
 
   }
@@ -121,13 +133,11 @@ function handlePicker(p) {
   pickrs[p].on('save', (...args) => {
     var color = args[0].toHEXA().toString();
     lineColors[p] = color;
-    Console.log(color);
     Data.Set("color_"+p, color);
   });
   pickrs[p].on('init', (...args) => {
     var color = args[0]["_color"].toHEXA().toString();
     lineColors[p] = color;
-    Console.log(color);
     Data.Set("color_" + p, color);
   });
 }
@@ -163,7 +173,6 @@ function drawCurves() {
       c.textAlign = "left";
     }
     c.fillText((l*gridSpace).toString(), xPixel, canvas.height-5);
-    console.log((l*gridSpace), xPixel, yPixel);
   }
 
   // X Lines
@@ -245,7 +254,6 @@ function initInput() {
 }
 
 function updateInput() {
-  Console.log(this.getAttribute("index"));
   exprs[this.getAttribute("index")] = this.value;
   Data.Set("exprs_" + this.getAttribute("index"), this.value);
 
@@ -331,7 +339,6 @@ function zoom (clicks) {
         y: lastY
       };
       mouseWheelTotal += clicks;
-      Console.log("scrolling");
 			//c.translate(pt.x,pt.y);
       scale=Math.pow(1.1,mouseWheelTotal),
       xMin = -11/scale,
