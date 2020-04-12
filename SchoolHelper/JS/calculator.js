@@ -90,11 +90,10 @@ for (var a = 0; a < inputs.length;) {
         inputs[a + 1].setAttribute('value', JSON.parse(Data.Get("exprs_" + a))[Options.getItem("mode")][1]);
       }
       try {
-        console.log(exprs);
         trees[a] = math.parse(exprs[a][0], scope);
         trees[a+1] = math.parse(exprs[a][1], scope);
       } catch (err) {
-        console.error(err);
+        //console.error(err);
       }
       a+=2;
     }
@@ -324,7 +323,7 @@ function updateInput() {
     try {
       trees[h] = math.parse(exprs[h], scope);
     } catch (err) {
-      console.error(err);
+
     }
   }
   drawCurves();
