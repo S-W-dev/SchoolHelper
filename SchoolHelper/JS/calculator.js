@@ -99,10 +99,12 @@ for (var a = 0; a < inputs.length;) {
     }
 }
 
-for (var z = 0; z < inputs.length; z++) {
+var pickers = (inputs.length)/2;
 
+for (var z = 0; z < pickers; z++) {
+  console.log(z);
+  console.log(inputs.length)
       lineColors[z] = "#42445A"; // Set all lines to default color
-try{
   var pickr = Pickr.create({
     el: '.color-picker-' + z,
     theme: 'nano',
@@ -147,7 +149,6 @@ try{
       }
     }
   });
-}catch{}
   pickrs.push(pickr);
   handlePicker(z);
 
