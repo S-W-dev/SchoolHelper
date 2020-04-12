@@ -20,8 +20,8 @@ if (graphMode == 'function') {
   for (var inputs = 0; inputs < Options.getItem('numOfInputs'); inputs++) {
     $("#function-inputs").append("\
     <div class='function-input-group'>\
-      <p class='function-input-text'>x<sub>" + (inputs + 1) + "</sub>=</p><input index='" + -inputs + "' class='function-input' type='text' name='function-input' value='' placeholder='Enter a function'>\
-      <p class='function-input-text'>y<sub>" + (inputs + 1) + "</sub>=</p><input index='" + inputs + "' class='function-input' type='text' name='function-input' value='' placeholder='Enter a function'><div class='color-picker-" + inputs + "'></div>\
+      <p class='function-input-text'>x<sub>" + (inputs + 1) + "</sub>=</p><input index='" + (2*inputs+1) + "' class='function-input' type='text' name='function-input' value='' placeholder='Enter a function'>\
+      <p class='function-input-text'>y<sub>" + (inputs + 1) + "</sub>=</p><input index='" + (2*inputs+2) + "' class='function-input' type='text' name='function-input' value='' placeholder='Enter a function'><div class='color-picker-" + inputs + "'></div>\
     </div>\
     ");
   }
