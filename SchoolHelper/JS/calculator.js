@@ -90,16 +90,15 @@ for (var a = 0; a < inputs.length;) {
         inputs[a + 1].setAttribute('value', JSON.parse(Data.Get("exprs_" + a))[Options.getItem("mode")][1]);
       }
       try {
-        trees[a] = math.parse(exprs[a], scope);
-        trees[a+1] = math.parse(exprs[a], scope);
+        console.log(exprs);
+        trees[a] = math.parse(exprs[a][0], scope);
+        trees[a+1] = math.parse(exprs[a][1], scope);
       } catch (err) {
         console.error(err);
       }
       a+=2;
     }
 }
-
-drawCurves();
 
 for (var z = 0; z < inputs.length; z++) {
 
@@ -281,6 +280,7 @@ function evaluateMathExpr(arg, ind) {
 function initInput() {
   $("#function-inputs").delegate("input", "keyup", updateInput);
   $("#function-inputs").delegate("input", "change", updateInput);
+  $("#function-inputs").delegate("input", "init", updateInput);
 }
 
 function updateInput() {
