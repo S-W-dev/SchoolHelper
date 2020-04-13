@@ -20,7 +20,7 @@ if (graphMode == 'function') {
   for (var inputs = 0; inputs < Options.getItem('numOfInputs'); inputs++) {
     $("#function-inputs").append("\
     <div class='function-input-group'>\
-      <p class='function-input-text'>x<sub>" + (inputs + 1) + "</sub>=</p><input index='" + (2*inputs+0) + "' class='function-input' type='text' name='function-input' value='' placeholder='Enter a function'>\
+      <p class='function-input-text'>x<sub>" + (inputs + 1) + "</sub>=</p><input index='" + (2*inputs) + "' class='function-input' type='text' name='function-input' value='' placeholder='Enter a function'>\
       <p class='function-input-text'>y<sub>" + (inputs + 1) + "</sub>=</p><input index='" + (2*inputs+1) + "' class='function-input' type='text' name='function-input' value='' placeholder='Enter a function'><div class='color-picker-" + inputs + "'></div>\
     </div>\
     ");
@@ -29,6 +29,8 @@ if (graphMode == 'function') {
 
 var canvas = document.getElementById('graph-canvas'),
   lineColors = [],
+  tOrigMin = -100,
+  tOrigMax = 100,
 
   c = canvas.getContext('2d'),
   n = 500, // # of line segments
@@ -43,6 +45,8 @@ var canvas = document.getElementById('graph-canvas'),
   xMax = 11/scale,
   yMin = -11/scale,
   yMax = 11/scale,
+  tMax = tOrigMax, //parametric
+  tMin = tOrigMin,
 
   origin = {
     x: 0,
@@ -51,10 +55,14 @@ var canvas = document.getElementById('graph-canvas'),
 
   math = mathjs(),
   exprs = [],
-  scope = {
+  functionScope = {
     x: 0,
     t: 0
   },
+  parametricScope = {
+    t: 0
+  },
+
   trees = [],
 
   pickrs = [],
@@ -67,7 +75,7 @@ for (var a = 0; a < inputs.length;) {
     try{exprs[a] = (JSON.parse(Data.Get("exprs_" + a))[Options.getItem("mode")])} catch {
       Data.Set("exprs_" + a, `{"function":"","parametric":["",""]}`)
     };
-    console.log(Data.Get("exprs_" + a));
+    //console.log(Data.Get("exprs_" + a));
     // Set exprs elements
     if (Options.getItem("mode") == "function") {
       if (exprs[a] == undefined) {
@@ -76,7 +84,7 @@ for (var a = 0; a < inputs.length;) {
         inputs[a].setAttribute('value', JSON.parse(Data.Get("exprs_" + a))[Options.getItem("mode")]);
       }
       try {
-        trees[a] = math.parse(exprs[a], scope);
+        trees[a] = math.parse(exprs[a], functionScope);
       } catch {
 
       }
@@ -90,8 +98,9 @@ for (var a = 0; a < inputs.length;) {
         inputs[a + 1].setAttribute('value', JSON.parse(Data.Get("exprs_" + a))[Options.getItem("mode")][1]);
       }
       try {
-        trees[a] = math.parse(exprs[a][0], scope);
-        trees[a+1] = math.parse(exprs[a][1], scope);
+        trees[a] = math.parse(exprs[a][0], parametricScope);
+        console.log(exprs);
+        trees[a+1] = math.parse(exprs[a][1], parametricScope);
       } catch (err) {
         //console.error(err);
       }
@@ -99,11 +108,12 @@ for (var a = 0; a < inputs.length;) {
     }
 }
 
-for (var z = 0; z < inputs.length; z++) {
+var pickers = (inputs.length)/2;
 
-      lineColors[z] = "#42445A"; // Set all lines to default color
-try{
-  var pickr = Pickr.create({
+for (var z = 0; z < pickers; z++) {
+
+    lineColors[z] = "#42445A"; // Set all lines to default color
+    var pickr = Pickr.create({
     el: '.color-picker-' + z,
     theme: 'nano',
     position: 'top-end',
@@ -147,15 +157,19 @@ try{
       }
     }
   });
-}catch{}
   pickrs.push(pickr);
   handlePicker(z);
 
 }
 
-drawCurves();
+
 initInput();
-startAnimation();
+if(Options.getItem('mode')=='function') {
+  drawCurvesFunction();
+  startAnimation();
+} else if(Options.getItem('mode')=='parametric') {
+  drawCurvesParametric();
+}
 
 function handlePicker(p) {
   pickrs[p].on('save', (...args) => {
@@ -170,13 +184,9 @@ function handlePicker(p) {
   });
 }
 
-function drawCurves() {
+function drawGrid() {
   var percentX, percentY, // Between 0 and 1
-    mathX, mathYs = [], //Math Coordinates
     xPixel, yPixel; // Canvas Coordinates
-
-  c.clearRect(0, 0, canvas.width, canvas.height);
-
 
   //Draw grid
   c.strokeStyle = "#00000020";
@@ -241,6 +251,16 @@ function drawCurves() {
   c.moveTo(xPixel, 0);
   c.lineTo(xPixel, canvas.height);
   c.stroke();
+}
+
+function drawCurvesFunction() {
+  var percentX, percentY, // Between 0 and 1
+    mathX, mathYs = [], //Math Coordinates
+    xPixel, yPixel; // Canvas Coordinates
+
+  c.clearRect(0, 0, canvas.width, canvas.height);
+
+  drawGrid();
 
   for (var j = 0; j < inputs.length; j++) { //Draw Curves
     c.strokeStyle = lineColors[j];
@@ -262,11 +282,46 @@ function drawCurves() {
     c.stroke();
   }
 
-} // drawCurves()
+} // drawCurvesFunction()
+
+function drawCurvesParametric() {
+  var percentT, percentX, percentY, // Between 0 and 1
+    mathT, mathXs = [], mathYs = [], //Math Coordinates
+    xPixel, yPixel; // Canvas Coordinates
+
+  c.clearRect(0, 0, canvas.width, canvas.height);
+
+  drawGrid();
+
+  for (var j = 0; j < inputs.length; j++) { //Draw Curves
+    c.strokeStyle = lineColors[j];
+    c.lineWidth = 1;
+    c.beginPath();
+    for (var i = 0; i < n; i++) {
+      percentT = i / (n - 1);
+
+      mathT = percentT * (tMax - tMin) + tMin;
+      mathXs[j] = evaluateMathExpr(mathT, (2*j)) - origin.x;
+      mathYs[j] = evaluateMathExpr(mathT, (2*j+1)) + origin.y;
+      percentX = (mathXs[j] - xMin) / (xMax - xMin);
+      percentY = (mathYs[j] - yMin) / (yMax - yMin);
+      percentY = 1 - percentY; //flip Y
+      xPixel = percentX * canvas.width;
+      yPixel = percentY * canvas.height;
+      c.lineTo(xPixel, yPixel);
+    }
+    c.stroke();
+  }
+
+} // drawCurvesParametric()
 
 function evaluateMathExpr(arg, ind) {
-  scope.x = arg;
-  scope.t = time;
+  if(Options.getItem('mode') == 'function') {
+    functionScope.x = arg;
+    functionScope.t = time;
+  } else if (Options.getItem('mode') == 'parametric') {
+    parametricScope.t = arg;
+  }
 
   try{
     return trees[ind].eval();
@@ -279,7 +334,7 @@ function evaluateMathExpr(arg, ind) {
 function initInput() {
   $("#function-inputs").delegate("input", "keyup", updateInput);
   $("#function-inputs").delegate("input", "change", updateInput);
-  $("#function-inputs").delegate("input", "init", updateInput);
+  //$("#function-inputs").delegate("input", "init", updateInput);
 }
 
 function updateInput() {
@@ -291,42 +346,43 @@ function updateInput() {
 
   for (var h = 0; h < inputs.length; h++) {
     try {
-      trees[h] = math.parse(exprs[h], scope);
+      trees[h] = math.parse(exprs[h], functionScope);
     } catch (err) {
 
     }
     //{"function":"x", "parametric":["2*cos(t)","2*sin(t)"]}
   }
-  drawCurves();
+  drawCurvesFunction();
 } else if (Options.getItem("mode") == "parametric") {
   exprs[this.getAttribute("index")] = this.value;
-  console.log("exprs_" + (parseInt(this.getAttribute("index"))-1).toString())
-  console.log("Expression:"+Data.Get("exprs_" + this.getAttribute("index")-1));
+  //console.log("exprs_" + (parseInt(this.getAttribute("index"))-1).toString())
+  //console.log("Expression:"+Data.Get("exprs_" + this.getAttribute("index")-1));
   //val[Options.getItem("mode")] = this.value;
   if (isOdd(this.getAttribute("index")) == 0) {
       var val = JSON.parse(Data.Get("exprs_" + this.getAttribute("index")));
-    console.log("Left side changed");
+    //console.log("Left side changed");
     val[Options.getItem("mode")][0] = this.value;
     val[Options.getItem("mode")][1] = $("input")[
       (parseInt(this.getAttribute("index")) + 1)].value;
       Data.Set("exprs_" + this.getAttribute("index"), JSON.stringify(val));
   } else {
     var val = JSON.parse(Data.Get("exprs_" + (parseInt(this.getAttribute("index")) - 1).toString()));
-    console.log("Right side changed");
+    //console.log("Right side changed");
     val[Options.getItem("mode")][1] = this.value;
     val[Options.getItem("mode")][0] = $("input")[
       (parseInt(this.getAttribute("index")) - 1)].value;
         Data.Set("exprs_" + (parseInt(this.getAttribute("index")) - 1).toString(), JSON.stringify(val));
   }
 
-  for (var h = 0; h < inputs.length; h++) {
+  for (var h = 0; h < inputs.length; h+=2) {
     try {
-      trees[h] = math.parse(exprs[h], scope);
+      trees[h] = math.parse(exprs[h][0], parametricScope);
+      trees[h+1] = math.parse(exprs[h][1], parametricScope);
     } catch (err) {
 
     }
   }
-  drawCurves();
+  drawCurvesParametric();
 }
 }
 
@@ -355,7 +411,7 @@ function render() {
     timeIncrement *= -1
   }
   try {
-    drawCurves();
+    drawCurvesFunction();
   } catch (err) {
     return;
   }
@@ -389,9 +445,14 @@ canvas.addEventListener('mousemove',function(evt){
       x: lastX,
       y: lastY
     };
-		origin.x=(origin.x-(pt.x-dragStart.x)/(273*scale));
-    origin.y=(origin.y-(pt.y-dragStart.y)/(273*scale));
-		drawCurves();
+		origin.x=(origin.x-(pt.x-dragStart.x)/(546*scale));
+    origin.y=(origin.y-(pt.y-dragStart.y)/(546*scale));
+    if(Options.getItem('mode')=='function') {
+      drawCurvesFunction();
+    } else if(Options.getItem('mode')=='parametric') {
+      drawCurvesParametric();
+    }
+
 	}	},false);
 canvas.addEventListener('mouseup',function(evt){
 	dragStart = null;
@@ -412,8 +473,14 @@ function zoom (clicks) {
       xMax = 11/scale,
       yMin = -11/scale,
       yMax = 11/scale,
+      tMin = tOrigMin*1.1/scale,
+      tMax = tOrigMax*1.1/scale;
 			//c.translate(-pt.x,-pt.y);
-			drawCurves();
+      if(Options.getItem('mode')=='function') {
+        drawCurvesFunction();
+      } else if(Options.getItem('mode')=='parametric') {
+        drawCurvesParametric();
+      }
 		}
 
 function handleScroll (evt) {
