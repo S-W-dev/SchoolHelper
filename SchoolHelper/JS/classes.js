@@ -164,3 +164,31 @@ $.getJSON("../JSON/grade_rules.json", (grade_rules) => {
 });
     });
 }
+
+export class Expression {
+    static save(row, val) {
+        Data.Set("expressions", Data.Get("expressions", "{}"));
+        var expressions = Data.Get("expressions");
+        experssions = JSON.parse(expressions);
+        expressions["exprs_"+row][Options.getItem("mode")] = val;
+        Data.Set("expressions", JSON.stringify(expressions));
+    }
+
+    static get(row) {
+        return JSON.parse(Data.Get("expressions"))["exprs_" + row][Options.getItem("mode")];
+    }
+}
+
+export class Color {
+    static save(row, val) {
+        Data.Set("expressions", Data.Get("expressions", "{}"));
+        var expressions = Data.Get("expressions");
+        experssions = JSON.parse(expressions);
+        expressions["exprs_" + row]["color"] = val;
+        Data.Set("expressions", JSON.stringify(expressions));
+    }
+
+    static get(row) {
+        return JSON.parse(Data.Get("expressions"))["exprs_" + row]["color"];
+    }
+}
