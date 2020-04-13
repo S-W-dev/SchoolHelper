@@ -111,9 +111,16 @@ for (var a = 0; a < inputs.length;) {
 var pickers = (inputs.length)/2;
 
 for (var z = 0; z < pickers; z++) {
+<<<<<<< HEAD
 
     lineColors[z] = "#42445A"; // Set all lines to default color
     var pickr = Pickr.create({
+=======
+  console.log(z);
+  console.log(inputs.length)
+      lineColors[z] = "#42445A"; // Set all lines to default color
+  var pickr = Pickr.create({
+>>>>>>> 86c717626de6a863e3050098f9b56c9bd34e3161
     el: '.color-picker-' + z,
     theme: 'nano',
     position: 'top-end',
