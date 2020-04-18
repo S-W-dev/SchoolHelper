@@ -1,11 +1,21 @@
 export class Options {
     constructor(settings) {
-        console.log(settings.toString());
+        Console.log(settings.toString());
         Data.Set('settings', settings.toString()); // makes default value save
     }
 
     static getItem(x) {
         return JSON.parse(Data.Get('settings'), ["no item was found"])[x];
+    }
+
+    static setItem(x, y) {
+        var bob = JSON.parse(Data.Get('settings'));
+        Console.log(bob);
+        bob[x] = y;
+        Console.log(bob);
+        Console.log(x, y);
+        Console.log(location.pathname)
+        Data.Set('settings', JSON.stringify(bob));
     }
 
 }
@@ -18,7 +28,7 @@ export class Reminder {
 
 export class Reminders {
     constructor(reminders) {
-        console.log(reminders.toString())
+        Console.log(reminders.toString())
         Data.Set('reminders', reminders.toString()); // makes default value save
     }
 
@@ -75,6 +85,8 @@ export class Data {
         console.log(key);
         console.log(val);
         localStorage[key] = val;
+        Console.log("currentPage: " + Options.getItem('currentPage'))
+        Console.log("settings: " + Data.Get("settings"))
     }
 
     static Get(key, def) {
@@ -108,6 +120,19 @@ export var Console = {
 };
 
 export function LoadNav() {
+    Console.log("Loading nav");
+    Console.log("stored Page: " + Options.getItem('currentPage'))
+    Console.log("Current Page: " + window.location.pathname)
+    Console.log("settings: " + Data.Get("settings"))
+    var location = window.location.pathname;
+    if (Options.getItem('currentPage') == location) {
+        Options.setItem('currentPage', window.location.pathname);
+    } else {
+        var x = Options.getItem('currentPage')
+        Options.setItem('currentPage', window.location.pathname);
+        Console.log("Navigating to correct page: " + x + " from page: " + window.location.pathname)
+
+    }
     $('header').load("../HTML/navbar.html", function() {
 Console.log("Header loaded");
 Load();
@@ -162,6 +187,16 @@ $.getJSON("../JSON/grade_rules.json", (grade_rules) => {
         $("#custom_pages").append(div);
     }
 });
+
+        $("#home").on('click', () => {
+
+            Options.setItem('currentPage', '/popup.html');
+
+            window.location.href = "/popup.html";
+
+        });
+
+
     });
 }
 

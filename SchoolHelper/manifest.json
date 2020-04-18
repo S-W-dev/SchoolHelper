@@ -11,7 +11,5 @@
         "page": "HTML/background.html",
         "persistent": false
     },
-    "options_page": "/HTML/options.html",
-    "content_security_policy":"script-src 'self'; object-src 'self'"
-
+    "options_page": "/HTML/options.html"
 }

@@ -12,11 +12,15 @@ import {
 class Popup {
     constructor() {
         // initialize stuff
-        new Options(Data.Get('settings', '{"debug": "true", "theme": "dark", "grade":"8", "mode":"function", "numOfInputs":"10"}'));
+        new Options(Data.Get('settings', '{"debug": "true", "theme": "dark", "grade":"8", "mode":"function", "numOfInputs":"10", "currentPage":"/popup.html"}'));
         new Reminders(Data.Get('reminders', '[]'));
 
-        LoadNav();
+        if (Options.getItem('currentPage') != window.location.pathname) {
+            window.location.href = window.location.protocol + "//" + window.location.host + Options.getItem("currentPage");
+        }
 
+        LoadNav();
+        
         var theme = Options.getItem('theme');
 
         if (theme == "dark") {
