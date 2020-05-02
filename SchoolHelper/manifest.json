@@ -5,6 +5,7 @@
     "manifest_version": 2,
     "permissions": ["storage", "activeTab", "alarms"],
     "browser_action": {
+        "default_icon": "SHLogo.png",
         "default_popup": "popup.html"
     },
     "background": {
