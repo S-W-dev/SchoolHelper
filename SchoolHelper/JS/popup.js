@@ -32,9 +32,6 @@ class Popup {
             $("body").addClass(`bg-secondary-light`)
         }
 
-        // create main page content based on grade level
-        $("#content").load("./HTML/grade_pages/" + Options.getItem('grade') + "_grade.html");
-
         var grade_rules = Data.Get("grade_rules", `{"grade":[{"allowed_pages":[],"allowed_links":[]},{"allowed_pages":[],"allowed_links":[]},{"allowed_pages":[],"allowed_links":[]},{"allowed_pages":[],"allowed_links":[]},{"allowed_pages":[],"allowed_links":[]},{"allowed_pages":[],"allowed_links":[]},{"allowed_pages":["mini_calculator"],"allowed_links":[]},{"allowed_pages":["calculator","graphing_calculator"],"allowed_links":[]},{"allowed_pages":["calculator","graphing_calculator"],"allowed_links":[]},{"allowed_pages":["calculator","graphing_calculator"],"allowed_links":[]},{"allowed_pages":["calculator","graphing_calculator"],"allowed_links":[]},{"allowed_pages":["calculator","graphing_calculator"],"allowed_links":[]},{"allowed_pages":["calculator","graphing_calculator"],"allowed_links":[]},{"allowed_pages":["mini_calculator","calculator","graphing_calculator","teacher"],"allowed_links":[]}]}`);
 
             grade_rules = JSON.parse(grade_rules);
@@ -59,7 +56,7 @@ class Popup {
     }
 
     Main() {
-        
+
 
         //easter eggs
 
@@ -78,14 +75,11 @@ class Popup {
             }
 
             buffer.push(key);
-            console.log(buffer);
-            
+
             // rainbow theme
             if (buffer.toString() == rainbow.toString()) {
                 Options.setItem("theme", "rainbow");
                 location.reload();
-            } else {
-                console.log(buffer, rainbow);
             }
 
         });
