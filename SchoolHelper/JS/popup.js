@@ -64,7 +64,7 @@ class Popup {
         //easter eggs
 
         var buffer = [];
-        var allowed = ["a", "b", "arrowup", "arrowdown", "arrowleft", "arrowright"];
+        var allowed = ["a", "b", "arrowup", "arrowdown", "arrowleft", "arrowright", "enter"];
 
         var rainbow = ["arrowup", "arrowup", "arrowdown", "arrowdown", "arrowleft", "arrowright", "arrowleft", "arrowright", "b", "a", "enter"];
 
@@ -81,9 +81,11 @@ class Popup {
             console.log(buffer);
             
             // rainbow theme
-            if (buffer = rainbow) {
+            if (buffer.toString() == rainbow.toString()) {
                 Options.setItem("theme", "rainbow");
                 location.reload();
+            } else {
+                console.log(buffer, rainbow);
             }
 
         });
