@@ -63,3 +63,7 @@ let save = (id) => {
 
 LoadNav();
 load();
+
+$("select").on('change', function () {
+    location.reload();
+});
