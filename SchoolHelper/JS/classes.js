@@ -21,8 +21,12 @@ export class Options {
 }
 
 export class Reminder {
-    constructor (name, link, time) {
-        return {name:name, link:link, time:time}
+    constructor(name, link, time) {
+        return {
+            name: name,
+            link: link,
+            time: time
+        }
     }
 }
 
@@ -41,6 +45,7 @@ export class Reminders {
     }
 
     static set(reminder) {
+        console.log(reminder);
         var reminders = JSON.parse(Data.Get('reminders'));
         reminders.push(JSON.parse(JSON.stringify(reminder).replace(" ", "_")));
         Console.log(reminders);
@@ -48,7 +53,14 @@ export class Reminders {
         // Console.log(reminders.toString());
         Console.log(reminders);
         reminders = JSON.stringify(reminders);
-        Data.Set("reminders", reminders)
+        Data.Set("reminders", reminders);
+
+        // create the actual reminder part
+
+        chrome.alarms.create(reminder.name, {
+            when: reminder.time.toString().replace("")
+        });
+
     }
 
     static createReminder() {
@@ -111,10 +123,10 @@ export function Load() {
     $(".navbar").addClass(`navbar-${theme} bg-${theme}`);
     $("body").removeClass('bg-secondary-light bg-secondary-dark bg-secondary-rainbow');
     $("body").addClass(`bg-secondary-${theme}`);
+    $(".select").removeClass('bg-secondary-light bg-secondary-dark bg-secondary-rainbow');
+    $(".select").addClass(`bg-secondary-${theme}`);
     $("#GearIcon").attr('src', `/gear-icon-${theme}.png`);
     Console.log(`Changing gear icon: gear-icon-${theme}.png`);
-    //$("#GearIcon").removeClass('gear-icon-light gear-icon-dark gear-icon-rainbow');
-    //$("#GearIcon").addClass(`gear-icon-${theme}`);
 }
 
 export var Console = {
@@ -139,60 +151,60 @@ export function LoadNav() {
         Console.log("Navigating to correct page: " + x + " from page: " + window.location.pathname)
 
     }
-    $('header').load("../HTML/navbar.html", function() {
-Console.log("Header loaded");
-Load();
-$.getJSON("../JSON/grade_rules.json", (grade_rules) => {
+    $('header').load("../HTML/navbar.html", function () {
+        Console.log("Header loaded");
+        Load();
+        $.getJSON("../JSON/grade_rules.json", (grade_rules) => {
 
-    Console.log(grade_rules);
-    var grade = Options.getItem('grade');
-    if (grade == 'k') {
-        grade = '0';
-    } else if (grade == 'teacher') grade = '13';
-    grade = parseInt(grade);
-    var current_grade_rules = grade_rules.grade[grade];
+            Console.log(grade_rules);
+            var grade = Options.getItem('grade');
+            if (grade == 'k') {
+                grade = '0';
+            } else if (grade == 'teacher') grade = '13';
+            grade = parseInt(grade);
+            var current_grade_rules = grade_rules.grade[grade];
 
-    // add in all allowed pages
-    for (var i = 0; i < current_grade_rules.allowed_pages.length; i += 3) {
-        var div = $(`<div class="row"></div>`);
-        try {
-            var col = $(`<div class="col-4"></div>`);
+            // add in all allowed pages
+            for (var i = 0; i < current_grade_rules.allowed_pages.length; i += 3) {
+                var div = $(`<div class="row"></div>`);
+                try {
+                    var col = $(`<div class="col-4"></div>`);
 
-            col.append(`<li class="nav-item"><a href="/HTML/${current_grade_rules.allowed_pages[i]}.html" class="nav-link">${current_grade_rules.allowed_pages[i].replace("_", " ")}</a></li>`)
-            div.append(col);
-        } catch {
-            var col = $(`<div class="col-4"></div>`);
+                    col.append(`<li class="nav-item"><a href="/HTML/${current_grade_rules.allowed_pages[i]}.html" class="nav-link">${current_grade_rules.allowed_pages[i].replace("_", " ")}</a></li>`)
+                    div.append(col);
+                } catch {
+                    var col = $(`<div class="col-4"></div>`);
 
-            col.append(`<li class="nav-item"><a href="#" class="nav-link"></a></li>`)
-            div.append(col);
-        }
-        try {
-            var col = $(`<div class="col-4"></div>`);
+                    col.append(`<li class="nav-item"><a href="#" class="nav-link"></a></li>`)
+                    div.append(col);
+                }
+                try {
+                    var col = $(`<div class="col-4"></div>`);
 
-            col.append(`<li class="nav-item"><a href="/HTML/${current_grade_rules.allowed_pages[i+1]}.html" class="nav-link">${current_grade_rules.allowed_pages[i+1].replace("_", " ")}</a></li>`)
-            div.append(col);
-        } catch {
-            var col = $(`<div class="col-4"></div>`);
+                    col.append(`<li class="nav-item"><a href="/HTML/${current_grade_rules.allowed_pages[i+1]}.html" class="nav-link">${current_grade_rules.allowed_pages[i+1].replace("_", " ")}</a></li>`)
+                    div.append(col);
+                } catch {
+                    var col = $(`<div class="col-4"></div>`);
 
-            col.append(`<li class="nav-item"><a href="#" class="nav-link"></a></li>`)
-            div.append(col);
-        }
+                    col.append(`<li class="nav-item"><a href="#" class="nav-link"></a></li>`)
+                    div.append(col);
+                }
 
-        try {
-            var col = $(`<div class="col-4"></div>`);
+                try {
+                    var col = $(`<div class="col-4"></div>`);
 
-            col.append(`<li class="nav-item"><a href="/HTML/${current_grade_rules.allowed_pages[i+2]}.html" class="nav-link">${current_grade_rules.allowed_pages[i+2].replace("_", " ")}</a></li>`)
-            div.append(col);
-            $("#custom_pages").append(``);
-        } catch {
-            var col = $(`<div class="col-4"></div>`);
+                    col.append(`<li class="nav-item"><a href="/HTML/${current_grade_rules.allowed_pages[i+2]}.html" class="nav-link">${current_grade_rules.allowed_pages[i+2].replace("_", " ")}</a></li>`)
+                    div.append(col);
+                    $("#custom_pages").append(``);
+                } catch {
+                    var col = $(`<div class="col-4"></div>`);
 
-            col.append(`<li class="nav-item"><a href="#" class="nav-link"></a></li>`)
-            div.append(col);
-        }
-        $("#custom_pages").append(div);
-    }
-});
+                    col.append(`<li class="nav-item"><a href="#" class="nav-link"></a></li>`)
+                    div.append(col);
+                }
+                $("#custom_pages").append(div);
+            }
+        });
 
         $("#home").on('click', () => {
 
@@ -211,7 +223,7 @@ export class Expression {
         Data.Set("expressions", Data.Get("expressions", "{}"));
         var expressions = Data.Get("expressions");
         experssions = JSON.parse(expressions);
-        expressions["exprs_"+row][Options.getItem("mode")] = val;
+        expressions["exprs_" + row][Options.getItem("mode")] = val;
         Data.Set("expressions", JSON.stringify(expressions));
     }
 
