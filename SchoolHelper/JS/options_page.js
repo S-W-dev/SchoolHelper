@@ -12,7 +12,7 @@ $('#'+items[x]).click(() => {
 });
 }
 
-var items = ["theme", "grade", "debug", "mode", "numOfInputs"];
+var items = ["theme", "grade", "debug"];
 
 let load = () => {
 
