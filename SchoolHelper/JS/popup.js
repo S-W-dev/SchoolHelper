@@ -59,7 +59,35 @@ class Popup {
     }
 
     Main() {
-        // main function (remember I said object oriented oof)
+        
+
+        //easter eggs
+
+        var buffer = [];
+        var allowed = ["a", "b", "arrowup", "arrowdown", "arrowleft", "arrowright"];
+
+        var rainbow = ["arrowup", "arrowup", "arrowdown", "arrowdown", "arrowleft", "arrowright", "arrowleft", "arrowright", "b", "a", "enter"];
+
+        document.addEventListener('keydown', event => {
+
+            const key = event.key.toLowerCase();
+
+            if (!allowed.includes(key)) {
+                buffer = [];
+                return;
+            }
+
+            buffer.push(key);
+            console.log(buffer);
+            
+            // rainbow theme
+            if (buffer = rainbow) {
+                Options.setItem("theme", "rainbow");
+            }
+
+        });
+
+
     }
 
 }
