@@ -213,6 +213,13 @@ export function LoadNav() {
             window.location.href = "/popup.html";
 
         });
+        $("#home2").on('click', () => {
+
+            Options.setItem('currentPage', '/popup.html');
+
+            window.location.href = "/popup.html";
+
+        });
 
 
     });
