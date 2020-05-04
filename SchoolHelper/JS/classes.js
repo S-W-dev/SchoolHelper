@@ -52,7 +52,7 @@ export class Reminders {
     }
 
     static createReminder() {
-        
+
     }
 }
 
@@ -107,8 +107,14 @@ export class Data {
 // theme loader
 export function Load() {
     var theme = Options.getItem('theme');
-    $(".navbar").addClass(`navbar-${theme} bg-${theme}`)
-    $("body").addClass(`bg-secondary-${theme}`)
+    $(".navbar").removeClass('navbar-light navbar-dark navbar-rainbow bg-light bg-dark bg-rainbow');
+    $(".navbar").addClass(`navbar-${theme} bg-${theme}`);
+    $("body").removeClass('bg-secondary-light bg-secondary-dark bg-secondary-rainbow');
+    $("body").addClass(`bg-secondary-${theme}`);
+    $("#GearIcon").attr('src', `/gear-icon-${theme}.png`);
+    Console.log(`Changing gear icon: gear-icon-${theme}.png`);
+    //$("#GearIcon").removeClass('gear-icon-light gear-icon-dark gear-icon-rainbow');
+    //$("#GearIcon").addClass(`gear-icon-${theme}`);
 }
 
 export var Console = {
