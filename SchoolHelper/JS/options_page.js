@@ -16,14 +16,18 @@ $('#create-link-submit').on('click',function(){
     var grade_rules = Data.Get("grade_rules", `{"grade":[{"allowed_pages":[],"allowed_links":[]},{"allowed_pages":[],"allowed_links":[]},{"allowed_pages":[],"allowed_links":[]},{"allowed_pages":[],"allowed_links":[]},{"allowed_pages":[],"allowed_links":[]},{"allowed_pages":[],"allowed_links":[]},{"allowed_pages":["mini_calculator"],"allowed_links":[]},{"allowed_pages":["calculator","graphing_calculator"],"allowed_links":[]},{"allowed_pages":["calculator","graphing_calculator"],"allowed_links":[]},{"allowed_pages":["calculator","graphing_calculator"],"allowed_links":[]},{"allowed_pages":["calculator","graphing_calculator"],"allowed_links":[]},{"allowed_pages":["calculator","graphing_calculator"],"allowed_links":[]},{"allowed_pages":["calculator","graphing_calculator"],"allowed_links":[]},{"allowed_pages":["mini_calculator","calculator","graphing_calculator","teacher"],"allowed_links":[]}]}`);
       console.log(grade_rules);
       grade_rules = JSON.parse(grade_rules);
+      var link=$("#create-link-link").val()
+      if(!link.includes("http://")&&!link.includes("https://")) {
+        link = "http://" + link;
+      }
       for (var i = 0; i < grade_rules["grade"].length; i++) {
           console.log({
               "name": $("#create-link-title").val(),
-              "link": $("#create-link-link").val()
+              "link": link
           });
         grade_rules["grade"][i]["allowed_links"].push({
             "name": $("#create-link-title").val(),
-            "link": $("#create-link-link").val()
+            "link": link
         });
       }
       Data.Set("grade_rules", JSON.stringify(grade_rules))
