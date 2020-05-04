@@ -83,6 +83,7 @@ class Popup {
             // rainbow theme
             if (buffer = rainbow) {
                 Options.setItem("theme", "rainbow");
+                buffer = [];
             }
 
         });
