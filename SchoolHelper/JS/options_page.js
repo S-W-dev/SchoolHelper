@@ -12,6 +12,17 @@ $('#'+items[x]).click(() => {
 });
 }
 
+$('#create-link-submit').on('click',function(){
+    $.getJSON("../JSON/grade_rules.json", (grade_rules) => {
+      console.log(grade_rules);
+      //grade_rules = JSON.parse(grade_rules);
+      var grade = grade_rules["grade"];
+      for (var i = 0; i < grade.length; i++) {
+        grade[i]["allowed_links"].push({"name": $("#create-link-title").value, "link": $("#create-link-link").value});
+      }
+  });
+});
+
 var items = ["theme", "grade", "debug"];
 
 let load = () => {
