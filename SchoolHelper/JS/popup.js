@@ -34,7 +34,8 @@ class Popup {
         // create main page content based on grade level
 
         $("#content").load("./HTML/grade_pages/" + Options.getItem('grade') + "_grade.html");
-        $.getJSON("../JSON/grade_rules.json", (grade_rules) => {
+
+        var grade_rules = JSON.parse(Data.Get("grade_rules"));
 
             Console.log(grade_rules);
             var grade = Options.getItem('grade');
@@ -45,12 +46,12 @@ class Popup {
             var current_grade_rules = grade_rules.grade[grade];
             // add in allowed links
             for (var i = 0; i < current_grade_rules.allowed_links.length; i++) {
-                $("#content2").append(`<br><a href="${current_grade_rules.allowed_links[i]}">${current_grade_rules.allowed_links[i].replace("_", " ")}</a>`);
+                $("#content2").append(`<br><a href="${current_grade_rules.allowed_links[i]["link"]}">${current_grade_rules.allowed_links[i]["name"]}</a>`);
             }
 
             Console.log(current_grade_rules);
 
-        });
+
 
         this.Main();
     }

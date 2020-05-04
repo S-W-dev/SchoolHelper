@@ -57,8 +57,11 @@ export class Reminders {
 
         // create the actual reminder part
 
+        var x = new Date();
+        x.setMinutes(x.getMinutes()+parseInt(reminder.time.toString().split(":")[0]) * 60 + parseInt(reminder.time.toString().split(":")[1]))
+
         chrome.alarms.create(reminder.name, {
-            when: reminder.time.toString().replace("")
+            when: x
         });
 
     }

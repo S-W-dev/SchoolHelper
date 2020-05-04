@@ -13,14 +13,20 @@ $('#'+items[x]).click(() => {
 }
 
 $('#create-link-submit').on('click',function(){
-    $.getJSON("../JSON/grade_rules.json", (grade_rules) => {
+    var grade_rules = Data.Get("grade_rules", `{"grade":[{"allowed_pages":[],"allowed_links":[]},{"allowed_pages":[],"allowed_links":[]},{"allowed_pages":[],"allowed_links":[]},{"allowed_pages":[],"allowed_links":[]},{"allowed_pages":[],"allowed_links":[]},{"allowed_pages":[],"allowed_links":[]},{"allowed_pages":["mini_calculator"],"allowed_links":[]},{"allowed_pages":["calculator","graphing_calculator"],"allowed_links":[]},{"allowed_pages":["calculator","graphing_calculator"],"allowed_links":[]},{"allowed_pages":["calculator","graphing_calculator"],"allowed_links":[]},{"allowed_pages":["calculator","graphing_calculator"],"allowed_links":[]},{"allowed_pages":["calculator","graphing_calculator"],"allowed_links":[]},{"allowed_pages":["calculator","graphing_calculator"],"allowed_links":[]},{"allowed_pages":["mini_calculator","calculator","graphing_calculator","teacher"],"allowed_links":[]}]}`);
       console.log(grade_rules);
-      //grade_rules = JSON.parse(grade_rules);
-      var grade = grade_rules["grade"];
-      for (var i = 0; i < grade.length; i++) {
-        grade[i]["allowed_links"].push({"name": $("#create-link-title").value, "link": $("#create-link-link").value});
+      grade_rules = JSON.parse(grade_rules);
+      for (var i = 0; i < grade_rules["grade"].length; i++) {
+          console.log({
+              "name": $("#create-link-title").val(),
+              "link": $("#create-link-link").val()
+          });
+        grade_rules["grade"][i]["allowed_links"].push({
+            "name": $("#create-link-title").val(),
+            "link": $("#create-link-link").val()
+        });
       }
-  });
+      Data.Set("grade_rules", JSON.stringify(grade_rules))
 });
 
 var items = ["theme", "grade", "debug"];
