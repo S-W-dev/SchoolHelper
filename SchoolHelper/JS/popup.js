@@ -14,6 +14,7 @@ class Popup {
         // initialize stuff
         new Options(Data.Get('settings', '{"debug": "true", "theme": "dark", "grade":"8", "mode":"function", "numOfInputs":"10", "currentPage":"/popup.html"}'));
         new Reminders(Data.Get('reminders', '[]'));
+        
 
         if (Options.getItem('currentPage') != window.location.pathname) {
             window.location.href = window.location.protocol + "//" + window.location.host + Options.getItem("currentPage");
@@ -35,7 +36,8 @@ class Popup {
 
         $("#content").load("./HTML/grade_pages/" + Options.getItem('grade') + "_grade.html");
 
-        var grade_rules = JSON.parse(Data.Get("grade_rules"));
+        var grade_rules = Data.Get("grade_rules", `{"grade":[{"allowed_pages":[],"allowed_links":[]},{"allowed_pages":[],"allowed_links":[]},{"allowed_pages":[],"allowed_links":[]},{"allowed_pages":[],"allowed_links":[]},{"allowed_pages":[],"allowed_links":[]},{"allowed_pages":[],"allowed_links":[]},{"allowed_pages":["mini_calculator"],"allowed_links":[]},{"allowed_pages":["calculator","graphing_calculator"],"allowed_links":[]},{"allowed_pages":["calculator","graphing_calculator"],"allowed_links":[]},{"allowed_pages":["calculator","graphing_calculator"],"allowed_links":[]},{"allowed_pages":["calculator","graphing_calculator"],"allowed_links":[]},{"allowed_pages":["calculator","graphing_calculator"],"allowed_links":[]},{"allowed_pages":["calculator","graphing_calculator"],"allowed_links":[]},{"allowed_pages":["mini_calculator","calculator","graphing_calculator","teacher"],"allowed_links":[]}]}`);
+
 
             Console.log(grade_rules);
             var grade = Options.getItem('grade');
