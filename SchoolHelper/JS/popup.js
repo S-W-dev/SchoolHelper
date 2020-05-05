@@ -45,7 +45,7 @@ class Popup {
             var current_grade_rules = grade_rules.grade[grade];
             // add in allowed links
             for (var i = 0; i < current_grade_rules.allowed_links.length; i++) {
-                $("#content2").append(`<br><a target="_blank" href="${current_grade_rules.allowed_links[i]["link"]}">${current_grade_rules.allowed_links[i]["name"]}</a>`);
+                $("#content").append(`<br><a target="_blank" href="${current_grade_rules.allowed_links[i]["link"]}">${current_grade_rules.allowed_links[i]["name"]}</a><button class="" style="float: right; height: 30px"; vertical-align: middle;>X</button>`);
             }
 
             Console.log(current_grade_rules);
