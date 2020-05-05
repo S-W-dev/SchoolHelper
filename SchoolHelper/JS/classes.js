@@ -72,6 +72,19 @@ export class Reminders {
         // chrome.alarms.create(reminder.name, {
         //     when: x
         // });
+        
+        var x = new Date();
+        var item = reminder.date.split("-");
+        x.setFullYear(parseInt(item[0]))
+        x.setMonth(parseInt(item[1]) - 1)
+        x.setDate(parseInt(item[2]))
+        item = reminder.time.split(":");
+        x.setHours(parseInt(item[0]));
+        x.setMinutes(parseInt(item[1]));
+        chrome.alarms.create(reminder.name, {
+            when: x.getTime()
+        });
+
 
     }
 
