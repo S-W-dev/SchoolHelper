@@ -51,7 +51,7 @@ export class Reminders {
 
         var date = new Date().getFullYear().toString() + "-" + (new Date().getMonth() + 1).toString() + "-" + new Date().getDate().toString();
         var time = new Date().getHours().toString() + ":" + new Date().getMinutes();
-        
+
         console.log(date, time);
 
         reminder.create = date+"_"+time;
@@ -138,7 +138,8 @@ export function Load() {
     $(".select").removeClass('bg-secondary-light bg-secondary-dark bg-secondary-rainbow');
     $(".select").addClass(`bg-secondary-${theme}`);
     $("#GearIcon").attr('src', `/gear-icon-${theme}.png`);
-    Console.log(`Changing gear icon: gear-icon-${theme}.png`);
+    $(".TextColor").removeClass(`text-light text-dark text-rainbow`)
+    $(".TextColor").addClass(`ctext-${theme}`)
 }
 
 export var Console = {

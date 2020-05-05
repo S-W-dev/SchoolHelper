@@ -12,12 +12,23 @@ body {
 
 .CustomLink {
   text-decoration: none;
-  color: black;
 }
 
 .CustomLink:hover {
   text-decoration: none;
-  color: rgba(0, 0, 0, .6);
+  opacity: 0.7;
+}
+
+.ctext-light {
+  color: rgba(0, 0, 0, 0.9) !important;
+}
+
+.ctext-dark {
+  color: #fff !important;
+}
+
+.ctext-rainbow {
+  color: rgba(235, 52, 211, 0.9) !important;
 }
 
 .trashicon {
@@ -37,7 +48,6 @@ body {
 
 .DeleteButton:hover {
   cursor: pointer;
-
 }
 
 .trashicon:hover {
