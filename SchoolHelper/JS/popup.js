@@ -57,7 +57,17 @@ class Popup {
 
     Main() {
 
+        var dark = true;
+
       $('.trashicon').on('click',function(){
+          if (dark) {
+              $("#trash").addClass("btn-outline-danger");
+              $("#trash").removeClass("btn-danger");              
+          } else {
+                  $("#trash").removeClass("btn-outline-danger");
+                  $("#trash").addClass("btn-danger");
+          }
+          dark=!dark;
         $(".DeleteButton").toggle();
       });
 
