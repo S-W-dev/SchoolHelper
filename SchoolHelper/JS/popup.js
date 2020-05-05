@@ -45,12 +45,12 @@ class Popup {
             var current_grade_rules = grade_rules.grade[grade];
             // add in allowed links
             for (var i = 0; i < current_grade_rules.allowed_links.length; i++) {
-                $("#content").append(`<div class="customLinkDiv"><a target="_blank" class="CustomLink" href="${current_grade_rules.allowed_links[i]["link"]}">${current_grade_rules.allowed_links[i]["name"]}</a><span class="DeleteButton">x</span></div>`);
+                $("#content").append(`<div class="customLinkDiv"><a target="_blank" class="CustomLink" href="${current_grade_rules.allowed_links[i]["link"]}">${current_grade_rules.allowed_links[i]["name"]}</a><span index="${i}" class="del DeleteButton">x</span></div>`);
             }
 
             Console.log(current_grade_rules);
 
-
+            
 
         this.Main();
     }
@@ -93,3 +93,17 @@ class Popup {
 }
 
 new Popup();
+
+
+$(document).ready(function () {
+  $(".del").on("click", function () {
+      console.log($(this))
+      var grade_rules = Data.Get("grade_rules");
+      grade_rules = JSON.parse(grade_rules);
+      for (var i = 0; i < grade_rules["grade"].length; i++) {
+          grade_rules["grade"][i]["allowed_links"].splice(1, $(this).attr('index'));
+      }
+      Data.Set("grade_rules", JSON.stringify(grade_rules))
+      location.reload();
+  });
+});

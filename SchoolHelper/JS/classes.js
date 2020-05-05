@@ -21,10 +21,11 @@ export class Options {
 }
 
 export class Reminder {
-    constructor(name, link, time) {
+    constructor(name, link, date, time) {
         return {
             name: name,
             link: link,
+            date: date,
             time: time
         }
     }
@@ -47,22 +48,30 @@ export class Reminders {
     static set(reminder) {
         console.log(reminder);
         var reminders = JSON.parse(Data.Get('reminders'));
+
+        var date = new Date().getFullYear().toString() + "-" + (new Date().getMonth() + 1).toString() + "-" + new Date().getDate().toString();
+        var time = new Date().getHours().toString() + ":" + new Date().getMinutes();
+        
+        console.log(date, time);
+
+        reminder.create = date+"_"+time;
+        reminder.datetime = reminder.date+"_"+reminder.time;
+
         reminders.push(JSON.parse(JSON.stringify(reminder).replace(" ", "_")));
         Console.log(reminders);
         // Console.log(JSON.parse(reminders));
         // Console.log(reminders.toString());
-        Console.log(reminders);
         reminders = JSON.stringify(reminders);
         Data.Set("reminders", reminders);
 
         // create the actual reminder part
 
-        var x = new Date();
-        x.setMinutes(x.getMinutes()+parseInt(reminder.time.toString().split(":")[0]) * 60 + parseInt(reminder.time.toString().split(":")[1]))
+        // var x = new Date();
+        // x.setMinutes(x.getMinutes()+parseInt(reminder.time.toString().split(":")[0]) * 60 + parseInt(reminder.time.toString().split(":")[1]))
 
-        chrome.alarms.create(reminder.name, {
-            when: x
-        });
+        // chrome.alarms.create(reminder.name, {
+        //     when: x
+        // });
 
     }
 

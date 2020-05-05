@@ -33,7 +33,7 @@ for (var i = 0; i < Reminders.getReminders().length; i++) {
 
     current_section.children()[1].value = current["name"];
     current_section.children()[2].value = current["link"];
-    current_section.children()[3].value = current["time"];
+    current_section.children()[3].value = current["datetime"];
 
     current_section.children()[0].innerHTML = current_section.children()[1].value;
 
@@ -68,6 +68,6 @@ $(".cancelbtn").on('click', () => {
 
 $(".submit").on('click', ()=>{
     // $("input[type=text]")
-    Reminders.set(new Reminder($("input[type=text]")[0].value, $("input[type=text]")[1].value, $("input[type=time]")[0].value));
+    Reminders.set(new Reminder($("input[type=text]")[0].value, $("input[type=text]")[1].value, $("input[type=date]")[0].value, $("input[type=time]")[0].value));
     location.reload();
 });
