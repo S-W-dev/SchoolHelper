@@ -25,7 +25,7 @@ chrome.alarms.onAlarm.addListener(function (alarm) {
     ]
   }, () => {
     console.log("opening window");
-    window.open("/popup.html", "extension_popup", "width=610,height=500,status=no,scrollbars=no,resizable=no")
+    window.open("/HTML/reminders.html", "extension_popup", "width=610,height=500,status=no,scrollbars=no,resizable=no")
   });
 });
 

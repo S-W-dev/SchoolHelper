@@ -8,7 +8,7 @@ LoadNav();
 
 
 var total = $("<div></div>");
-
+var arr = [];
 for (var i = 0; i < Reminders.getReminders().length; i++) {
 
     var section = $("<section></section>");
@@ -41,11 +41,17 @@ for (var i = 0; i < Reminders.getReminders().length; i++) {
 
     console.log(current_section);
 
-    total.append(current_section);
+    arr.push(current_section);
 
 }
 
-console.log(total);
+arr = arr.reverse();
+
+var ammount = 5;
+
+for (var f = 0; f < ammount; f++) {
+    total.append(arr[f]);
+}
 
 $("main").append(total);
 
