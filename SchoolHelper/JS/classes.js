@@ -56,7 +56,7 @@ export class Reminders {
 
         reminder.create = date+"_"+time;
         reminder.datetime = reminder.date+"_"+reminder.time;
-
+        var index = reminders.length;
         reminders.push(JSON.parse(JSON.stringify(reminder).replace(" ", "_")));
         Console.log(reminders);
         // Console.log(JSON.parse(reminders));
@@ -81,14 +81,10 @@ export class Reminders {
         item = reminder.time.split(":");
         x.setHours(parseInt(item[0]));
         x.setMinutes(parseInt(item[1]));
-        chrome.alarms.create(reminder.name, {
+        chrome.alarms.create(index.toString(), {
             when: x.getTime()
         });
 
-
-    }
-
-    static createReminder() {
 
     }
 }
