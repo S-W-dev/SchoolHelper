@@ -11,7 +11,7 @@ var total = $("<div></div>");
 
 for (var i = 0; i < Reminders.getReminders().length; i++) {
 
-    var section = $("<section></section");
+    var section = $("<section></section>");
     var h2 = $("<h3 class='col' id='name'></h3>");
     var input1 = $(`<input class='col' placeholder="Google meet name"></input>`);
     var input2 = $(`<input class='col' placeholder="Google meet link"></input>`);
@@ -37,6 +37,7 @@ for (var i = 0; i < Reminders.getReminders().length; i++) {
 
     current_section.children()[0].innerHTML = current_section.children()[1].value;
 
+    current_section.attr('id', i);
 
     console.log(current_section);
 

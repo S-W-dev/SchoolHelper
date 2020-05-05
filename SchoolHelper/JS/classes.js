@@ -81,6 +81,7 @@ export class Reminders {
         item = reminder.time.split(":");
         x.setHours(parseInt(item[0]));
         x.setMinutes(parseInt(item[1]));
+        x.setSeconds(0);
         chrome.alarms.create(index.toString(), {
             when: x.getTime()
         });
@@ -139,6 +140,18 @@ export class Data {
 }
 // theme loader
 export function Load() {
+
+    chrome.runtime.onMessage.addListener(
+        function (request, sender, sendResponse) {
+            console.log("Received notification");
+            if (request.msg === "notification_clicked") {
+                console.log(request.data.index)
+                $("body").append($(`<a href="/HTML/reminders.html#${request.data.index}" id="clickme"></a>`));
+                document.querySelector("#clickme").click()
+            }
+        }
+    );
+
     var theme = Options.getItem('theme');
     $(".navbar").removeClass('navbar-light navbar-dark navbar-rainbow bg-light bg-dark bg-rainbow');
     $(".navbar").addClass(`navbar-${theme} bg-${theme}`);
