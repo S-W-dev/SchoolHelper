@@ -63,9 +63,11 @@ class Popup {
           if (dark) {
               $("#trash").addClass("btn-outline-danger");
               $("#trash").removeClass("btn-danger");
+              $("#trash").attr('src', "/trash2.png");
           } else {
-                  $("#trash").removeClass("btn-outline-danger");
-                  $("#trash").addClass("btn-danger");
+              $("#trash").removeClass("btn-outline-danger");
+              $("#trash").addClass("btn-danger");
+              $("#trash").attr('src', "/trash.png");
           }
           dark=!dark;
         $(".DeleteButton").toggle();
