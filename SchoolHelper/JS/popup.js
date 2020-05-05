@@ -50,7 +50,7 @@ class Popup {
 
             Console.log(current_grade_rules);
 
-            
+
 
         this.Main();
     }
@@ -62,7 +62,7 @@ class Popup {
       $('.trashicon').on('click',function(){
           if (dark) {
               $("#trash").addClass("btn-outline-danger");
-              $("#trash").removeClass("btn-danger");              
+              $("#trash").removeClass("btn-danger");
           } else {
                   $("#trash").removeClass("btn-outline-danger");
                   $("#trash").addClass("btn-danger");
@@ -111,7 +111,7 @@ $(document).ready(function () {
       var grade_rules = Data.Get("grade_rules");
       grade_rules = JSON.parse(grade_rules);
       for (var i = 0; i < grade_rules["grade"].length; i++) {
-          grade_rules["grade"][i]["allowed_links"].splice(1, $(this).attr('index'));
+          grade_rules["grade"][i]["allowed_links"].splice($(this).attr('index'), 1);
       }
       Data.Set("grade_rules", JSON.stringify(grade_rules))
       location.reload();

@@ -2,59 +2,87 @@
     "grade": [
         {
             "allowed_pages":[],
-            "allowed_links":[]
+            "allowed_links":[{"name": "PowerSchool", "link": "psa.washk12.org"},
+                  {"name": "Washk12 Canvas", "link": "washk12.instructure.com"},
+                  {"name": "Google Drive", "link": "drive.google.com"}]
         },
         {
             "allowed_pages": [],
-            "allowed_links": []
+            "allowed_links": [{"name": "PowerSchool", "link": "psa.washk12.org"},
+                  {"name": "Washk12 Canvas", "link": "washk12.instructure.com"},
+                  {"name": "Google Drive", "link": "drive.google.com"}]
         },
         {
             "allowed_pages": [],
-            "allowed_links": []
+            "allowed_links": [{"name": "PowerSchool", "link": "psa.washk12.org"},
+                  {"name": "Washk12 Canvas", "link": "washk12.instructure.com"},
+                  {"name": "Google Drive", "link": "drive.google.com"}]
         },
         {
             "allowed_pages": [],
-            "allowed_links": []
+            "allowed_links": [{"name": "PowerSchool", "link": "psa.washk12.org"},
+                  {"name": "Washk12 Canvas", "link": "washk12.instructure.com"},
+                  {"name": "Google Drive", "link": "drive.google.com"}]
         },
         {
             "allowed_pages": [],
-            "allowed_links": []
+            "allowed_links": [{"name": "PowerSchool", "link": "psa.washk12.org"},
+                  {"name": "Washk12 Canvas", "link": "washk12.instructure.com"},
+                  {"name": "Google Drive", "link": "drive.google.com"}]
         },
         {
             "allowed_pages": [],
-            "allowed_links": []
+            "allowed_links": [{"name": "PowerSchool", "link": "psa.washk12.org"},
+                  {"name": "Washk12 Canvas", "link": "washk12.instructure.com"},
+                  {"name": "Google Drive", "link": "drive.google.com"}]
         },
         {
             "allowed_pages": ["mini_calculator"],
-            "allowed_links": []
+            "allowed_links": [{"name": "PowerSchool", "link": "psa.washk12.org"},
+                  {"name": "Washk12 Canvas", "link": "washk12.instructure.com"},
+                  {"name": "Google Drive", "link": "drive.google.com"}]
         },
         {
             "allowed_pages": ["calculator", "graphing_calculator"],
-            "allowed_links": []
+            "allowed_links": [{"name": "PowerSchool", "link": "psa.washk12.org"},
+                              {"name": "Washk12 Canvas", "link": "washk12.instructure.com"},
+                              {"name": "Google Drive", "link": "drive.google.com"}]
         },
         {
             "allowed_pages": ["calculator", "graphing_calculator"],
-            "allowed_links": []
+            "allowed_links": [{"name": "PowerSchool", "link": "psa.washk12.org"},
+                              {"name": "Washk12 Canvas", "link": "washk12.instructure.com"},
+                              {"name": "Google Drive", "link": "drive.google.com"}]
         },
         {
             "allowed_pages": ["calculator", "graphing_calculator"],
-            "allowed_links": []
+            "allowed_links": [{"name": "PowerSchool", "link": "psa.washk12.org"},
+                              {"name": "Washk12 Canvas", "link": "washk12.instructure.com"},
+                              {"name": "Google Drive", "link": "drive.google.com"}]
         },
         {
             "allowed_pages": ["calculator", "graphing_calculator"],
-            "allowed_links": []
+            "allowed_links": [{"name": "PowerSchool", "link": "psa.washk12.org"},
+                              {"name": "Washk12 Canvas", "link": "washk12.instructure.com"},
+                              {"name": "Google Drive", "link": "drive.google.com"}]
         },
         {
             "allowed_pages": ["calculator", "graphing_calculator"],
-            "allowed_links": []
+            "allowed_links": [{"name": "PowerSchool", "link": "psa.washk12.org"},
+                              {"name": "Washk12 Canvas", "link": "washk12.instructure.com"},
+                              {"name": "Google Drive", "link": "drive.google.com"}]
         },
         {
             "allowed_pages": ["calculator", "graphing_calculator"],
-            "allowed_links": []
+            "allowed_links": [{"name": "PowerSchool", "link": "psa.washk12.org"},
+                              {"name": "Washk12 Canvas", "link": "washk12.instructure.com"},
+                              {"name": "Google Drive", "link": "drive.google.com"}]
         },
         {
             "allowed_pages": ["mini_calculator", "calculator", "graphing_calculator", "teacher"],
-            "allowed_links": []
+            "allowed_links": [{"name": "PowerSchool", "link": "psa.washk12.org"},
+                              {"name": "Washk12 Canvas", "link": "washk12.instructure.com"},
+                              {"name": "Google Drive", "link": "drive.google.com"}]
         }
     ]
 }
