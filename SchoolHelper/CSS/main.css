@@ -15,6 +15,11 @@ body {
   color: black;
 }
 
+.CustomLink:hover {
+  text-decoration: none;
+  color: rgba(0, 0, 0, .6);
+}
+
 .trashicon {
   float: right;
   width: 5%;
@@ -32,6 +37,7 @@ body {
 
 .DeleteButton:hover {
   cursor: pointer;
+
 }
 
 .trashicon:hover {
