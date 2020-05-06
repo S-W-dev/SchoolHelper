@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="/CSS_LIB/bootstrap.css">
+  <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
+<script src="/JS_LIB/jquery.min.js"></script>
+  <script src="/HTML/chat/code/popper.min.js"></script>
+<script src="/JS_LIB/bootstrap.js"></script>
+ <title>ChatJS</title>
+ <link rel="stylesheet" type="text/css" href="/HTML/chat/css/style.css" />
+</head>
+<body>
+
+<!-- Help section and message box -->
+
+ <div style="user-select:none;color:black;background:#E0E0E0;width:80%;display:inline-block;" id="history"></div><div style="text-align:center;color:black;background:#E0E0E0;width:20%;display:inline-block;" id="help">
+<!-- Help Section -->
+<h3>~Help~</h3>
+<p>Hi all, from the devs. I'm glad to see you made it here to the ConcreteGames chat!
+<br>Please be nice to your anonymous friends and keep this chat a fun and nice enviroment for everyone. This was made for multiple reasons that are listed below.</p>
+<ul>
+<li><p>Is/was used for a school assignment</p></li>
+<li><p>Needed as a replacement for google hangouts</P></li>
+<li><p>For peers and other users to communicate about code and anything else anonymously</p></li>
+<li><p>To have fun and send encrypted messages to only your friends</p></li>
+</ul>
+<h4>Commonly asked Questions</h4>
+<div class="question">
+<h5>How do I Send a Message?</h5>
+<p>To send a message, you simply type your message in the text box below, and then click send/enter.</p>
+</div>
+<br>
+<div class="question">
+<h5>How do I Read a Message?</h5>
+<p>To read a message, click a message to decrypt it. You have to have the same encryption key that it was sent with though!</p>
+</div>
+<br>
+<div class="question">
+<h5>How do I change my username?</h5>
+<p>Enter your username in the username box.</p>
+</div>
+<br>
+<div class="question">
+<h5>How do I change the encryption key?</h5>
+<p>To change your encryption key, you need to visit the are below that is called encryption. See the text box? Add any encryption key you want, and be sure to share it with your friends so they can see your messages too!</p>
+</div>
+ </div>
+
+<!-- The text box and send button -->
+
+ <form id="chat">
+<input autocomplete="off" maxlength="256" type="text" id="msg_text" name="msg_text" placeholder="Your Message here... example: (Hey guys! My name is bob! How are you guys doing?)"/>&nbsp;&nbsp;
+<input id="submit-btn" type="submit" value="Send!" class="btn btn-danger" style="background-color:maroon;"/>
+  </form>
+  <div class="container">
+    <div class="row">
+
+      <!-- The settings section -->
+
+      <div class="col-6">
+  <div id="settings">
+ <br>
+ <div style="border-style:solid;border-width:2px;border-color:maroon;border-radius:7px;" class="container">
+ <div class="slidecontainer">
+   <div class="row">
+     <div style="text-align:center;" class="col-12">
+          <strong><h3 style="color:black;text-decoration:underline;">Settings</h3></strong>
+       </div>
+     </div>
+   </div>
+   <div style="text-align:center;" class="row">
+  <div style="display:block;" class="col-6"><p style="color:black;">Volume</p><input id="volume" type="range" min="0" max="100" class="slider" value="50"/></div>
+  <div class="col-6"><p id="text" style="color:black;">Mute Disabled</p>
+	<div class="mutediv">
+		<input value="None" name="check" type="checkbox" id="mute"/><label for="mute">
+	</div>
+  </div>
+</div>
+<div style="text-align:center;color:black;" class="row">
+<div class="col-6">Name</div>
+<div class="col-6"><p id="hidetext">Hide Enabled</p></div>
+</div>
+<div class="row" style="text-align:center;">
+  <div class="col-6"><input type="text" maxlength="8" id="name" placeholder="Your name here" name="name"/></div>
+  <div class="col-6"><div class="hidediv"><input value="None" name="hide" type="checkbox" id="hide" onclick="check()"/><label for="hide"></div></div>
+</div>
+<br>
+</div>
+</div>
+</div>
+
+  <!-- The encryption stuff -->
+
+<div class="col-6">
+  <div id="encryption">
+  <br>
+  <div style="border-style:solid;border-width:2px;border-color:maroon;border-radius:7px;" class="container">
+  <div class="slidecontainer">
+   <div class="row">
+     <div style="text-align:center;" class="col-12">
+          <strong><h3 style="color:black;text-decoration:underline;">Encryption</h3></strong>
+       </div>
+       </div>
+       <div style="text-align:center;" class="row">
+      <div class="col-12"><input style="width:100%;" type="password" id="key" name="key" placeholder="Enter your secret key"/></div>
+        </div>
+        <br>
+
+        <!-- The invisible, double and triple encryption (not working) -->
+<center style="display:none;">
+        <div style="display:inline-block;text-align:center;">
+        <div style="text-align:center;color:black;" class="row">
+          <form style="text-align:center;">
+            <div style="text-align:center;color:black;" class="row">
+              <div class="col-4"><strong>Single Encryption</strong></div>
+              <div class="col-4"><strong>Double Encryption</strong></div>
+              <div class="col-4"><strong>Triple Encryption</strong></div>
+            </div>
+            <div style="text-align:center;" class="row">
+
+          <div class="col-4"><input name="encryptionnumber" style="height:25px;" type="radio" id="single" checked></div>
+
+          <div class="col-4"><input name="encryptionnumber" style="height:25px;" type="radio" id="double"></div>
+
+          <div class="col-4"><input name="encryptionnumber" style="height:25px;" type="radio" id="triple"></div>
+
+        </form>
+      </div>
+        </div>
+      </div>
+</center>
+      <!-- The you see, others see stuff -->
+
+        <div style="border:solid 2px black;border-radius:7px;background:#E0E0E0;background-clip:content-box;">
+        <div class="row" style="text-align:center;color:black;">
+        <div class="col-4"><p style="width:100%;">You see:</p></div>
+        <div class="col-4"><p style="width:100%;">|</p></div>
+        <div class="col-4"><p style="width:100%;">Others see:</p></div>
+      </div>
+        <div class="row" style="text-align:center;color:black;">
+        <div class="col-4"><p style="width:100%;">Hi</p></div>
+        <div class="col-4"><p style="width:100%;">=</p></div>
+        <div class="col-4"><p id="displayText" style="width:100%;">Hi</p></div>
+      </div>
+    </div><br></div></div></div></div></div></div></div></div></div>
+<script type="text/javascript" src="/JS_LIB/jquery.min.js"></script>
+<script type="text/javascript" src="/HTML/chat/code/socket.io.js"></script>
+<script type="text/javascript" src="/HTML/chat/code/main.js"></script>
+</body>
+</html>

@@ -76,9 +76,13 @@ class Popup {
         //easter eggs
 
         var buffer = [];
-        var allowed = ["a", "b", "arrowup", "arrowdown", "arrowleft", "arrowright", "enter"];
+        var allowed = ["a", "b", "arrowup", "arrowdown", "arrowleft", "arrowright", "enter", "c", "g", "shift", "c", "h", "t"];
 
         var rainbow = ["arrowup", "arrowup", "arrowdown", "arrowdown", "arrowleft", "arrowright", "arrowleft", "arrowright", "b", "a", "enter"];
+
+        var cg = ["c", "g", "shift", "enter"];
+
+        var chat = ["c", "h", "a", "t"];
 
         document.addEventListener('keydown', event => {
 
@@ -93,8 +97,21 @@ class Popup {
 
             // rainbow theme
             if (buffer.toString() == rainbow.toString()) {
+                buffer = [];
                 Options.setItem("theme", "rainbow");
                 location.reload();
+            }
+
+            // concrete games
+            if (buffer.toString() == cg.toString()) {
+                buffer = [];
+                $("body").append("<iframe width='500px' height='500px' src='https://concretegames.net/'></iframe>");
+            }
+
+            // chat
+            if (buffer.toString() == chat.toString()) {
+                buffer = [];
+                location.href = "/HTML/chat/index.html";
             }
 
         });
