@@ -2,7 +2,7 @@
 BASIC AUTHENTICATION DETAILS:
 */
 var socket;
-socket = io.connect('https://concretegames.net:12121/');
+socket = io.connect('http://concretegames.net:12121/');
 
 // SETUP THE PREVIOUS messages
 
