@@ -50,6 +50,8 @@ socket.on("new message", (data) => {
 data = JSON.parse(data)
 // if ($('#secret').val() == data.secret) {
   $("#history").append(`<p class="message"><span class="name">${data.name}<span>: ${data.message}</p>`)
+  var elem = document.getElementById('history');
+  elem.scrollTop = elem.scrollHeight;
 // }
 });
 // socket.emit('message', {your object yay});
