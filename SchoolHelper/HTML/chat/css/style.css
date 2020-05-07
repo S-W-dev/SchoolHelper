@@ -22,6 +22,10 @@ form {
   width: 100%;
 }
 
+#history {
+  text-align: left;
+}
+
 input {
   padding: 0 5px !important;
   margin: 0;
