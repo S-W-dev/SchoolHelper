@@ -42,7 +42,6 @@ $('#chat').submit(function(e) {
       socket.emit('message', JSON.stringify(data));
       console.log(data);
       $('#msg_text').val('');
-      $('#secret').val('');
       return false;
 });
 
