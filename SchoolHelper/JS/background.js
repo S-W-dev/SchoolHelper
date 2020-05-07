@@ -54,7 +54,8 @@ socket.on("new message", (data) => {
   prevData.push(data);
   Data.Set('messages', JSON.stringify(prevData));
   reminder = {link:"no", page: "/HTML/chat/index.html"};
-  if (JSON.parse(Data.Get("open", '{"open":"false"}'))) {
+  if (chrome.extension.getViews({ type: "popup" }).length == 0) {
+    console.log("not open");
     chrome.notifications.create({
       type: "list",
       title: "[SchoolHelper] new chat message",
@@ -67,6 +68,8 @@ socket.on("new message", (data) => {
       ]
     }, () => {
     });
+  } else {
+    console.log(chrome.extension.getViews({ type: "popup" }));
   }
   audio.play();
 // }
@@ -75,3 +78,31 @@ socket.on("new message", (data) => {
 /*
 
 */
+
+
+
+// stuff
+
+chrome.runtime.onStartup.addListener(
+  function() {
+    Data.Set("open", '{"open":"true"}')
+    var thisVer = chrome.runtime.getManifest().version;
+    chrome.runtime.onUpdateAvailable.addListener(
+      function(details) {
+        if (details.version != thisVer) {
+          chrome.notifications.create({
+      type: "list",
+      title: "[SchoolHelper] An update is ready",
+      message:"juan",
+      iconUrl: "/SHLogo.png",
+      items: [{
+          title: "Instructions",
+          message: "Update SchoolHelper in Settings > Extension"
+        }
+      ]
+    }, () => {
+    });
+        }
+      }
+    );
+});

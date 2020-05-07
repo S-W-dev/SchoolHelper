@@ -75,13 +75,14 @@ $(document).ready(()=>{
 
 
 console.log('ready')
-
+$("#secret").val(Data.Get("usecret", ""));
 socket.emit("room", sha256($("#secret").val()));
 Data.Set("secret", sha256($("#secret").val()));
 
 $("#secret").on('change', ()=>{
   socket.emit("room", sha256($("#secret").val()));
   Data.Set("secret", sha256($("#secret").val()));
+  Data.Set("usecret", $("#secret").val());
 });
 
 $("#msg_text").keypress((e)=>{
