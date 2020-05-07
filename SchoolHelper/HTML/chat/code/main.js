@@ -63,6 +63,13 @@ console.log('ready')
 
 $("#secret").on('change', ()=>{
   socket.emit("room", sha256($("#secret").val()));
-})
+});
+
+$("#msg_text").keypress((e)=>{
+   if(e.which == 13 && e.shiftKey) {
+     document.getElementById('submit-btn').click();
+     $("#msg_text").val('');
+   }
+});
 
 });
