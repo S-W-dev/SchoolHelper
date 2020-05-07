@@ -36,7 +36,7 @@ $('#chat').submit(function(e) {
       e.preventDefault(); // prevents page reloading
       var data = {
         message: $('#msg_text').val(),
-        secret: $('#secret').val(),
+        secret: sha256($('#secret').val()),
         name: $('#username').val()
       };
       socket.emit('message', JSON.stringify(data));
