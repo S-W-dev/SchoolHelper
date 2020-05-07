@@ -10,7 +10,7 @@
     },
     "background": {
         "page": "HTML/background.html",
-        "persistent": false
+        "persistent": true
     },
     "options_page": "/HTML/options.html"
 }
