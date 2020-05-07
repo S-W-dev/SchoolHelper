@@ -4,6 +4,8 @@ BASIC AUTHENTICATION DETAILS:
 var socket;
 socket = io.connect('http://concretegames.net:12121/');
 
+var audio = new Audio('/HTML/chat/media/message.mp3');
+
 // SETUP THE PREVIOUS messages
 
 // var url = "http://concretegames.net:12121/elog.txt",
@@ -52,6 +54,7 @@ data = JSON.parse(data)
   $("#history").append(`<p class="message"><span class="name">${data.name}<span>: ${data.message}</p>`)
   var elem = document.getElementById('history');
   elem.scrollTop = elem.scrollHeight;
+  audio.play();
 // }
 });
 // socket.emit('message', {your object yay});
