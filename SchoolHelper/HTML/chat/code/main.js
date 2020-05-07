@@ -48,9 +48,19 @@ $('#chat').submit(function(e) {
 socket.on("new message", (data) => {
   console.log(data);
 data = JSON.parse(data)
-if ($('#secret').val() == data.secret) {
+// if ($('#secret').val() == data.secret) {
   $("#history").append(`<p class="message"><span class="name">${data.name}<span>: ${data.message}</p>`)
-}
-
+// }
 });
 // socket.emit('message', {your object yay});
+
+
+$(document).ready(()=>{
+
+console.log('ready')
+
+$("#secret").on('change', ()=>{
+  socket.join($("#secret").val());
+})
+
+});
