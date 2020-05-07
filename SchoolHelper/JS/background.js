@@ -6,6 +6,9 @@ import {
 } from './classes.js';
   var reminder;
 
+  var socket;
+  socket = io.connect('http://concretegames.net:12121/');
+
 chrome.alarms.onAlarm.addListener(function (alarm) {
   console.log("Got an alarm!", alarm);
   reminder = Reminders.get(alarm.name);
@@ -31,7 +34,44 @@ chrome.alarms.onAlarm.addListener(function (alarm) {
 
 chrome.notifications.onClicked.addListener(function (notificationId, byUser) {
   console.log("user clicked notification")
-  chrome.tabs.create({
-    url: reminder.link
-  });
+  if (reminder.link != "no") {
+    chrome.tabs.create({
+      url: reminder.link
+    });
+  } else {
+    window.open(reminder.page, "extension_popup", "width=600,height=500,status=no,scrollbars=no,resizable=no")
+  }
 });
+
+var audio = new Audio('/HTML/chat/media/message.mp3');
+
+setInterval(()=>{socket.emit("room", Data.Get("secret", ""))}, 100);
+
+socket.on("new message", (data) => {
+  console.log(data);
+  var prevData = Data.Get('messages', '[]');
+  prevData = JSON.parse(prevData);
+  prevData.push(data);
+  Data.Set('messages', JSON.stringify(prevData));
+  reminder = {link:"no", page: "/HTML/chat/index.html"};
+  if (JSON.parse(Data.Get("open", '{"open":"false"}'))) {
+    chrome.notifications.create({
+      type: "list",
+      title: "[SchoolHelper] new chat message",
+      message:"juan",
+      iconUrl: "/SHLogo.png",
+      items: [{
+          title: JSON.parse(data).name,
+          message: JSON.parse(data).message
+        }
+      ]
+    }, () => {
+    });
+  }
+  audio.play();
+// }
+});
+
+/*
+
+*/

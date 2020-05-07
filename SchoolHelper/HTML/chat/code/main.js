@@ -1,3 +1,5 @@
+import {Data} from "/JS/classes.js"
+
 /*
 BASIC AUTHENTICATION DETAILS:
 */
@@ -54,18 +56,32 @@ data = JSON.parse(data)
   $("#history").append(`<p class="message"><span class="name">${data.name}<span>: ${data.message}</p>`)
   var elem = document.getElementById('history');
   elem.scrollTop = elem.scrollHeight;
-  audio.play();
+  //audio.play();
 // }
 });
 // socket.emit('message', {your object yay});
 
-
 $(document).ready(()=>{
+
+  console.log('adding message history');
+    var data = JSON.parse(Data.Get("messages", '[]'));
+    for (var i = 0; i < data.length; i++) {
+      console.log(data[i]);
+      var d = JSON.parse(data[i]);
+      $("#history").append(`<p class="message"><span class="name">${d.name}<span>: ${d.message}</p>`)
+    }
+    var elem = document.getElementById('history');
+    elem.scrollTop = elem.scrollHeight;
+
 
 console.log('ready')
 
+socket.emit("room", sha256($("#secret").val()));
+Data.Set("secret", sha256($("#secret").val()));
+
 $("#secret").on('change', ()=>{
   socket.emit("room", sha256($("#secret").val()));
+  Data.Set("secret", sha256($("#secret").val()));
 });
 
 $("#msg_text").keypress((e)=>{

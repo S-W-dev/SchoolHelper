@@ -72,7 +72,7 @@ export class Reminders {
         // chrome.alarms.create(reminder.name, {
         //     when: x
         // });
-        
+
         var x = new Date();
         var item = reminder.date.split("-");
         x.setFullYear(parseInt(item[0]))
@@ -173,6 +173,18 @@ export var Console = {
 };
 
 export function LoadNav() {
+
+  chrome.runtime.onConnect.addListener(function (externalPort) {
+    externalPort.onDisconnect.addListener(function () {
+      console.log("onDisconnect")
+      Data.Set("open", '{"open":"false"}');
+      // Do stuff that should happen when popup window closes here
+    })
+
+    console.log("onConnect")
+    Data.Set("open", '{"open":"true"}');
+  })
+
     Console.log("Loading nav");
     Console.log("stored Page: " + Options.getItem('currentPage'))
     Console.log("Current Page: " + window.location.pathname)
