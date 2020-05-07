@@ -30,3 +30,7 @@ input {
   padding: 0 5px !important;
   margin: 0;
 }
+
+.message {
+  margin: 5px;
+}
