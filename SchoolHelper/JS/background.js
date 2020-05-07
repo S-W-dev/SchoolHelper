@@ -84,26 +84,23 @@ socket.on("new message", (data) => {
 
 // stuff
 
-chrome.runtime.onStartup.addListener(
-  function() {
-    Data.Set("open", '{"open":"true"}')
-    var thisVer = chrome.runtime.getManifest().version;
-    chrome.runtime.onUpdateAvailable.addListener(
-      function(details) {
-        if (details.version != thisVer) {
-          chrome.notifications.create({
-      type: "list",
-      title: "[SchoolHelper] An update is ready",
-      message:"juan",
-      iconUrl: "/SHLogo.png",
-      items: [{
-          title: "Instructions",
-          message: "Update SchoolHelper in Settings > Extension"
-        }
-      ]
-    }, () => {
-    });
-        }
-      }
-    );
+Data.Set("open", '{"open":"true"}')
+var thisVer = chrome.runtime.getManifest().version;
+chrome.runtime.onUpdateAvailable.addListener(
+  function(details) {
+    if (details.version != thisVer) {
+      chrome.notifications.create({
+  type: "list",
+  title: "[SchoolHelper] An update is ready",
+  message:"juan",
+  iconUrl: "/SHLogo.png",
+  items: [{
+      title: "Instructions",
+      message: "Update SchoolHelper in Settings > Extension"
+    }
+  ]
+}, () => {
 });
+    }
+  }
+);
