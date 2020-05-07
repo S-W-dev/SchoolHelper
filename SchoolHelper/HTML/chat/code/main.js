@@ -34,17 +34,20 @@ socket = io.connect('http://concretegames.net:12121/');
 
 $('#chat').submit(function(e) {
       e.preventDefault(); // prevents page reloading
-      socket.emit('message', JSON.stringify({
+      var data = {
         message: $('#msg_text').val(),
         secret: $('#secret').val(),
         name: $('#username').val()
-      }));
+      };
+      socket.emit('message', JSON.stringify(data));
+      console.log(data);
       $('#msg_text').val('');
       $('#secret').val('');
       return false;
 });
 
 socket.on("new message", (data) => {
+  console.log(data);
 data = JSON.parse(data)
 if ($('#secret').val() == data.secret) {
   $("#history").append(`<p class="message"><span class="name">${data.name}<span>: ${data.message}</p>`)
