@@ -1,4 +1,4 @@
-import {Data} from "/JS/classes.js"
+import {Data, Console} from "/JS/classes.js"
 
 /*
 BASIC AUTHENTICATION DETAILS:
@@ -44,13 +44,13 @@ $('#chat').submit(function(e) {
         name: $('#username').val()
       };
       socket.emit('message', JSON.stringify(data));
-      console.log(data);
+      Console.log(data);
       $('#msg_text').val('');
       return false;
 });
 
 socket.on("new message", (data) => {
-  console.log(data);
+  Console.log(data);
 data = JSON.parse(data)
 // if ($('#secret').val() == data.secret) {
   $("#history").append(`<p class="message"><span class="name">${data.name}<span>: ${data.message}</p>`)
@@ -63,10 +63,10 @@ data = JSON.parse(data)
 
 $(document).ready(()=>{
 
-  console.log('adding message history');
+  Console.log('adding message history');
     var data = JSON.parse(Data.Get("messages", '[]'));
     for (var i = 0; i < data.length; i++) {
-      console.log(data[i]);
+      Console.log(data[i]);
       var d = JSON.parse(data[i]);
       $("#history").append(`<p class="message"><span class="name">${d.name}<span>: ${d.message}</p>`)
     }
@@ -74,8 +74,9 @@ $(document).ready(()=>{
     elem.scrollTop = elem.scrollHeight;
 
 
-console.log('ready')
+Console.log('ready')
 $("#secret").val(Data.Get("usecret", ""));
+$("#username").val(Data.Get("username", ""));
 socket.emit("room", sha256($("#secret").val()));
 Data.Set("secret", sha256($("#secret").val()));
 
@@ -85,11 +86,14 @@ $("#secret").on('change', ()=>{
   Data.Set("usecret", $("#secret").val());
 });
 
+$("#username").on('change', ()=>{
+  Data.Set("username", $('#username').val())
+});
+
 $("#msg_text").keypress((e)=>{
    if(e.which == 13 && e.shiftKey) {
      document.getElementById('submit-btn').click();
-     $("#msg_text").val('');
+     location.reload();
    }
 });
-
 });

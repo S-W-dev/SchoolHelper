@@ -1,8 +1,9 @@
-import {
+Consolimport {
   Options,
   Message,
   Data,
-  Reminders
+  Reminders,
+  Console
 } from './classes.js';
   var reminder;
 
@@ -10,7 +11,7 @@ import {
   socket = io.connect('http://concretegames.net:12121/');
 
 chrome.alarms.onAlarm.addListener(function (alarm) {
-  console.log("Got an alarm!", alarm);
+  Console.log("Got an alarm!", alarm);
   reminder = Reminders.get(alarm.name);
   chrome.notifications.create({
     type: "list",
@@ -27,13 +28,13 @@ chrome.alarms.onAlarm.addListener(function (alarm) {
       }
     ]
   }, () => {
-    console.log("opening window");
+    Console.log("opening window");
     window.open("/HTML/reminders.html", "extension_popup", "width=600,height=500,status=no,scrollbars=no,resizable=no")
   });
 });
 
 chrome.notifications.onClicked.addListener(function (notificationId, byUser) {
-  console.log("user clicked notification")
+  Console.log("user clicked notification")
   if (reminder.link != "no") {
     chrome.tabs.create({
       url: reminder.link
@@ -48,14 +49,14 @@ var audio = new Audio('/HTML/chat/media/message.mp3');
 setInterval(()=>{socket.emit("room", Data.Get("secret", ""))}, 100);
 
 socket.on("new message", (data) => {
-  console.log(data);
+  Console.log(data);
   var prevData = Data.Get('messages', '[]');
   prevData = JSON.parse(prevData);
   prevData.push(data);
   Data.Set('messages', JSON.stringify(prevData));
   reminder = {link:"no", page: "/HTML/chat/index.html"};
   if (chrome.extension.getViews({ type: "popup" }).length == 0) {
-    console.log("not open");
+    Console.log("not open");
     chrome.notifications.create({
       type: "list",
       title: "[SchoolHelper] new chat message",
@@ -69,7 +70,7 @@ socket.on("new message", (data) => {
     }, () => {
     });
   } else {
-    console.log(chrome.extension.getViews({ type: "popup" }));
+    Console.log(chrome.extension.getViews({ type: "popup" }));
   }
   audio.play();
 // }

@@ -12,7 +12,7 @@ import {
 class Popup {
     constructor() {
         // initialize stuff
-        new Options(Data.Get('settings', '{"debug": "true", "theme": "dark", "grade":"8", "mode":"function", "numOfInputs":"10", "currentPage":"/popup.html"}'));
+        new Options(Data.Get('settings', `{"debug": "false", "theme": "dark", "grade":"8", "mode":"function", "numOfInputs":"10", "currentPage":"/popup.html"}`));
         new Reminders(Data.Get('reminders', '[]'));
 
 
@@ -126,7 +126,7 @@ new Popup();
 
 $(document).ready(function () {
   $(".del").on("click", function () {
-      console.log($(this))
+      Console.log($(this))
       var grade_rules = Data.Get("grade_rules");
       grade_rules = JSON.parse(grade_rules);
       for (var i = 0; i < grade_rules["grade"].length; i++) {

@@ -1,6 +1,6 @@
 export class Options {
     constructor(settings) {
-        console.log(settings.toString());
+        //console.log(settings.toString());
         Data.Set('settings', settings.toString()); // makes default value save
     }
 
@@ -10,11 +10,7 @@ export class Options {
 
     static setItem(x, y) {
         var bob = JSON.parse(Data.Get('settings'));
-        Console.log(bob);
         bob[x] = y;
-        Console.log(bob);
-        Console.log(x, y);
-        Console.log(location.pathname)
         Data.Set('settings', JSON.stringify(bob));
     }
 
@@ -46,13 +42,13 @@ export class Reminders {
     }
 
     static set(reminder) {
-        console.log(reminder);
+        Console.log(reminder);
         var reminders = JSON.parse(Data.Get('reminders'));
 
         var date = new Date().getFullYear().toString() + "-" + (new Date().getMonth() + 1).toString() + "-" + new Date().getDate().toString();
         var time = new Date().getHours().toString() + ":" + new Date().getMinutes();
 
-        console.log(date, time);
+        Console.log(date, time);
 
         reminder.create = date+"_"+time;
         reminder.datetime = reminder.date+"_"+reminder.time;
@@ -116,11 +112,7 @@ export class Message {
 
 export class Data {
     static Set(key, val) {
-        console.log(key);
-        console.log(val);
         localStorage[key] = val;
-        Console.log("currentPage: " + Options.getItem('currentPage'))
-        Console.log("settings: " + Data.Get("settings"))
     }
 
     static Get(key, def) {
@@ -143,9 +135,9 @@ export function Load() {
 
     chrome.runtime.onMessage.addListener(
         function (request, sender, sendResponse) {
-            console.log("Received notification");
+            Console.log("Received notification");
             if (request.msg === "notification_clicked") {
-                console.log(request.data.index)
+                Console.log(request.data.index)
                 $("body").append($(`<a href="/HTML/reminders.html#${request.data.index}" id="clickme"></a>`));
                 document.querySelector("#clickme").click()
             }
@@ -176,12 +168,12 @@ export function LoadNav() {
 
   chrome.runtime.onConnect.addListener(function (externalPort) {
     externalPort.onDisconnect.addListener(function () {
-      console.log("onDisconnect")
+      Console.log("onDisconnect")
       Data.Set("open", '{"open":"false"}');
       // Do stuff that should happen when popup window closes here
     })
 
-    console.log("onConnect")
+    Console.log("onConnect")
     Data.Set("open", '{"open":"true"}');
   })
 

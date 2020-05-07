@@ -1,7 +1,8 @@
 import {
     LoadNav,
     Reminder,
-    Reminders
+    Reminders,
+    Console
 } from "./classes.js";
 
 LoadNav();
@@ -28,8 +29,8 @@ for (var i = 0; i < Reminders.getReminders().length; i++) {
     current = JSON.parse(JSON.stringify(current).toString().replace("_", " "));
     var current_section = section;
 
-    console.log(current_section);
-    console.log(i);
+    Console.log(current_section);
+    Console.log(i);
 
     current_section.children()[1].value = current["name"];
     current_section.children()[2].value = current["link"];
@@ -39,7 +40,7 @@ for (var i = 0; i < Reminders.getReminders().length; i++) {
 
     current_section.attr('id', i);
 
-    console.log(current_section);
+    Console.log(current_section);
 
     arr.push(current_section);
 

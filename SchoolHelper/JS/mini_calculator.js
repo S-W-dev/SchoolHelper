@@ -1,6 +1,7 @@
 import {
     Load,
-    LoadNav
+    LoadNav,
+    Console
 } from './classes.js';
 LoadNav();
 Load();
