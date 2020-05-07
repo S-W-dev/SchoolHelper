@@ -45,7 +45,7 @@ $('#chat').submit(function(e) {
 });
 
 socket.on("new message", (data) => {
-
+data = JSON.parse(data)
 if ($('#secret').val() == data.secret) {
   $("#history").append(`<p class="message"><span class="name">${data.name}<span>: ${data.message}</p>`)
 }
