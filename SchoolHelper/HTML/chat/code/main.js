@@ -6,7 +6,7 @@ socket = io.connect('http://concretegames.net:12121/');
 
 // SETUP THE PREVIOUS messages
 
-var url = "elog.txt",
+var url = "http://concretegames.net:12121/elog.txt",
     averageLineLength = 100,
     numLinesToFetch   = 20,
     marginForError    = 0.2,
@@ -86,9 +86,23 @@ if (item != null) {
 
 for (var i = 10; i > 0; i--) {
 readTextFile("elog.txt");
-$('#history').append($("<br><p t='0' style='box-sizing: border-box;px;display:inline-block;word-wrap:break-word;' class='message' el='1' onclick='toggle(1, this, this.getAttribute(\"t\"))' value='0' />&nbsp;").text(allText.reverse()[i]));
+$('#history').append($("<br><p t='0' style='box-sizing: border-box;px;display:inline-block;word-wrap:break-word;' class='message' el='1' value='0' />&nbsp;").text(allText.reverse()[i]));
+ $(".message").on("click", () => {
+toggle(1, $(this), $(this).attr("t"))
+ });
+ }
+
+function clickHandler() {
+  console.log("click handler1")
+//onclick='toggle(1, this, this.getAttribute(\"t\"))'
+toggle(1, this, this.getAttribute("t"))
 }
 
+function clickHandler2() {
+  console.log("click handler2")
+// onclick='toggle(2, this, this.getAttribute(\"t\"))'
+  toggle(2, this, this.attr("t"))
+}
 function getUrlVars() {
     var vars = {};
     var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
@@ -222,8 +236,11 @@ function setn(e) {
 function append(name, text) {
   var elem = document.getElementById('history');
     elem.scrollTop = elem.scrollHeight;
-    $('#history').append("<br><div t='0' style='box-sizing: border-box;width:100%;px;display:inline-block;'>"+'<p style="background-color:'+getUrlParam('namecolor', 'skyblue')+';color:'+getUrlParam('color', 'black')+';display:inline;'+getUrlParam('css', '')+'">'+name+'</p>'+"<p t=\"0\" onclick='toggle(2, this, this.getAttribute(\"t\"))' style='width:100%;border-radius:7px;display:inline;word-wrap:break-word;' class='message' el='3' value='0'>"+text+"</p>&nbsp;</div><br>");
+    $('#history').append("<br><div t='0' style='box-sizing: border-box;width:100%;px;display:inline-block;'>"+'<p style="background-color:'+getUrlParam('namecolor', 'skyblue')+';color:'+getUrlParam('color', 'black')+';display:inline;'+getUrlParam('css', '')+'">'+name+'</p>'+"<p t=\"0\" style='width:100%;border-radius:7px;display:inline;word-wrap:break-word;' class='message2' el='3' value='0'>"+text+"</p>&nbsp;</div><br>");
 elem.scrollTop = elem.scrollHeight;
+ $(".message2").on("click", () => {
+toggle(2, $(this), $(this).attr("t"))
+ });
 }
 
 socket.on("update name", function(name) {
@@ -231,126 +248,8 @@ socket.on("update name", function(name) {
 });
 
  socket.on("update messages", function(msg){
-   var elem = document.getElementById('history');
-     elem.scrollTop = elem.scrollHeight;
-   var elem = document.getElementById('history');
-     elem.scrollTop = elem.scrollHeight;
-   if (hidee == true) {
-     if (triple.checked==true){
-       var final_message = $("<p el='3' onmouseout='hide(this)' onmouseover='show(this)' value='0' />&nbsp;").text("#"+msg.substring(0,8)+msg.substring(8));
-     } else if (double.checked==true){
-       var final_message = $("<p el='2' onmouseout='hide(this)' onmouseover='show(this)' value='0' />&nbsp;").text("#"+msg.substring(0,8)+msg.substring(8));
-     } else {
-       var final_message = $("<p el='1' onmouseout='hide(this)' onmouseover='show(this)' value='0' />&nbsp;").text("#"+msg.substring(0,8)+msg.substring(8));
-     }
-   } else if (hidee == false){
-     if (triple.checked==true){
-       var final_message = $("<p el='3' onmouseout='hide(this)' onmouseover='show(this)' value='0' />&nbsp;").text("#"+msg.substring(0,6)+decrypt(msg.substring(6)));
-     } else if (double.checked==true) {
-       var final_message = $("<p el='3' onmouseout='hide(this)' onmouseover='show(this)' value='0' />&nbsp;").text("#"+msg.substring(0,6)+decrypt(msg.substring(6)));
-     } else {
-       var final_message = $("<p el='3' onmouseout='hide(this)' onmouseover='show(this)' value='0' />&nbsp;").text("#"+msg.substring(0,6)+decrypt(msg.substring(6)));
-     }
-   }
-   if (hidee == false) {
-    setf("#"+msg.substring(0,6)+decrypt(msg.substring(6)));
-  } else if (hidee == true) {
-    setf("#"+msg.substring(0,6)+msg.substring(6));
-  }
   var elem = document.getElementById('history');
     elem.scrollTop = elem.scrollHeight;
-    var elem = document.getElementById('history');
-      elem.scrollTop = elem.scrollHeight;
-      var elem = document.getElementById('history');
-        elem.scrollTop = elem.scrollHeight;
      audio.play();
      append(name, text);
  });
-
-
-
- socket.on("admin", function(msg){
- if (hidee == true) {var final_message = $("<p value='0' style='background-color:maroon;color:black;font-size:25px;'/>&nbsp;").text("SERVER#"+msg.substring(0,30)+msg.substring(6));}else if (hidee == false){
-   var final_message = $("<p value='0' style='background-color:maroon;color:black;font-size:25px;'/>&nbsp;").text("SERVER#"+msg.substring(0,30)+msg.substring(6));
- }
-    $("#history").append(final_message);
-   objDiv.scrollTop = objDiv.scrollHeight;
-   audio.play();
- });
-
- var volume;
- var checkBox = document.getElementById("mute");
- // document.getElementById('hide').checked = true;
- var elem = document.getElementById('history');
-   elem.scrollTop = elem.scrollHeight;
- setInterval(function() {
-   if (prevhide != null) {
-        hidee = prevhide;
-   }
-   en = c(document.getElementById('key').value);
-   de = d(document.getElementById('key').value);
-   var t = d('');
-   if (hidee) {
-     document.getElementById('displayText').innerHTML = encrypt("Hi");
-   } else {
-     document.getElementById('displayText').innerHTML = t(encrypt("Hi"));
-   }
-   volume = document.getElementById("volume").value/100;
-   audio.volume = volume;
-   var text = document.getElementById("text");
-   if (checkBox.checked == true){
-     audio.volume = 0;
-     text.innerHTML = "Mute Enabled";
-   } else {
-      text.innerHTML = "Mute Disabled";
-   }
-
- if (document.getElementById('hide').checked == true) {
-   document.getElementById('hidetext').innerHTML = "Hide Enabled";
-   hidee = true;
-} else {
-  document.getElementById('hidetext').innerHTML = "Hide Disabled";
-  hidee = false;
-}
-document.getElementById('msg_text').value = document.getElementById('msg_text').value.replace("%20", " ");
- }, 10);
-
- function check() {
-   var ptags = jQuery.makeArray($('#history').children());
-   jQuery.each(ptags, function(elem) {
-     ptags[elem].remove();
-   });
-   ptags.empty();
-   if (ptags.length > 0) {
-   //   alert("You can only change this before messages have been sent.");
-   // location.reload();
- }
-
-}
-
-function deleteAll() {
-
-}
-
- let c = salt => {
-     let textToChars = text => text.split('').map(c => c.charCodeAt(0))
-     let byteHex = n => ("0" + Number(n).toString(16)).substr(-2)
-     let applySaltToChar = code => textToChars(salt).reduce((a,b) => a ^ b, code)
-
-     return text => text.split('')
-         .map(textToChars)
-         .map(applySaltToChar)
-         .map(byteHex)
-         .join('')
- }
-
- let d = salt => {
-     let textToChars = text => text.split('').map(c => c.charCodeAt(0))
-     let saltChars = textToChars(salt)
-     let applySaltToChar = code => textToChars(salt).reduce((a,b) => a ^ b, code)
-     return encoded => encoded.match(/.{1,2}/g)
-         .map(hex => parseInt(hex, 16))
-         .map(applySaltToChar)
-         .map(charCode => String.fromCharCode(charCode))
-         .join('')
- }

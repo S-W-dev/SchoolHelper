@@ -186,10 +186,10 @@ export function LoadNav() {
         Console.log("Navigating to correct page: " + x + " from page: " + window.location.pathname)
 
     }
-    $('header').load("../HTML/navbar.html", function () {
+    $('header').load("/HTML/navbar.html", function () {
         Console.log("Header loaded");
         Load();
-        $.getJSON("../JSON/grade_rules.json", (grade_rules) => {
+        $.getJSON("/JSON/grade_rules.json", (grade_rules) => {
 
             Console.log(grade_rules);
             var grade = Options.getItem('grade');
