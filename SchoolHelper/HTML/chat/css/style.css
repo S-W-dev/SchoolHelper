@@ -1,7 +1,6 @@
 body {
   text-align: left;
   border-radius: 5px;
-  font-family: Georgia, Tahoma, Arial, sans-serif;
   margin: 0;
   padding: 0;
   width: 600px;
@@ -11,15 +10,10 @@ body {
 html, input {
   text-align: left;
   border-radius: 5px;
-  font-family: Georgia, Tahoma, Arial, sans-serif;
   margin: 0;
   padding: 0;
 }
 
-body {
- background: #302F31;
- padding: 10px;
-}
 form {
   margin: 15px 0;
 }
