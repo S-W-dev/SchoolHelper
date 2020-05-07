@@ -58,7 +58,7 @@ data = JSON.parse(data)
 
 
 $(document).ready(()=>{
-
+socket.emit("room", $("#secret").val())
 console.log('ready')
 
 $("#secret").on('change', ()=>{
