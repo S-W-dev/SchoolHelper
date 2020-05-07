@@ -93,7 +93,7 @@ $("#username").on('change', ()=>{
 $("#msg_text").keypress((e)=>{
    if(e.which == 13 && e.shiftKey) {
      document.getElementById('submit-btn').click();
-     location.reload();
+     //location.reload();
    }
 });
 });
