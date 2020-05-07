@@ -60,7 +60,7 @@ $(document).ready(()=>{
 console.log('ready')
 
 $("#secret").on('change', ()=>{
-  socket.join($("#secret").val());
+  socket.emit("room", $("#secret").val())
 })
 
 });
