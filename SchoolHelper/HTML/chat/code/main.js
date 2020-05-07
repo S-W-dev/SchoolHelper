@@ -97,3 +97,7 @@ $("#msg_text").keypress((e)=>{
    }
 });
 });
+
+$('#msg_text').keyup( function() {
+  $(this).val( $(this).val().replace( /\r?\n/gi, '' ) );
+});
