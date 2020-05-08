@@ -12,7 +12,7 @@ import {
 class Popup {
     constructor() {
         // initialize stuff
-        new Options(Data.Get('settings', `{"debug": "false", "theme": "dark", "grade":"8", "mode":"function", "numOfInputs":"10", "currentPage":"/popup.html"}`));
+        new Options(Data.Get('settings', `{"debug": "false", "theme": "dark", "grade":"8", "mode":"function", "numOfInputs":"10", "currentPage":"/popup.html", "notifications":"enabled"}`));
         new Reminders(Data.Get('reminders', '[]'));
 
 

@@ -33,7 +33,7 @@ $('#create-link-submit').on('click',function(){
       Data.Set("grade_rules", JSON.stringify(grade_rules))
 });
 
-var items = ["theme", "grade", "debug"];
+var items = ["theme", "grade", "debug", "notifications"];
 
 let load = () => {
 

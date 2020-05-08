@@ -63,7 +63,7 @@ socket.on("new message", (data) => {
   prevData.push(data);
   Data.Set('messages', JSON.stringify(prevData));
   reminder = {link:"no", page: "/HTML/chat/index.html"};
-  if (chrome.extension.getViews({ type: "popup" }).length == 0) {
+  if (chrome.extension.getViews({ type: "popup" }).length == 0 && ((Options.getItem("notifications") == "enabled") || (Options.getItem("notifications") == "chat"))) {
     Console.log("not open");
     chrome.notifications.create({
       type: "list",
