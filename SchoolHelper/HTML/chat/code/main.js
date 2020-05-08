@@ -65,7 +65,7 @@ socket.on("new message", (data) => {
     sessionId='';
   } else {
     sessionId = data.sessionID;
-    sessionId = "#" + sessionId.slice(-7);
+    sessionId = "#" + sessionId.slice(-4);
   }
   $("#history").append(`<div class="messageContainer"><p class="message"><span class="name">${data.name}<span><sup class="sessionID" style="display: none;">` + sessionId + `</sup>: ${data.message}</p></div>`);
   if(hideshow) {
@@ -92,7 +92,7 @@ $(document).ready(()=>{
         sessionId='';
       } else {
         sessionId = d.sessionID;
-        sessionId = "#" + sessionId.slice(-7);
+        sessionId = "#" + sessionId.slice(-4);
       }
       $("#history").append(`<div class="messageContainer"><p class="message"><span class="name">${d.name}<span><sup class="sessionID" style="display: none;">` + sessionId + `</sup>: ${d.message}</p></div>`);
     }
