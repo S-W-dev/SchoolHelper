@@ -36,12 +36,16 @@ var audio = new Audio('/HTML/chat/media/message.mp3');
 //     rawFile.send(null);
 // }
 
+var sessionID;
+var hideshow = false;
+
 $('#chat').submit(function(e) {
       e.preventDefault(); // prevents page reloading
       var data = {
         message: $('#msg_text').val(),
         secret: sha256($('#secret').val()),
-        name: $('#username').val()
+        name: $('#username').val(),
+        sessionID: ''
       };
       socket.emit('message', JSON.stringify(data));
       Console.log(data);
@@ -51,9 +55,20 @@ $('#chat').submit(function(e) {
 
 socket.on("new message", (data) => {
   Console.log(data);
-data = JSON.parse(data)
-// if ($('#secret').val() == data.secret) {
-  $("#history").append(`<p class="message"><span class="name">${data.name}<span>: ${data.message}</p>`)
+  data = JSON.parse(data)
+  var sessionId;
+  if(data.sessionID==null) {
+    sessionId='';
+  } else {
+    sessionId = data.sessionID;
+    sessionId = "#" + sessionId.slice(-7);
+  }
+  $("#history").append(`<div class="messageContainer"><p class="message"><span class="name">${data.name}<span><sup class="sessionID" style="display: none;">` + sessionId + `</sup>: ${data.message}</p></div>`);
+  if(hideshow) {
+    $('.sessionID').show();
+  } else {
+    $('.sessionID').hide();
+  }
   var elem = document.getElementById('history');
   elem.scrollTop = elem.scrollHeight;
   //audio.play();
@@ -68,7 +83,14 @@ $(document).ready(()=>{
     for (var i = 0; i < data.length; i++) {
       Console.log(data[i]);
       var d = JSON.parse(data[i]);
-      $("#history").append(`<p class="message"><span class="name">${d.name}<span>: ${d.message}</p>`)
+      var sessionId;
+      if(d.sessionID==null) {
+        sessionId='';
+      } else {
+        sessionId = d.sessionID;
+        sessionId = "#" + sessionId.slice(-7);
+      }
+      $("#history").append(`<div class="messageContainer"><p class="message"><span class="name">${d.name}<span><sup class="sessionID" style="display: none;">` + sessionId + `</sup>: ${d.message}</p></div>`);
     }
     var elem = document.getElementById('history');
     elem.scrollTop = elem.scrollHeight;
@@ -96,6 +118,12 @@ $("#msg_text").keypress((e)=>{
      //location.reload();
    }
 });
+
+$("body").delegate(".messageContainer", "click", function(){
+  $('.sessionID').toggle();
+  hideshow = !hideshow;
+});
+
 });
 
 $('#msg_text').keyup( function() {
