@@ -119,7 +119,7 @@ $("#msg_text").keypress((e)=>{
    }
 });
 
-$("body").delegate(".messageContainer", "click", function(){
+$("body").delegate("#history", "click", function(){
   $('.sessionID').toggle();
   hideshow = !hideshow;
 });
