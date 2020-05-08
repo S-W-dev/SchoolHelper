@@ -147,12 +147,14 @@ export function Load() {
     var theme = Options.getItem('theme');
     $(".navbar").removeClass('navbar-light navbar-dark navbar-rainbow bg-light bg-dark bg-rainbow');
     $(".navbar").addClass(`navbar-${theme} bg-${theme}`);
+    $(".chat-submit").removeClass('ctext-light ctext-dark ctext-rainbow bg-light bg-dark bg-rainbow');
+    $(".chat-submit").addClass(`ctext-${theme} bg-${theme}`);
     $("body").removeClass('bg-secondary-light bg-secondary-dark bg-secondary-rainbow');
     $("body").addClass(`bg-secondary-${theme}`);
     $(".select").removeClass('bg-secondary-light bg-secondary-dark bg-secondary-rainbow');
     $(".select").addClass(`bg-secondary-${theme}`);
     $("#GearIcon").attr('src', `/gear-icon-${theme}.png`);
-    $(".TextColor").removeClass(`text-light text-dark text-rainbow`)
+    $(".TextColor").removeClass(`ctext-light ctext-dark ctext-rainbow`)
     $(".TextColor").addClass(`ctext-${theme}`)
 }
 
