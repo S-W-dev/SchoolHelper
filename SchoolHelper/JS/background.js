@@ -65,6 +65,7 @@ socket.on("new message", (data) => {
   reminder = {link:"no", page: "/HTML/chat/index.html"};
   if (chrome.extension.getViews({ type: "popup" }).length == 0 && ((Options.getItem("notifications") == "enabled") || (Options.getItem("notifications") == "chat"))) {
     Console.log("not open");
+      audio.play();
     chrome.notifications.create({
       type: "list",
       title: "[SchoolHelper] new chat message",
@@ -80,7 +81,6 @@ socket.on("new message", (data) => {
   } else {
     Console.log(chrome.extension.getViews({ type: "popup" }));
   }
-  audio.play();
 // }
 });
 
