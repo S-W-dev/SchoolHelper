@@ -44,6 +44,14 @@ chrome.notifications.onClicked.addListener(function (notificationId, byUser) {
   }
 });
 
+chrome.runtime.onMessage.addListener(
+    function(request, sender, sendResponse) {
+        if (request.msg === "send_message") {
+            socket.emit('message', JSON.stringify(request.data));
+        }
+    }
+);
+
 var audio = new Audio('/HTML/chat/media/message.mp3');
 
 setInterval(()=>{socket.emit("room", Data.Get("secret", ""))}, 100);

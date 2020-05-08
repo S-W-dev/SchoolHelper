@@ -47,7 +47,11 @@ $('#chat').submit(function(e) {
         name: $('#username').val(),
         sessionID: ''
       };
-      socket.emit('message', JSON.stringify(data));
+      chrome.runtime.sendMessage({
+    msg: "send_message",
+    data: data
+});
+
       Console.log(data);
       $('#msg_text').val('');
       return false;
